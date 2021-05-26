@@ -1,0 +1,99 @@
+﻿What to include 
+1. Identify all potential users, create a user list
+2. Write all potential user stories, organize them
+3. Each student chooses one use story to model as use case in details in next working week (will be approved in next week meeting)
+# Group1
+
+
+## Potential users
+
+
+## User stories
+
+
+Example: https://www.mountaingoatsoftware.com/agile/scrum/scrum-tools/product-backlog/example
+
+
+## Use cases
+
+
+### Use case 1
+1. Author: student name
+2. Short Description of the System Use Case
+* 3. Actor(s) 
+* 4. System Use Case Preconditions
+* 5. System Use Case Successful Post Conditions
+* 6. Applicable Business Rules
+* #### Main Flow: (markdown syntax vs normal syntax)
+|  | Actor(s): | System|
+|  |-------------|-------------|
+|1|                |                |
+|2|                |                |
+|3|                |                |
+
+
+
+
+	Actor(s): 
+	System
+	1
+	
+
+	
+
+	2
+	
+
+	
+
+	3
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	
+
+	#### Alternate Flows
+|  | Alternative Flow | Description |
+|  |-------------|-------------|
+|A1|                |                |
+|A2|                |                |
+|A3|                |                |
+
+
+	Alternate Flow
+	Description
+	A1
+	
+
+	
+
+	A2
+	
+
+	
+
+	A3
+	
+
+	
+
+	
+
+### Use Case 2 
+
+
+### Use Case 3 
+
+
+### Use Case 4
