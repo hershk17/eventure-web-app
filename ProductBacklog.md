@@ -115,15 +115,15 @@ User who will be able to view all events and posts.  This user will delete any p
 1. Author: Thu Nga Vu (Natalie)
 2. Short Description of the System Use Case
 ●	This use case support user to join an event
-3. Actor(s) 
-●	App user (traveller)
+3. Actor(s) <br/>
+●	App user (traveller)<br/>
 ●	Credit card company
-4. System Use Case Preconditions
+4. System Use Case Preconditions<br/>
 ●	User is logged into their account
-5. System Use Case Successful Post Conditions
+5. System Use Case Successful Post Conditions<br/>
 ●	User successfully joins for an event and optionally pays for it
-6. Applicable Business Rules
-●	Users must be at least 18 years old.
+6. Applicable Business Rules<br/>
+●	Users must be at least 18 years old.<br/>
 ●	Users must have a valid account with > 4.0 rating.
 
 #### Main Flow
