@@ -23,7 +23,7 @@ User who will be able to view all events and posts.  This user will delete any p
 
 #### Profiles
 
-​	●	As an app user, I want to search for other users so that I can interact with their profile page.
+​	●	As an app user, I want to search for other users so that I can interact with their profile page.<br/>
 ​	●	As an app user, I want to follow other users so that I can interact and invite users to events.
 ​	●	As an app user, I want to send direct messages so that I can communicate with other users.
 ​	●	As an app user, I want to create a traveller profile so that other users can view my page and know more about me.
