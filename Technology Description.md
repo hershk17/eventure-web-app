@@ -38,8 +38,8 @@ Firebase is a backend as a service mobile platform developed by Google.  It will
 #### APIs
 
 We will be using the following APIs in order to populate points of interest in our application:  
-Google Maps
-Google Places
-OpenStreetMap 
+1. Google Maps
+2. Google Places
+3. OpenStreetMap 
 
 Currently Google Maps and Google Places are the most promising APIs, as they are able to provide points of interest as well as their location. The main issue with the Google APIs is that they are very expensive per API call. Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google Apis provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. 
