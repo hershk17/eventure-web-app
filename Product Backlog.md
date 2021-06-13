@@ -9,28 +9,28 @@
 
 
 
-## Potential users
+# Potential users
 
-#### App User
+### App User
 A general user that will make posts and join events.
 
-#### Event Manager
+### Event Manager
 User who creates an event and updates the information i.e. time, location.
 
-#### App Moderator
+### App Moderator
 User who will be able to view all events and posts.  This user will delete any posts that are inappropriate. This user is able to delete an account if it’s reported as scam, inappropriate, etc.
 
-#### Developer
+### Developer
 A user that can add and update features by updating the source code.
 
-#### Tester
+### Tester
 A user that will test features and attempt to break the code in a replicable manner.
 
 
 
-## User Stories
+# User Stories
 
-#### Profiles
+### Profiles
 
 * As an app user, I want to search for other users so that I can interact with their profile page.
 * As an app user, I want to follow other users so that I can interact and invite users to events.
@@ -46,7 +46,7 @@ A user that will test features and attempt to break the code in a replicable man
 * As an app moderator, I want to review reports of user profiles so that I can make suspension decisions.
 * As a tester, I want to ensure all public details appear on a profile. 
 
-#### News Feed
+### News Feed
 
 * As an app user, I want to post pictures, updates, and events so that my followers can interact with my app activity. 
 * As an app user, I want to follow other users so I can view their posts and updates on my news feed.
@@ -58,7 +58,7 @@ A user that will test features and attempt to break the code in a replicable man
 * As a developer, I want to add a recommendation algorithm for users’ news feeds to allow for opted-in user activity-based advertisements.
 * As a tester, I want to ensure that all posts from users are posted to the news feed so that none are missed by followers. 
 
-#### Events 
+### Events 
 
 * As an app user, I want to rate/review events if I had checked in so that I can document my experience for other travellers.
 * As an app user, I want to see event ratings and reviews.
@@ -74,7 +74,7 @@ A user that will test features and attempt to break the code in a replicable man
 * As an app moderator, I want to know each event’s basic information (name, email, location, event holder, etc) so that I can approve that event
 * As a tester, I want to ensure all events in the distance range are in a user’s list of current events.
 
-#### Locations
+### Locations
 
 * As an app user, I want to see the attractions and events by searching for a city or name of an area (ie: Toronto).
 * As an app user, I want to apply filters (radius, event type, official event) to my map so that I can have different events.
@@ -83,14 +83,14 @@ A user that will test features and attempt to break the code in a replicable man
 * As an app user, I can add an attraction or an event to my Wish List.
 * As a tester, I want to make sure the locations match with the formatted address in the attractions/event list.
 
-#### Q&A/FAQs
+### Q&A/FAQs
 
 * As an app user, I want to be able to post questions or issues regarding the app and receive an answer in a timely manner.
 * As an app user, I want to be able to read the most common questions and issues in order to help me troubleshoot.
 * As an app user, I want to be able to sort through the FAQ efficiently so that I can quickly find a solution to my question
 * As an app user, I want the FAQ to have tags to more easily sort through the questions.
 
-#### Account management
+### Account management
 
 * As an app user, I want to be able to register a new account.
 * As an app user, I want to be able to delete my account.
@@ -99,7 +99,7 @@ A user that will test features and attempt to break the code in a replicable man
 * As an app user, I want to be able to change my primary email.
 * As an app moderator, I want to be able to delete accounts.
 
-#### Non-functional
+### Non-functional
 
 * As an app user, I want the app to be responsive in a way that I do not have to press more than 2 buttons to get me to where I want.
 * As an app user, I want an easy set-up account without too many steps of verification or giving out too much information
