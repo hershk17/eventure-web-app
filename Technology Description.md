@@ -7,7 +7,7 @@
 | Thu Nga Vu	 | tnvu7	  |tnvu7@myseneca.ca   		  |
 | Harsh Keswani  | hershk17	  |hkmkeswani@myseneca.ca 	  |
 
-<br />
+
 
 # Technology Description
 
