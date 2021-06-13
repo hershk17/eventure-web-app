@@ -7,24 +7,24 @@
 | Thu Nga Vu	 | tnvu7	  |tnvu7@myseneca.ca   		  |
 | Harsh Keswani  | hershk17	  |hkmkeswani@myseneca.ca 	  |
 
-
+<br />
 
 # Use Cases
 
 ## Use case 1: User Joins an Event
 
 1. Author: Thu Nga Vu (Natalie)
-2. Short Description of the System Use Case
+2. Short Description of the System Use Case<br />
 This use case supports user to join an event
-3. Actor(s) 
-App user (traveler)
+3. Actor(s) <br />
+App user (traveler)<br />
 Credit card company
-4. System Use Case Preconditions
+4. System Use Case Preconditions<br />
 User is logged into their account
-5. System Use Case Successful Post Conditions
+5. System Use Case Successful Post Conditions<br />
 User successfully joins for an event and optionally pays for it
-6. Applicable Business Rules
-Users must be at least 18 years old.
+6. Applicable Business Rules<br />
+Users must be at least 18 years old.<br />
 Users must have a valid account with > 4.0 rating.
 
 ### Main Flow
