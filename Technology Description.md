@@ -9,7 +9,7 @@
 
 
 
-# Tech Description
+# Technology Description
 
 ## Software Architecture Layout
 
