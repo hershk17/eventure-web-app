@@ -23,8 +23,6 @@ From the domain class diagrams, we will begin designing the user interface. Figm
 
 Demo of Figma: https://www.figma.com/proto/5iCHGJgxlQih7jrh9wq7P0/Prototyping-in-Figma?node-id=0%3A78&scaling=scale-down&page-id=0%3A1
 
-https://www.figma.com/proto/mHrawlRLKhQs9T3xhgDmsG/VaccinationMate?node-id=1%3A2&scaling=scale-down&page-id=0%3A1
-
 ## Coding Language
 
 ### React Native
