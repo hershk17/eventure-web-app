@@ -8,7 +8,7 @@
 | Harsh Keswani  | hershk17	  |hkmkeswani@myseneca.ca 	  |
 
 
-
+<br>
 # Technology Description
 
 ## Software Architecture Layout
