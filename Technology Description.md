@@ -56,6 +56,6 @@ The HERE Places API also allows viewing Points of Interest based on user locatio
 <img src="https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png" alt="requestImg" width="700"/>
 <img src="https://user-images.githubusercontent.com/62819902/121831561-bd1e3900-cc95-11eb-8b3f-dfaea0cd6cfc.png" alt="responseImg" width="600"/>
 
-The TomTom Search API and Extended Search API is another API similar to the HERE Places API and allows for nearby POI search, Fuzzy searches and Autocomplete. 
+The TomTom Search API and Extended Search API is another API similar to the HERE Places API and allows for nearby Point of Interest (POI) search, Fuzzy searches and Autocomplete. 
 
 #### Various APIs are in consideration during the planning phase and more research and testing is required to determine what is best suited for our application use case. Factors such as speed of calling APIs, receiving responses, their accuracy, as well relevancy of details to the application will be accounted for.
