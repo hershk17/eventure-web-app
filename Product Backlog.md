@@ -14,9 +14,6 @@
 ### App User
 A general user that will make posts and join events.
 
-### Event Manager
-User who creates an event and updates the information i.e. time, location.
-
 ### App Moderator
 User who will be able to view all events and posts.  This user will delete any posts that are inappropriate. This user is able to delete an account if it’s reported as scam, inappropriate, etc.
 
@@ -67,8 +64,8 @@ A user that will test features and attempt to break the code in a replicable man
 * As an app user, I can join events by adding it to cart (events can be free/paid).
 * As an app user, I want to be notified when an event’s detail(s) is changed or it’s deleted.
 * As an app user, I want to post an event by choosing a location and filling out an information form relating to that event. 
-* As an event manager, I can view my posted events’ ratings. 
-* As an event manager, I can change the details of or delete the event 7 days before it’s occurrence 
+* As an app user, I can view my posted events’ ratings. 
+* As an app user, I can change the details of or delete the event 7 days before it’s occurrence 
 * As an app moderator, I want to be in charge of an area I’m familiar with so that it would be easier to monitor events 
 * As an app moderator, I want to have a list of awaiting events so that it’s easier to go through and approve 
 * As an app moderator, I want to know each event’s basic information (name, email, location, event holder, etc) so that I can approve that event
@@ -98,6 +95,7 @@ A user that will test features and attempt to break the code in a replicable man
 * As an app user, I want to be able to recover my account if I forget my password.
 * As an app user, I want to be able to change my primary email.
 * As an app moderator, I want to be able to delete accounts.
+* As an app moderator, I want my account to be hard-coded in the database to have special permissions to other accounts.
 
 ### Non-functional
 
