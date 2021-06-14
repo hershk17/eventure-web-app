@@ -48,7 +48,7 @@ Some potential APIS we may use in order to populate points of interest in our ap
 Currently Google Maps and Google Places are the most promising APIs, as they are able to provide points of interest as well as their location. The main issue with the Google APIs is that they are very expensive per API call. Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google Apis provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. 
 
 Though the HERE Places API also allows viewing Points of Interest based on user location. An example request & response: <br />
-![image](https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png)
+![image](https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png){ width: 200px; }
 ![image](https://user-images.githubusercontent.com/62819902/121831561-bd1e3900-cc95-11eb-8b3f-dfaea0cd6cfc.png)
 
 The Google LocalContextMapView shows the user an interactive map to drag & click allowing for manual location selection and to view detailed information. Example: <br />
