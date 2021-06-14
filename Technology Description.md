@@ -15,11 +15,11 @@
 
 ### Visual Paradigm
 
-We will use Visual Paradigm for designing the architecture of the system. Using Visual Paradigm, we will create the user flows and domain class diagrams. 
+We will use [Visual Paradigm](https://www.visual-paradigm.com/) for designing the architecture of the system. Using Visual Paradigm, we will create the user flows and domain class diagrams. 
 
 ### Figma
 
-From the domain class diagrams, we will begin designing the user interface. Figma is another useful tool that we can use. Figma is a website that allows us to design a demo application, demo all the potential user’s stories. To deliver a good user experience, we will take into account many factors such as color scheme, easy navigation, and persistent components. Using our Figma demo application as a reference, we can work on coding the front-end application more efficiently.  This allows each of the members to work on a single UI page as well as know what the expected outcome should be.
+From the domain class diagrams, we will begin designing the user interface. [Figma](https://www.figma.com/) is another useful tool that we can use. Figma is a website that allows us to design a demo application, demo all the potential user’s stories. To deliver a good user experience, we will take into account many factors such as color scheme, easy navigation, and persistent components. Using our Figma demo application as a reference, we can work on coding the front-end application more efficiently.  This allows each of the members to work on a single UI page as well as know what the expected outcome should be.
 
 Demo of Figma: https://www.figma.com/proto/5iCHGJgxlQih7jrh9wq7P0/Prototyping-in-Figma?node-id=0%3A78&scaling=scale-down&page-id=0%3A1
 
