@@ -21,7 +21,7 @@ Some of the most important features are described as follows:
 The user will be able to search for a location, for example: “Toronto”, to find attractions to visit as well as events nearby. Information such as location name, formatted address, open hours, pictures, and Google reviews will also be available to the user. The user can then find companions to travel with and attend events together. Users will be able to search by tags, event type, and description.
 
 Location and attraction information does not require developer maintenance as information will likely be retrieved from APIs such as;
-https://developer.here.com/documentation/places/dev_guide/topics/explore-nearby-places.html
+https://developer.here.com/documentation/places/dev_guide/topics/explore-nearby-places.html <br/>
 https://developer.tomtom.com/search-api/search-api-documentation-search/nearby-search
 
 Another potential way to search for events will be by using a map that contains different points of interests (parks, restaurants, landmarks, concerts are a few examples).  
