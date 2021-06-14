@@ -41,5 +41,8 @@ We will be using the following APIs in order to populate points of interest in o
 1. Google Maps
 2. Google Places
 3. OpenStreetMap 
+4. HERE Places (Search) API
+5. TomTom Search API and Extended Search API
+6. Google LocalContextMapView
 
 Currently Google Maps and Google Places are the most promising APIs, as they are able to provide points of interest as well as their location. The main issue with the Google APIs is that they are very expensive per API call. Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google Apis provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. 
