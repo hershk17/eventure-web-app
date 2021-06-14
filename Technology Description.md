@@ -46,10 +46,11 @@ Some potential APIS we may use in order to populate points of interest in our ap
 6. [TomTom Search API and Extended Search API](https://developer.tomtom.com/search-api)
 
 Google Maps and Google Places are the most promising APIs, as they are able to provide points of interest as well as their location. The main issue with the Google APIs is that they are very expensive per API call. <br />
+
 The Google LocalContextMapView shows the user an interactive map to drag & click allowing for manual location selection and to view detailed information. Example: <br />
 <img src="https://user-images.githubusercontent.com/62819902/121831789-636a3e80-cc96-11eb-82c4-5a79b0345a34.png" alt="localContextMapViewImg" width="700"/>
 
-Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google APIs provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. <br /><br />
+Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google APIs provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. <br />
 
 The HERE Places API also allows viewing Points of Interest based on user location. An example request & response: <br />
 <img src="https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png" alt="requestImg" width="700"/>
