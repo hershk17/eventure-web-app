@@ -52,9 +52,8 @@ The Google LocalContextMapView shows the user an interactive map to drag & click
 Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google APIs provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. 
 
 The HERE Places API also allows viewing Points of Interest based on user location. An example request & response: <br />
-<img src="https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png" alt="requestImg" width="400"/>
-<!-- ![image](https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png) -->
-![image](https://user-images.githubusercontent.com/62819902/121831561-bd1e3900-cc95-11eb-8b3f-dfaea0cd6cfc.png)
+<img src="https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png" alt="requestImg" width="750"/>
+<img src="https://user-images.githubusercontent.com/62819902/121831561-bd1e3900-cc95-11eb-8b3f-dfaea0cd6cfc.png" alt="responseImg" width="750"/>
 
 The TomTom Search API and Extended Search API is another API similar to the HERE Places API and allows for nearby POI search, Fuzzy searches and Autocomplete. 
 
