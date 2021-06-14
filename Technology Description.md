@@ -27,13 +27,13 @@ Demo of Figma: https://www.figma.com/proto/5iCHGJgxlQih7jrh9wq7P0/Prototyping-in
 
 ### React Native
 
-React Native allows developers to have one code base that supports both Android and IOS platforms. Since we have already learned how to use React for our web programming course last semester, we should have a better understanding of how to implement certain features. 
+[React Native](https://reactnative.dev/) allows developers to have one code base that supports both Android and IOS platforms. Since we have already learned how to use React for our web programming course last semester, we should have a better understanding of how to implement certain features. 
 
 ### Backend Services
 
 #### Firebase
 
-Firebase is a backend as a service mobile platform developed by Google.  It will allow us to quickly set up and securely access the database. In addition to this, we will be using firebase for authentication and authorization.  
+[Firebase](https://firebase.google.com/) is a backend as a service mobile platform developed by Google.  It will allow us to quickly set up and securely access the database. In addition to this, we will be using firebase for authentication and authorization.  
 
 #### APIs
 
