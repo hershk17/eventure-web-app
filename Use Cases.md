@@ -174,7 +174,9 @@
     App user has successfully set up their traveler profile and can join events.
 
 6. Applicable Business Rules
-
+Users can only access his or her account.
+Users can only update and modify his or her traveler profile.
+Users cannot join events until his or her traveler profile is completed.
    
 
 ### Main Flow
