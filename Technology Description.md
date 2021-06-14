@@ -46,3 +46,10 @@ We will be using the following APIs in order to populate points of interest in o
 7. [Google LocalContextMapView](https://developers.google.com/maps/documentation/javascript/local-context/samples/basic)
 
 Currently Google Maps and Google Places are the most promising APIs, as they are able to provide points of interest as well as their location. The main issue with the Google APIs is that they are very expensive per API call. Currently, the OpenStreetMap does not seem to provide the same level of detail that the Google Apis provide, so we will need to look into OpenStreetMap API more closely to see if it is a suitable replacement. 
+
+Though the HERE Places API also allows viewing Points of Interest based on user location. An example request & response:
+![image](https://user-images.githubusercontent.com/62819902/121831667-040c2e80-cc96-11eb-8a7a-433604d32eea.png)
+![image](https://user-images.githubusercontent.com/62819902/121831561-bd1e3900-cc95-11eb-8b3f-dfaea0cd6cfc.png)
+
+The Google LocalContextMapView shows the user an interactive map to drag & click allowing for manual location selection and to view detailed information. Example:
+![image](https://user-images.githubusercontent.com/62819902/121831789-636a3e80-cc96-11eb-82c4-5a79b0345a34.png)
