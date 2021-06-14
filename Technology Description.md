@@ -37,7 +37,7 @@ Demo of Figma: https://www.figma.com/proto/5iCHGJgxlQih7jrh9wq7P0/Prototyping-in
 
 #### APIs
 
-We will be using the following APIs in order to populate points of interest in our application:  
+Some potential APIS we may use in order to populate points of interest in our application:  
 1. [Google Maps API](https://developers.google.com/maps)
 3. [Google Places API](https://cloud.google.com/maps-platform/places)
 4. [OpenStreetMap](https://www.openstreetmap.org)
