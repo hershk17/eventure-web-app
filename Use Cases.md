@@ -186,7 +186,8 @@ Users cannot join events until his or her traveler profile is completed.
 | 1 | User goes to their profile page | Shows that user’s profile is incomplete |
 | 2 | User selects set up traveler profile | Request information such as town user lives in, travel preferences, and previous travelled locations |
 | 3 | User inputs profile information | System checks that information is in a valid format and if the formatting is correct, the system will save the information (A1) |
-| 4 | Requests user to input a profile picture | If picture is too large, the system will resize it and save it (A2) |
+| 4 | User selects upload profile picture | Request image file to upload |
+| 5 | User selects image file | If picture is too large, the system will resize it and save it (A2) |
 
 ### Alternate Flows
 
