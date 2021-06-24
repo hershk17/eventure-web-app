@@ -1,11 +1,11 @@
 # Group 1
 
-|   Member Name  | GitHub ID |           Email               |
+|   Member Name  | GitHub ID |       	Email           	|
 | ---------------| ---------------|-------------------------------|
-| Justin Kim     | kimjust6	  |jkim452@myseneca.ca    	  |
-| Tue Nguyen     | TueNguyen2911  |tnguyen187@myseneca.ca 	  |
-| Thu Nga Vu	 | tnvu7	  |tnvu7@myseneca.ca   		  |
-| Harsh Keswani  | hershk17	  |hkmkeswani@myseneca.ca 	  |
+| Justin Kim 	| kimjust6    |jkim452@myseneca.ca	     |
+| Tue Nguyen 	| TueNguyen2911  |tnguyen187@myseneca.ca  	  |
+| Thu Nga Vu 	 | tnvu7	  |tnvu7@myseneca.ca           	  |
+| Harsh Keswani  | hershk17    |hkmkeswani@myseneca.ca      |
 
 
 
@@ -19,7 +19,7 @@
 
    This use case supports user to join an event.
 
-3. Actor(s) 
+3. Actor(s)
 
    App User
 
@@ -70,7 +70,7 @@
 
    This use case describes how App Users can create/organize events.
 
-3. Actor(s) 
+3. Actor(s)
 
    App User
 
@@ -99,7 +99,7 @@
 | 1 | Requests to create an event | Event Creation Page is displayed with various event information fields and user is first asked to enter a location. |
 | 2 | User enters a location for the event to take place | Location API is used to receive location information and requests verification of destination. |
 | 3 | Verifies location | Updates event information and provides empty form for custom event description including event name, description, entry fee, visibility, user limit, rules, hashtags, photos, and other additional details. |
-| 4 | Enters all required information                    | Verifies input requirements and displays a calendar to choose an available start date and time. |
+| 4 | Enters all required information                	| Verifies input requirements and displays a calendar to choose an available start date and time. |
 | 5 | Selects date and time | Updates event information and allows the event creator to invite users they follow or proceed with event creation. |
 | 6 | Requests to proceed with event creation | Displays complete information and requests for final verification. |
 | 7 | Verifies event | Saves event information and creates a record in database, posts event to user's profile and follower's news feed and becomes available to join by other users depending on its visibility. |
@@ -108,7 +108,7 @@
 
 |  | Alternative Flow | Description |
 |-------------|-------------|-------------|
-|A1| Events were created and completed previously                 | Checks if events were previously created and asks whether the user would like to repost an earlier event with updated information. |
+|A1| Events were created and completed previously             	| Checks if events were previously created and asks whether the user would like to repost an earlier event with updated information. |
 |A2| App User wants to invite other users to the event | Users that the event creator follows are displayed in a list to be selected for receiving invites to the event once created. |
 |A3| User decides to cancel event creation | The user is asked to either draft or delete the information permanently. |
 |A4| User enters an invalid location | No results are displayed and the user is asked to enter a valid location. |
@@ -116,44 +116,44 @@
 
 
 
-## Use Case 3: User reviews events that he has checked in 
+## Use Case 3: User reviews events that he has checked in
 
 1. Author: Tue Nguyen
 
 2. Short Description of the System Use Case
-    A user can choose an event he has checked in to leave a review
+	A user can choose an event he has checked in to leave a review
 
-3. Actor(s) 
-    App User 
+3. Actor(s)
+	App User
 
 4. System Use Case Preconditions
-    User has logged in 
+	User has logged in
 
 5. System Use Case Successful Post Conditions
-    A review is created
+	A review is created
 
 6. Applicable Business Rules
-
-   
+	User can only review event(s) that he checked-in. 
+	Review will be public 
+	Review can’t be edited
+  
 
 ### Main Flow
 
 | Number | Actor(s): App User | System |
 | -------------  | ------------- | ------------- |
 | 1 | Opens app | Directs user to home page |
-| 2 | (A1) (A2) (A3)  User chooses an checked-in event| Sends back a page with event’s details |
-| 3 | User requests to review chosen event | A box will appear on top of the event’s details page including a textbox and radio buttons for star rating and a submit button |
-| 4 | User requests to submit review | Checks for errors in the form (A4) |
-| 5 | 				| A review is created and referenced to the event, the review will also appear on followers’ news feed |
+| 2 | User can use the search bar to search for an event or user can choose a location or user can goes to profile page and click “my events” | A list of event will appear, checked-in events will be marked
+| 3 | User chooses an checked-in event| Sends back a page with the event’s details |
+| 4 | User requests to review chosen event | A box will appear on top of the event’s details page including a textbox and radio buttons for star rating and a submit button |
+| 5 | User fills in the form | Checks for errors in the form (A1) |
+| 6 | User submits the form | A review is created and referenced to the event, the review will also appear on followers’ news feed |
 
 ### Alternate Flows
 
 |  | Alternative Flow | Description |
 |-------------|-------------|-------------|
-|A1| User uses the search bar to search for an event | Events with the key words will appear, checked-in events will be marked as checked-in |
-|A2| User searches for a location and chooses an event happened at the location | Events that user had checked-in will be marked as checked-in |
-|A3| User goes to his home page and clicks “Checked-in events” button | A list of checked-in events will appear |
-|A4| There is error(s) in the form | Shows error messages at the incorrect field(s) and brings user back to step 4 |
+|A1| There is error(s) in the form | Shows error messages at the incorrect field(s) and brings user back to step 5 |
 
 
 
@@ -162,22 +162,23 @@
 1. Author: Justin Kim
 
 2. Short Description of the System Use Case
-    User will complete their profile by adding their user information in order to 
+	User will complete their profile by adding their user information in order to
 
-3. Actor(s) 
-    App User
+3. Actor(s)
+	App User
 
 4. System Use Case Preconditions
-    App user has registered an account, but has not already set up their profile.
+	App user has registered an account, but has not already set up their profile.
 
 5. System Use Case Successful Post Conditions
-    App user has successfully set up their traveler profile and can join events.
+	App user has successfully set up their traveler profile and can join events.
 
 6. Applicable Business Rules
 Users can only access his or her account.
 Users can only update and modify his or her traveler profile.
 Users cannot join events until his or her traveler profile is completed.
-   
+
+  
 
 ### Main Flow
 
@@ -186,8 +187,7 @@ Users cannot join events until his or her traveler profile is completed.
 | 1 | User goes to their profile page | Shows that user’s profile is incomplete |
 | 2 | User selects set up traveler profile | Request information such as town user lives in, travel preferences, and previous travelled locations |
 | 3 | User inputs profile information | System checks that information is in a valid format and if the formatting is correct, the system will save the information (A1) |
-| 4 | User selects upload profile picture | Request image file to upload |
-| 5 | User selects image file | If picture is too large, the system will resize it and save it (A2) |
+| 4 | Requests user to input a profile picture | If picture is too large, the system will resize it and save it (A2) |
 
 ### Alternate Flows
 
@@ -195,3 +195,5 @@ Users cannot join events until his or her traveler profile is completed.
 |-------------|-------------|-------------|
 |A1| The information formatting is invalid | The information that is formatted incorrectly will be highlighted in red boxes so that the user can fix the information |
 |A2| File is not an image | Request the user to use to select a different file that is an image |
+
+
