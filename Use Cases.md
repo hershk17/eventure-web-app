@@ -121,21 +121,21 @@
 1. Author: Tue Nguyen
 
 2. Short Description of the System Use Case
-	A user can choose an event he has checked in to leave a review
+A user can choose an event he has checked in to leave a review
 
 3. Actor(s)
-	App User
+App User
 
 4. System Use Case Preconditions
-	User has logged in
+User has logged in
 
 5. System Use Case Successful Post Conditions
-	A review is created
+A review is created
 
 6. Applicable Business Rules
-	User can only review event(s) that he checked-in. 
-	Review will be public 
-	Review can’t be edited
+User can only review event(s) that he checked-in. 
+Review will be public 
+Review can’t be edited
   
 
 ### Main Flow
@@ -162,16 +162,16 @@
 1. Author: Justin Kim
 
 2. Short Description of the System Use Case
-	User will complete their profile by adding their user information in order to
+User will complete their profile by adding their user information in order to
 
 3. Actor(s)
-	App User
+App User
 
 4. System Use Case Preconditions
-	App user has registered an account, but has not already set up their profile.
+App user has registered an account, but has not already set up their profile.
 
 5. System Use Case Successful Post Conditions
-	App user has successfully set up their traveler profile and can join events.
+App user has successfully set up their traveler profile and can join events.
 
 6. Applicable Business Rules
 Users can only access his or her account.
