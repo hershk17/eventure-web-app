@@ -121,20 +121,27 @@
 1. Author: Tue Nguyen
 
 2. Short Description of the System Use Case
+
 A user can choose an event he has checked in to leave a review
 
 3. Actor(s)
+
 App User
 
 4. System Use Case Preconditions
+
 User has logged in
 
 5. System Use Case Successful Post Conditions
+
 A review is created
 
 6. Applicable Business Rules
-User can only review event(s) that he checked-in. 
+
+User can only review event(s) that he checked-in.
+ 
 Review will be public 
+
 Review can’t be edited
   
 
