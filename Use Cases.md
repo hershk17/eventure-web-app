@@ -154,13 +154,14 @@
 | 3 | User chooses an checked-in event| Sends back a page with the event’s details |
 | 4 | User requests to review chosen event | A box will appear on top of the event’s details page including a textbox and radio buttons for star rating and a submit button |
 | 5 | User fills in the form | Checks for errors in the form (A1) |
-| 6 | User submits the form | A review is created and referenced to the event, the review will also appear on followers’ news feed |
+| 6 | User submits the form | A review is created and referenced to the event, the review will also appear on followers’ news feed (A2) |
 
 ### Alternate Flows
 
 |  | Alternative Flow | Description |
 |-------------|-------------|-------------|
 |A1| There is error(s) in the form | Shows error messages at the incorrect field(s) and brings user back to step 5 |
+|A2| There is error(s) in creating the review | Shows error message and brings user back to step 5 | 
 
 
 
