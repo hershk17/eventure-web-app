@@ -21,9 +21,9 @@
 
 3. Actor(s)
 
-   App User
+   App User (primary actor)
 
-   Credit Card Company
+   Credit Card Company (secondary actor)
 
 4. System Use Case Preconditions
 
