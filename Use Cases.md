@@ -37,6 +37,7 @@
 
    1. Users must be at least 18 years old.
    2. Users must have a valid account with > 4.0 rating.
+   3. Users must have a valid payment method.
 
 ### Main Flow
 
