@@ -1,7 +1,5 @@
 # Definition of Done
 
-<br>
-
 - Code is in a working state and does not have any major bugs.  
 - The application is well documented. Each function should have a short description of what it does.
 - The application sufficiently covers the respective user story. 
