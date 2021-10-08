@@ -2,22 +2,22 @@
 
 ## Code
 
-- In order for code to be considered “done”, it must be merged into the master branch.
-- The merged code must be in a working state with no major bugs.  
-- Completed features must be tested and reviewed before being merged to the main branch.
-- At least two group members must approve a pull request prior to a merge.
+- Completed feature is pushed to the development branch for testing.
+- A pull request is created and code is in a working state with no major bugs.
+- At least two group members have approved the pull request.
+- Completed feature is merged into the main branch.
 
 ## Application
 
-- The application is well documented. Each function should have a short description of what it does.
+- The application is well documented. Each function has a short description of what it does.
 - The application sufficiently covers the respective user story.
-- The application will have passed all test cases (automated and manual) and generates the expected output. Corner cases should be included in the test cases.
-- The test cases must pass on all intended platforms (Android and iOS). 
+- The application has passed all test cases (automated and manual) and generates the expected output. Corner cases are included in the test cases.
+- The test cases pass on all intended platforms (Android and iOS). 
 
 ## Deployment 
 
-- Beta builds will be deployed and available to beta testers once all group members are unable to find any bugs.
-- Production builds will be deployed to the play store once all major and most minor bugs are fixed.
+- The Beta build is deployed and made available to beta testers once no major bugs are found by the team.
+- The Production build is deployed to the play store and all major and most minor bugs are fixed.
 
 ## Documents
 
