@@ -1,4 +1,4 @@
-#GitHub Workflow
+# GitHub Workflow
 
 1. Clone the Github repo to our local directory.
 2. Create a development branch with a proper name for the current sprint.
