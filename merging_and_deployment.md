@@ -16,7 +16,7 @@
 - It must pass all tests with GitHub actions and it must follow the description guideline. 
 - A pull request will be reviewed by at least 1 or 2 team members, the author of the pull request must attend to comments left by reviewers. If no more comments are needed, then merge the pull request. 
 - If there are conflicts during a merge, the person who is committing the changes is responsible for resolving the conflicts. If necessary, the member who is resolving the conflicts may request assistance from the other team member(s) who may have authored the conflicts.
-- Before merging to the development branch, if multiple commits can be grouped up or were made in rapid succession, members may **squash** such commits, combining corresponding commit messages into a bullet-point list of changes.
+- Before merging, if multiple commits can be grouped up or were made in rapid succession, members may **squash** such commits, combining corresponding commit messages into a bullet-point list of changes.
 
 # Deployment
 - We will be compiling the release build manually and deploying it to the online tester appetize.io. This way, we will be able to deploy and test the application quickly and efficiently.
