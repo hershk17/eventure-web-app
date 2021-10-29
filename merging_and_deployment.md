@@ -6,10 +6,10 @@
 - Committed changes are pushed to the feature branch for testing.
 - Once all the required tests have passed, a pull request from the feature branch into the development branch is created. 
 - When merging feature branches into the dev branch, we will be using the **recursive merge** strategy. This is because team members will branch off from the dev branch and then further branch off to various feature branches which may be merged into the dev branch simultaneously.
-- The completed feature is merged into the development branch (following the pull request guidelines, see below).
+- The completed feature is merged into the development branch (following the [Pull Request Guidelines](#Pull-Request-Guidelines)).
 - Once development for the current sprint is complete, a pull request from the development branch into the main branch is created.
 - We will be using the **fast-forward merge** strategy when merging the development branch to the release (main) branch. There should be no changes made directly to the main branch, ensuring that there are no conflicts when merging to the main branch from the dev branch at the end of the sprint.
-- Completed code is merged into the main branch (following the pull request guidelines, see below).
+- Completed code is merged into the main branch (following the [Pull Request Guidelines](#Pull-Request-Guidelines)).
 - Feature branches can be deleted once merged into the main branch.
 
 ### Pull Request Guidelines
