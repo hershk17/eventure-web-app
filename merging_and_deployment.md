@@ -9,8 +9,8 @@
 - The completed feature is merged into the development branch (following the pull request guidelines, see below).
 - Once development for the current sprint is complete, a pull request from the development branch into the main branch is created.
 - We will be using the **fast-forward merge** strategy when merging the development branch to the release (main) branch. There should be no changes made directly to the main branch, ensuring that there are no conflicts when merging to the main branch from the dev branch at the end of the sprint.
-- Completed code is merged into the main branch.
-- Feature branches can be deleted once merged into the main branch (following the pull request guidelines, see below).
+- Completed code is merged into the main branch (following the pull request guidelines, see below).
+- Feature branches can be deleted once merged into the main branch.
 
 ### Pull Request Guidelines
 - It must pass all tests with GitHub actions and it must follow the description guideline. 
