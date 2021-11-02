@@ -2,8 +2,7 @@
 
 ## User Stories to be tackled this Sprint
 
-- As an app user, I want to search events, attractions, and locations using keywords so that I can find activities that interest me.
-<br>
+- As an app user, I want to search events, attractions, and locations using keywords so that I can find activities that interest me.<br>
 
 ## User Story Acceptance Criteria
 
