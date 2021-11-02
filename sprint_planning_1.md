@@ -17,7 +17,6 @@ As an app user, I want to search events and attractions using keywords so that I
 - The test cases pass on all intended platforms (Android and iOS).
 vCompleted feature is merged into the main branch.
 - All required documents are completed and submitted on time.
-<br>
 
 ## Role of each group member for this sprint.
 
