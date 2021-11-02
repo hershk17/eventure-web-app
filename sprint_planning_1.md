@@ -1,24 +1,23 @@
 # Sprint 1 Planning
 
-## User stories to be tackled this sprint.
+## User Stories to be tackled this Sprint
 
-As an app user, I want to search events and attractions using keywords so that I can find activities that interest me.
+- As an app user, I want to search events, attractions, and locations using keywords so that I can find activities that interest me.
 <br>
 
-## Acceptance criteria for a user story to be considered completed. 
+## User Story Acceptance Criteria
 
 ### Feature completion: 
-- The server returns correct data needed to display on the front-end.
-- The front-end displays the returned data correctly 
-- When the user enters his search keyword in the search box, the server returns a list of events and attractions (could be name, location, postal code) containing the keyword. 
-- The front-end displays the searched data. 
+- The user has options to search for events or locations, with options to filter / sort results.
+- When the user makes a search query, the server returns the corresponding list of events & attractions or locations. 
+- The front-end formats the response data and displays the resuls appropriately. 
 
 ### Definition of done: 
 - The test cases pass on all intended platforms (Android and iOS).
-vCompleted feature is merged into the main branch.
+- Completed feature is merged into the main branch.
 - All required documents are completed and submitted on time.
 
-## Role of each group member for this sprint.
+## Roles of each group member for this sprint
 
 ### Natalie
 - Sketch the application layout
