@@ -33,9 +33,6 @@ A user can create an event by entering a form including (title, location, event 
 
 A user will be able to manage an event that he or she has created.  This includes updating and deleting the event.  If changes are made to an event, attending users will be notified of the changes that were made.
 
-Events can either be created by users or pre-existing events can be retrieved using the Ticket Master API;
-https://developer.ticketmaster.com/products-and-docs/apis/getting-started/
-
 ## User-Entity Interaction
 
 This pertains to a user’s interaction with other users, events, and objects in the system.
