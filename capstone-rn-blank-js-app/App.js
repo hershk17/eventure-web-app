@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-  getUserLocation() {
+  function getUserLocation() {
     if (navigator.geolocation){
       navigator.geolocation.getCurrentPosition(position => console.log(position));
     } else {
