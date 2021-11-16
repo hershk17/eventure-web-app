@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as Location from 'expo-location';
+import { render } from 'react-dom';
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -12,7 +13,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState("zGpy7bbwejkRKMGFfZMhGG4FCpR6IgKV");
   const [radius, setRadius] = useState("100");
   const [fullURL, setFullURL] = useState("");
-
+  const [query, setQuery] = useState("pizza");
 
   useEffect(() => {
     (async () => {
@@ -32,12 +33,19 @@ export default function App() {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
-     
   }
 
-  function callAPI()
+  async function callAPI()
   {
-    console.log("nice");
+    try{
+      setFullURL("https://" + baseURL + "/search/" + versionNumber + "/poiSearch/" + query + ".JSON?key=" + apiKey);
+      console.log(fullURL);
+
+      const res = await fetch(fullURL);
+      const data = await res.json();
+      
+
+    }catch (err) {console.log("ERROR: " + err)};
   }
 
   return (
@@ -45,7 +53,6 @@ export default function App() {
     <View style={styles.container}>
       <Button title = "Call API" onPress={callAPI}/>
       <Text style={styles.paragraph}>{text}</Text>
-      
     </View>
   );
 }
