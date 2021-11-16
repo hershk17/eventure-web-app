@@ -17,6 +17,7 @@ export default function App() {
   const [radius, setRadius] = useState("100");
   const [fullURL, setFullURL] = useState("");
   const [query, setQuery] = useState("pizza");
+  const [urlLoaded, seturlLoaded] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -41,6 +42,7 @@ export default function App() {
 
   }
 
+
   function updateAPIURL()
   {
     setLongitude(prev => location.coords.longitude, 
@@ -51,15 +53,17 @@ export default function App() {
           + query + "."+ responseFormat 
           + "?key=" + apiKey 
           + "&radius=" + radius 
-          + "&long=" + longitude
-          + "&lat=" + latitude), 
-            callAPI()
+          + "&long=" + location.coords.longitude
+          + "&lat=" + location.coords.latitude), callAPI()
         )
       )
     );          
+
+
+  
   }
 
-  function callAPI()
+  async function callAPI()
   {
     console.log(location.coords.longitude);
     console.log("longitude: " + longitude);
@@ -70,21 +74,21 @@ export default function App() {
   // useEffect(()=>{
     
                     
-    // try{
+    try{
 
       
-    //   if ( longitude != ""  && latitude != "")
-    //   {
-    //     const res = fetch(fullURL).then((res)=> JSON.stringify(res));
-    //     console.log("1: " + fullURL);
-    //     // const data = res.json();
-    //     const response = JSON.stringify(res);
-    //     console.log("This is res:" + response);
-    //     // console.log("Data returned:\n" + data);
+      if ( longitude != ""  && latitude != "")
+      {
+        const res = fetch(fullURL).then((res)=> JSON.stringify(res));
+        console.log("1: " + fullURL);
+        // const data = res.json();
+        const response = JSON.stringify(res);
+        console.log("This is res:" + response);
+        // console.log("Data returned:\n" + data);
 
-    //   }
+      }
       
-    // }catch (err) {console.log("ERROR: " + err)};
+    }catch (err) {console.log("ERROR: " + err)};
                           
     // }, [fullURL]);
 
