@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import * as Location from 'expo-location';
 
 export default function App() {
@@ -11,6 +11,7 @@ export default function App() {
   const [responseFormat, setResponseFormat] = useState("json");
   const [apiKey, setApiKey] = useState("zGpy7bbwejkRKMGFfZMhGG4FCpR6IgKV");
   const [radius, setRadius] = useState("100");
+  const [fullURL, setFullURL] = useState("");
 
 
   useEffect(() => {
@@ -31,11 +32,20 @@ export default function App() {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
+     
+  }
+
+  function callAPI()
+  {
+    console.log("nice");
   }
 
   return (
+        
     <View style={styles.container}>
+      <Button title = "Call API" onPress={callAPI}/>
       <Text style={styles.paragraph}>{text}</Text>
+      
     </View>
   );
 }
