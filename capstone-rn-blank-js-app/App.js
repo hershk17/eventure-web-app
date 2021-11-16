@@ -6,6 +6,12 @@ import * as Location from 'expo-location';
 export default function App() {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [baseURL, setBaseURL] = useState("api.tomtom.com");
+  const [versionNumber, setVersionNumber] = useState("2");
+  const [responseFormat, setResponseFormat] = useState("json");
+  const [apiKey, setApiKey] = useState("zGpy7bbwejkRKMGFfZMhGG4FCpR6IgKV");
+  const [radius, setRadius] = useState("100");
+
 
   useEffect(() => {
     (async () => {
