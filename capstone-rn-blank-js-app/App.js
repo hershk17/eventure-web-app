@@ -37,12 +37,13 @@ export default function App() {
   } else if (location) {
     // text = JSON.stringify(location);
     text = fullURL;
+    
      
   }
 
   function callAPI()
   {
-    console.log("nice");
+    // console.log("nice");
     setLongitude(prev => location.coords.longitude);
     setLatitude(prev => location.coords.latitude);
     setQuery(prev => "pizza");
@@ -53,6 +54,7 @@ export default function App() {
                         + "&radius=" + radius 
                         + "&long=" + longitude
                         + "&lat=" + latitude);
+    console.log(fullURL);
   }
 
   return (
