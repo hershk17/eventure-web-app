@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as Location from 'expo-location';
+import { render } from 'react-dom';
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -15,8 +16,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState("zGpy7bbwejkRKMGFfZMhGG4FCpR6IgKV");
   const [radius, setRadius] = useState("100");
   const [fullURL, setFullURL] = useState("");
-  const [query, setQuery] = useState("");
-
+  const [query, setQuery] = useState("pizza");
 
   useEffect(() => {
     (async () => {
@@ -35,26 +35,41 @@ export default function App() {
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    // text = JSON.stringify(location);
+
+    text = JSON.stringify(location);
     text = fullURL;
-    
-     
+
   }
 
-  function callAPI()
+  async function callAPI()
   {
-    // console.log("nice");
+
+    try{
+      //setFullURL("https://" + baseURL + "/search/" + versionNumber + "/poiSearch/" + query + ".JSON?key=" + apiKey);
+
+    console.log("nice");
+
     setLongitude(prev => location.coords.longitude);
     setLatitude(prev => location.coords.latitude);
     setQuery(prev => "pizza");
-    setFullURL(prev =>  baseURL + "/search/" 
+    setFullURL(baseURL + "/search/" 
                         + versionNumber + "/poiSearch/" 
                         + query + "."+ responseFormat 
                         + "?key=" + apiKey 
                         + "&radius=" + radius 
                         + "&long=" + longitude
                         + "&lat=" + latitude);
+
+
     console.log(fullURL);
+    const res = await fetch(fullURL).then((res)=> JSON.stringify(res));
+
+    //const data = await res.json();
+    console.log("This is res:" + res);
+    //console.log("Data returned:\n" + data);
+
+  }catch (err) {console.log("ERROR: " + err)};
+                        
   }
 
   return (
@@ -62,7 +77,6 @@ export default function App() {
     <View style={styles.container}>
       <Button title = "Call API" onPress={callAPI}/>
       <Text style={styles.paragraph}>{text}</Text>
-      
     </View>
   );
 }
