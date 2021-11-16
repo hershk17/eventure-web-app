@@ -14,7 +14,7 @@ export default function App() {
   const [versionNumber, setVersionNumber] = useState("2");
   const [responseFormat, setResponseFormat] = useState("json");
   const [apiKey, setApiKey] = useState("zGpy7bbwejkRKMGFfZMhGG4FCpR6IgKV");
-  const [radius, setRadius] = useState("100");
+  const [radius, setRadius] = useState("30");
   const [fullURL, setFullURL] = useState("");
   const [query, setQuery] = useState("pizza");
   const [urlLoaded, seturlLoaded] = useState(false);
@@ -49,18 +49,14 @@ export default function App() {
       setLatitude(prev => location.coords.latitude, 
         setQuery(prev => "pizza", 
           setFullURL(baseURL + "/search/" 
-          + versionNumber + "/poiSearch/" 
-          + query + "."+ responseFormat 
-          + "?key=" + apiKey 
-          + "&radius=" + radius 
-          + "&long=" + location.coords.longitude
-          + "&lat=" + location.coords.latitude), callAPI()
+          + versionNumber + "/search/" 
+          + query + "."+ responseFormat  
+          + "?lat=" + location.coords.latitude
+          + "&lon=" + location.coords.longitude
+          + "&key=" + apiKey), callAPI()
         )
       )
     );          
-
-
-  
   }
 
   async function callAPI()
@@ -68,30 +64,18 @@ export default function App() {
     console.log(location.coords.longitude);
     console.log("longitude: " + longitude);
     console.log(fullURL);
-    // const res = fetch(fullURL).then((res)=> JSON.stringify(res));
-  }
-
-  // useEffect(()=>{
-    
-                    
+  }     
     try{
 
-      
       if ( longitude != ""  && latitude != "")
       {
-        const res = fetch(fullURL).then((res)=> JSON.stringify(res));
-        console.log("1: " + fullURL);
-        // const data = res.json();
-        const response = JSON.stringify(res);
-        console.log("This is res:" + response);
-        // console.log("Data returned:\n" + data);
-
-      }
+        console.log(fullURL);
+        fetch(fullURL)
+      .then((response) => response.json())
+      .then((data) => console.log(data));}
+      
       
     }catch (err) {console.log("ERROR: " + err)};
-                          
-    // }, [fullURL]);
-
 
   return (
         
