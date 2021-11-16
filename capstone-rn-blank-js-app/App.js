@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import * as Location from 'expo-location';
 import { render } from 'react-dom';
@@ -41,41 +41,58 @@ export default function App() {
 
   }
 
-  async function callAPI()
+  function updateAPIURL()
   {
-
-    try{
-      //setFullURL("https://" + baseURL + "/search/" + versionNumber + "/poiSearch/" + query + ".JSON?key=" + apiKey);
-
-    console.log("nice");
-
-    setLongitude(prev => location.coords.longitude);
-    setLatitude(prev => location.coords.latitude);
-    setQuery(prev => "pizza");
-    setFullURL(baseURL + "/search/" 
-                        + versionNumber + "/poiSearch/" 
-                        + query + "."+ responseFormat 
-                        + "?key=" + apiKey 
-                        + "&radius=" + radius 
-                        + "&long=" + longitude
-                        + "&lat=" + latitude);
-
-
-    console.log(fullURL);
-    const res = await fetch(fullURL).then((res)=> JSON.stringify(res));
-
-    //const data = await res.json();
-    console.log("This is res:" + res);
-    //console.log("Data returned:\n" + data);
-
-  }catch (err) {console.log("ERROR: " + err)};
-                        
+    setLongitude(prev => location.coords.longitude, 
+      setLatitude(prev => location.coords.latitude, 
+        setQuery(prev => "pizza", 
+          setFullURL(baseURL + "/search/" 
+          + versionNumber + "/poiSearch/" 
+          + query + "."+ responseFormat 
+          + "?key=" + apiKey 
+          + "&radius=" + radius 
+          + "&long=" + longitude
+          + "&lat=" + latitude), 
+            callAPI()
+        )
+      )
+    );          
   }
+
+  function callAPI()
+  {
+    console.log(location.coords.longitude);
+    console.log("longitude: " + longitude);
+    console.log(fullURL);
+    // const res = fetch(fullURL).then((res)=> JSON.stringify(res));
+  }
+
+  // useEffect(()=>{
+    
+                    
+    // try{
+
+      
+    //   if ( longitude != ""  && latitude != "")
+    //   {
+    //     const res = fetch(fullURL).then((res)=> JSON.stringify(res));
+    //     console.log("1: " + fullURL);
+    //     // const data = res.json();
+    //     const response = JSON.stringify(res);
+    //     console.log("This is res:" + response);
+    //     // console.log("Data returned:\n" + data);
+
+    //   }
+      
+    // }catch (err) {console.log("ERROR: " + err)};
+                          
+    // }, [fullURL]);
+
 
   return (
         
     <View style={styles.container}>
-      <Button title = "Call API" onPress={callAPI}/>
+      <Button title = "Call API" onPress={updateAPIURL}/>
       <Text style={styles.paragraph}>{text}</Text>
     </View>
   );
