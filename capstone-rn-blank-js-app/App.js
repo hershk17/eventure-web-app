@@ -17,7 +17,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState("YlHRCAWHnD2YVU8wWQqwfJA5VRKpHOPm");
   const [radius, setRadius] = useState("30");
   const [fullURL, setFullURL] = useState("");
-  const [query, setQuery] = useState("pizza");
+  const [query, setQuery] = useState("sushi");
   const [urlLoaded, seturlLoaded] = useState(false);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ export default function App() {
           + query + "."+ responseFormat  
           + "?lat=" + location.coords.latitude
           + "&lon=" + location.coords.longitude
+          + "&limit=3"
           + "&key=" + apiKey), callAPI()
         )
       )
