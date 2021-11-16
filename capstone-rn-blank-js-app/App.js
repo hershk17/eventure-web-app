@@ -16,12 +16,7 @@ export default function App() {
   const [apiKey, setApiKey] = useState("zGpy7bbwejkRKMGFfZMhGG4FCpR6IgKV");
   const [radius, setRadius] = useState("100");
   const [fullURL, setFullURL] = useState("");
-<<<<<<< HEAD
   const [query, setQuery] = useState("pizza");
-=======
-  const [query, setQuery] = useState("");
-
->>>>>>> c6d4af385a7bc92fa9c6ca070de676a6dd8cd756
 
   useEffect(() => {
     (async () => {
@@ -54,7 +49,7 @@ export default function App() {
     setLongitude(prev => location.coords.longitude);
     setLatitude(prev => location.coords.latitude);
     setQuery(prev => "pizza");
-    setFullURL(prev =>  baseURL + "/search/" 
+    setFullURL(baseURL + "/search/" 
                         + versionNumber + "/poiSearch/" 
                         + query + "."+ responseFormat 
                         + "?key=" + apiKey 
@@ -63,9 +58,12 @@ export default function App() {
                         + "&lat=" + latitude);
 
     console.log(fullURL);
-    const res = await fetch(fullURL);
-    const data = await res.json();
-    
+    const res = await fetch(fullURL).then((res)=> JSON.stringify(res));
+
+    //const data = await res.json();
+    console.log("This is res:" + res);
+    //console.log("Data returned:\n" + data);
+
   }catch (err) {console.log("ERROR: " + err)};
                         
   }
