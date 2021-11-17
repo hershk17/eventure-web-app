@@ -44,10 +44,10 @@ export default function App() {
     text="Done loading";
   }
 
-  function callAPI() {
+  function callAPI(structVal) {
     try {
       let url =
-        baseURL + "/search/" + versionNumber + "/search/" + query +
+        baseURL + "/search/" + versionNumber + "/search/" + structVal.Search +
         "." + responseFormat + "?lat=" + location.coords.latitude + 
         "&lon=" + location.coords.longitude + "&limit=3" + "&key=" + apiKey;
 
@@ -70,7 +70,17 @@ export default function App() {
   function handleSearch()
   {
     const value = this._form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
+    // console.log('value: ', value);
+    if (value != "")
+    {
+      // console.log("Search: "+ value.Search);
+      callAPI(value);
+    }
+    else
+    {
+      console.log("empty search!");
+    }
+    
   }
   
 
@@ -85,7 +95,7 @@ export default function App() {
       </View>
       <View>
         <Button title="Search" onPress={handleSearch} />
-        <Button title="CallAPI" onPress={callAPI} />
+        {/* <Button title="CallAPI" onPress={callAPI} /> */}
         <Text style={styles.paragraph}>{text}</Text>
       </View>
 
