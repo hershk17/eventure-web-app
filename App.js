@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
 
 const App = () => {
   // const [events, setEvents] = useState([]);
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState();
+  const [errorMsg, setErrorMsg] = useState();
   const [response, setResponse] = useState();
 
   const baseURL = "https://api.tomtom.com";
@@ -36,11 +36,11 @@ const App = () => {
     })();
   }, []);
 
-  let text = "Waiting..";
+  let text = "Loading...";
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
-    text = "Done loading";
+    text = null;
   }
 
   function callAPI(val) {
@@ -49,7 +49,7 @@ const App = () => {
         baseURL +
         "/search/" +
         versionNumber +
-        "/search/" +
+        "/poiSearch/" +
         val +
         "." +
         responseFormat +
@@ -88,23 +88,18 @@ const App = () => {
 
   return (
     <View style={styles.container}>
+      <form onSubmit={formik.handleSubmit}>
+        <input
+          id="location"
+          name="location"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.location}
+        />
+        <button onClick={formik.handleSubmit}>Search</button>
+      </form>
       {response == null ? (
-        <View>
-          {text == null ? (
-            <form onSubmit={formik.handleSubmit}>
-              <input
-                id="location"
-                name="location"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.location}
-              />
-              <button>Search</button>
-            </form>
-          ) : (
-            <Text style={styles.paragraph}>{text}</Text>
-          )}
-        </View>
+        <Text style={styles.paragraph}>{text}</Text>
       ) : (
         <View>
           <Text style={styles.paragraph}>
