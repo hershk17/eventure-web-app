@@ -3,6 +3,14 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import * as Location from "expo-location";
 import { render } from "react-dom";
+import t from 'tcomb-form-native'; // 0.6.9
+
+const queryInfo = t.struct({
+  Search: t.String,
+  useCurrentLocation: t.Boolean
+});
+
+
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -14,6 +22,7 @@ export default function App() {
   const [radius, setRadius] = useState("100");
   const [query, setQuery] = useState("pizza");
   const [response, setResponse] = useState();
+  const Form = t.form.Form;
 
   useEffect(() => {
     (async () => {
@@ -40,7 +49,7 @@ export default function App() {
       let url =
         baseURL + "/search/" + versionNumber + "/poiSearch/" + query +
         "." + responseFormat + "?key=" + apiKey + "&radius=" + radius +
-        "&long=" + location.coords.latitude + "&lat=" + location.coords.longitude;
+        "&lon=" + location.coords.latitude + "&lat=" + location.coords.longitude;
 
       console.log("lat:" + location.coords.latitude + ",lon:" + location.coords.longitude + ",query:" + query);
       console.log("apiurl:" + url);
@@ -51,11 +60,20 @@ export default function App() {
       console.log("ERROR: " + err);
     }
   }
+  
   return (
     <View style={styles.container}>
-      <Button title="Call API" onPress={callAPI} />
-      <Text style={styles.paragraph}>{text}</Text>
+      
+      <View>
+        <Form type={queryInfo} /> 
+        {/* Notice the addition of the Form component */}
+      </View>
+      <View>
+        <Button title="Search" onPress={callAPI} />
+        <Text style={styles.paragraph}>{text}</Text>
+      </View>
     </View>
+    
   );
 }
 
