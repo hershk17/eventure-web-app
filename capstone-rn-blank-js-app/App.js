@@ -96,7 +96,7 @@ export default function App() {
       <View>
         <Button title="Search" onPress={handleSearch} />
         {/* <Button title="CallAPI" onPress={callAPI} /> */}
-        <Text style={styles.paragraph}>{text}</Text>
+        {/* <Text style={styles.paragraph}>{text}</Text> */}
       </View>
 
       {response != null ? 
