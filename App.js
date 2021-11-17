@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { Card } from "react-native-elements";
 import { getAllEvents } from "./api/firebase";
 import { Formik } from "formik";
@@ -10,9 +17,9 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "top",
+    justifyContent: "flex-start",
+    marginTop: 30,
   },
 });
 
@@ -106,46 +113,50 @@ const App = () => {
             }
           }}
         >
-          {({ handleChange, handleBlur, handleSubmit, values }) => {
-            return (
-              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                <TextInput
-                  onChangeText={handleChange("location")}
-                  onBlur={handleBlur("location")}
-                  style={{ height: 35, borderColor: "black", borderWidth: 1 }}
-                  value={values.location}
-                />
-                <Button onPress={handleSubmit} title="Search" />
-              </View>
-            );
-          }}
-        </Formik>
-
-        <View>
-          {response == null ? (
-            <Text>{text}</Text>
-          ) : (
-            <View>
-              {response.results.map((loc, i) => (
-                <Card key={i}>
-                  <Card.Title>{loc.poi.name}</Card.Title>
-                  <Card.Divider />
-                  <View>
-                    <Text>
-                      {loc.address.streetName +
-                        ", " +
-                        loc.address.municipality +
-                        ", " +
-                        loc.address.postalCode +
-                        ", " +
-                        loc.address.country}
-                    </Text>
-                  </View>
-                </Card>
-              ))}
+          {({ handleChange, handleBlur, handleSubmit, values }) => (
+            <View
+              style={{
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              <TextInput
+                onChangeText={handleChange("location")}
+                onBlur={handleBlur("location")}
+                style={{
+                  height: 35,
+                  borderColor: "black",
+                  borderWidth: 1,
+                  width: "50%",
+                }}
+                value={values.location}
+              />
+              <Button onPress={handleSubmit} title="Search" />
             </View>
           )}
-        </View>
+        </Formik>
+
+        {response == null ? (
+          <Text>{text}</Text>
+        ) : (
+          <ScrollView>
+            {response.results.map((loc, i) => (
+              <Card key={i}>
+                <Card.Title>{loc.poi.name}</Card.Title>
+                <Card.Divider />
+                <Text>
+                  {loc.address.streetName +
+                    ", " +
+                    loc.address.municipality +
+                    ", " +
+                    loc.address.postalCode +
+                    ", " +
+                    loc.address.country}
+                </Text>
+              </Card>
+            ))}
+          </ScrollView>
+        )}
       </View>
     );
   }
