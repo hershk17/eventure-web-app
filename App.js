@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { getAllEvents } from "./api/firebase";
+// import { getAllEvents } from "./api/firebase";
 import { useFormik } from "formik";
 import * as Location from "expo-location";
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 });
 
 const App = () => {
-  const [events, setEvents] = useState([]);
+  // const [events, setEvents] = useState([]);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [response, setResponse] = useState();
@@ -24,7 +24,7 @@ const App = () => {
   const apiKey = "YlHRCAWHnD2YVU8wWQqwfJA5VRKpHOPm";
 
   useEffect(() => {
-    getAllEvents(setEvents);
+    // getAllEvents(setEvents);
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -130,11 +130,11 @@ const App = () => {
           </Text>
         </View>
       )}
-      {events.length > 0 ? (
+      {/* {events.length > 0 ? (
         <Text>{events[0].event_name}</Text>
       ) : (
         <Text>No</Text>
-      )}
+      )} */}
     </View>
   );
 };
