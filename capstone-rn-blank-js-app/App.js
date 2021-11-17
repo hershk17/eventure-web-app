@@ -7,6 +7,7 @@ import t from 'tcomb-form-native'; // 0.6.9
 
 const queryInfo = t.struct({
   Search: t.String,
+  Location: t.maybe(t.String),
   useCurrentLocation: t.Boolean
 });
 
@@ -61,15 +62,25 @@ export default function App() {
     }
   }
   
+  function handleSearch()
+  {
+    const value = this._form.getValue(); // use that ref to get the form value
+    console.log('value: ', value);
+  }
+  
+
   return (
     <View style={styles.container}>
       
       <View>
-        <Form type={queryInfo} /> 
+        <Form 
+        ref={c => this._form = c} // assign a ref
+        type={queryInfo} /> 
         {/* Notice the addition of the Form component */}
       </View>
       <View>
-        <Button title="Search" onPress={callAPI} />
+        <Button title="Search" onPress={handleSearch} />
+        <Button title="CallAPI" onPress={callAPI} />
         <Text style={styles.paragraph}>{text}</Text>
       </View>
     </View>
