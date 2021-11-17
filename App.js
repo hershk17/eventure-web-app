@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-// import { getAllEvents } from "./api/firebase";
-import { useFormik } from "formik";
+import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { Card } from "react-native-elements";
+import { getAllEvents } from "./api/firebase";
+import { Formik } from "formik";
 import * as Location from "expo-location";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "top",
   },
 });
 
 const App = () => {
-  // const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]);
   const [location, setLocation] = useState();
   const [errorMsg, setErrorMsg] = useState();
   const [response, setResponse] = useState();
@@ -24,7 +28,7 @@ const App = () => {
   const apiKey = "YlHRCAWHnD2YVU8wWQqwfJA5VRKpHOPm";
 
   useEffect(() => {
-    // getAllEvents(setEvents);
+    getAllEvents(setEvents);
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -57,7 +61,6 @@ const App = () => {
         location.coords.latitude +
         "&lon=" +
         location.coords.longitude +
-        "&limit=3" +
         "&key=" +
         apiKey;
 
@@ -72,65 +75,89 @@ const App = () => {
     }
   }
 
-  const formik = useFormik({
-    initialValues: {
-      location: "",
-    },
-    onSubmit: (values) => {
-      const value = values.location;
-      if (value != "") {
-        callAPI(value);
-      } else {
-        alert("empty search!");
-      }
-    },
-  });
+  function EventsScreen() {
+    return (
+      <View style={styles.container}>
+        {events.length > 0 ? (
+          <View>
+            {events.map((event) => (
+              <Text key={event.event_id}>{event.event_name}</Text>
+            ))}
+          </View>
+        ) : (
+          <Text>No</Text>
+        )}
+      </View>
+    );
+  }
 
-  return (
-    <View style={styles.container}>
-      <form onSubmit={formik.handleSubmit}>
-        <input
-          id="location"
-          name="location"
-          type="text"
-          onChange={formik.handleChange}
-          value={formik.values.location}
-        />
-        <button onClick={formik.handleSubmit}>Search</button>
-      </form>
-      {response == null ? (
-        <Text style={styles.paragraph}>{text}</Text>
-      ) : (
+  function POISearchScreen() {
+    console.log(response);
+    return (
+      <View style={styles.container}>
+        <Formik
+          initialValues={{ location: "" }}
+          onSubmit={(values) => {
+            const value = values.location;
+            if (value != "") {
+              callAPI(value);
+            } else {
+              alert("empty search!");
+            }
+          }}
+        >
+          {({ handleChange, handleBlur, handleSubmit, values }) => {
+            return (
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                <TextInput
+                  onChangeText={handleChange("location")}
+                  onBlur={handleBlur("location")}
+                  style={{ height: 35, borderColor: "black", borderWidth: 1 }}
+                  value={values.location}
+                />
+                <Button onPress={handleSubmit} title="Search" />
+              </View>
+            );
+          }}
+        </Formik>
+
         <View>
-          <Text style={styles.paragraph}>
-            {response.results[0].poi.name},{" "}
-            {response.results[0].address.streetNumber} &nbsp;
-            {response.results[0].address.streetName},{" "}
-            {response.results[0].address.municipality},{" "}
-            {response.results[0].address.extendedPostalCode}
-          </Text>
-          <Text style={styles.paragraph}>
-            {response.results[1].poi.name},{" "}
-            {response.results[1].address.streetNumber} &nbsp;
-            {response.results[1].address.streetName},{" "}
-            {response.results[1].address.municipality},{" "}
-            {response.results[1].address.extendedPostalCode}{" "}
-          </Text>
-          <Text style={styles.paragraph}>
-            {response.results[2].poi.name},{" "}
-            {response.results[2].address.streetNumber} &nbsp;
-            {response.results[2].address.streetName},{" "}
-            {response.results[2].address.municipality},{" "}
-            {response.results[2].address.extendedPostalCode}
-          </Text>
+          {response == null ? (
+            <Text>{text}</Text>
+          ) : (
+            <View>
+              {response.results.map((loc, i) => (
+                <Card key={i}>
+                  <Card.Title>{loc.poi.name}</Card.Title>
+                  <Card.Divider />
+                  <View>
+                    <Text>
+                      {loc.address.streetName +
+                        ", " +
+                        loc.address.municipality +
+                        ", " +
+                        loc.address.postalCode +
+                        ", " +
+                        loc.address.country}
+                    </Text>
+                  </View>
+                </Card>
+              ))}
+            </View>
+          )}
         </View>
-      )}
-      {/* {events.length > 0 ? (
-        <Text>{events[0].event_name}</Text>
-      ) : (
-        <Text>No</Text>
-      )} */}
-    </View>
+      </View>
+    );
+  }
+
+  const Tab = createMaterialBottomTabNavigator();
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Events" component={EventsScreen} />
+        <Tab.Screen name="POI Search" component={POISearchScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
