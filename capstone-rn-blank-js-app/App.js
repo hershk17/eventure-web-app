@@ -51,7 +51,6 @@ export default function App() {
       console.log("ERROR: " + err);
     }
   }
-
   return (
     <View style={styles.container}>
       <Button title="Call API" onPress={callAPI} />
