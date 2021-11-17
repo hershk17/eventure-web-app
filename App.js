@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { getAllEvents } from "./api/firebase";
 import { useFormik } from "formik";
-
+import * as Location from "expo-location";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
