@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 {}
+=======
+{
+  "dependencies": {
+    "tcomb-form-native": "^0.6.20"
+  }
+}
+>>>>>>> 1993fe2d92f77f909479337574c913eaa8e7c8e4

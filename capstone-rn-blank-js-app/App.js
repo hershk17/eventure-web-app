@@ -3,9 +3,13 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import * as Location from "expo-location";
 import { render } from "react-dom";
-import t from 'tcomb-form-native';
+import t from 'tcomb-form-native'; // 0.6.9
 
-const Form = t.form.Form;
+const queryInfo = t.struct({
+  Search: t.String,
+  Location: t.maybe(t.String),
+  useCurrentLocation: t.Boolean
+});
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -17,6 +21,7 @@ export default function App() {
   const [radius, setRadius] = useState("100");
   const [query, setQuery] = useState("pizza");
   const [response, setResponse] = useState(null);
+  const Form = t.form.Form;
 
   useEffect(() => {
     (async () => {
@@ -46,6 +51,7 @@ export default function App() {
         "." + responseFormat + "?lat=" + location.coords.latitude + 
         "&lon=" + location.coords.longitude + "&limit=3" + "&key=" + apiKey;
 
+
       console.log("lat: " + location.coords.latitude + ", lon: " + location.coords.longitude + ", query: " + query);
       console.log("apiurl: " + url);
 
@@ -60,10 +66,29 @@ export default function App() {
       console.log("ERROR: " + err);
     }
   }
+  
+  function handleSearch()
+  {
+    const value = this._form.getValue(); // use that ref to get the form value
+    console.log('value: ', value);
+  }
+  
+
   return (
+    
     <View style={styles.container}>
-      <Button title="Call API" onPress={callAPI} />
-      
+      <View>
+        <Form 
+        ref={c => this._form = c} // assign a ref
+        type={queryInfo} /> 
+        {/* Notice the addition of the Form component */}
+      </View>
+      <View>
+        <Button title="Search" onPress={handleSearch} />
+        <Button title="CallAPI" onPress={callAPI} />
+        <Text style={styles.paragraph}>{text}</Text>
+      </View>
+
       {response != null ? 
       <View>
         <Text>Restaurants nearby for {query}:</Text>
@@ -75,8 +100,9 @@ export default function App() {
         {response.results[2].address.streetName}, {response.results[2].address.municipality}, {response.results[2].address.extendedPostalCode}</Text>
         </View>
       : <Text style={styles.paragraph}>{text}</Text>}
-      
+
     </View>
+    
   );
 }
 
