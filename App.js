@@ -6,6 +6,7 @@ import {
   Button,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { Card } from "react-native-elements";
 import { getAllEvents } from "./api/firebase";
@@ -141,19 +142,26 @@ const App = () => {
         ) : (
           <ScrollView>
             {response.results.map((loc, i) => (
-              <Card key={i}>
-                <Card.Title>{loc.poi.name}</Card.Title>
-                <Card.Divider />
-                <Text>
-                  {loc.address.streetName +
-                    ", " +
-                    loc.address.municipality +
-                    ", " +
-                    loc.address.postalCode +
-                    ", " +
-                    loc.address.country}
-                </Text>
-              </Card>
+              <TouchableOpacity
+                key={i}
+                onPress={() => {
+                  console.log("nice");
+                }}
+              >
+                <Card>
+                  <Card.Title>{loc.poi.name}</Card.Title>
+                  <Card.Divider />
+                  <Text>
+                    {loc.address.streetName +
+                      ", " +
+                      loc.address.municipality +
+                      ", " +
+                      loc.address.postalCode +
+                      ", " +
+                      loc.address.country}
+                  </Text>
+                </Card>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         )}
