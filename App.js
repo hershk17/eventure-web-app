@@ -14,6 +14,8 @@ import { Formik } from "formik";
 import * as Location from "expo-location";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import openMap from "react-native-open-maps";
+// import { createMapLink } from "react-native-open-maps";
 
 const styles = StyleSheet.create({
   container: {
@@ -54,6 +56,10 @@ const App = () => {
   } else if (location) {
     text = null;
   }
+
+  // function _goToYosemite() {
+  //   openMap({ latitude: 37.865101, longitude: -119.53833 });
+  // }
 
   function callAPI(val) {
     try {
@@ -145,7 +151,11 @@ const App = () => {
               <TouchableOpacity
                 key={i}
                 onPress={() => {
-                  console.log("nice");
+                  console.log("lmao");
+                  openMap({
+                    latitude: 37.865101,
+                    longitude: -119.53833,
+                  });
                 }}
               >
                 <Card>
