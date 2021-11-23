@@ -13,14 +13,15 @@ const app = initializeApp({
 });
 const db = getFirestore(app);
 
-const getAllEvents = (setState) => {
+const getAllEvents = (setEvents) => {
   const statement = query(collection(db, "Events"));
   let events = [];
   onSnapshot(statement, (querySnapshot) => {
+    events = [];
     querySnapshot.forEach((doc) => {
       events.push(doc.data());
     });
-    setState(events);
+    setEvents(events);
   });
 };
 
