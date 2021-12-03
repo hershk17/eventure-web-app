@@ -49,7 +49,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "npx eslint .",
+      "npx eslint",
       "pretty-quick --staged"
     ]
   },
