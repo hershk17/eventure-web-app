@@ -1,0 +1,16 @@
+.myCard {
+  position: relative;
+  padding: 0px;
+  margin: 0%;
+  height: 150px; 
+}
+
+.myOverlay {
+  position: absolute;
+  z-index: 99;
+  bottom: 0px;
+  width: 100%;
+  color: white;
+  text-align: end;
+  padding: 5px;
+}

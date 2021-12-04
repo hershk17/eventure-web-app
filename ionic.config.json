@@ -1,0 +1,7 @@
+{
+  "name": "capstone-events-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
