@@ -21,14 +21,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/locations',
+        redirectTo: '/events',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/locations',
+    redirectTo: '/events',
     pathMatch: 'full'
   }
 ];

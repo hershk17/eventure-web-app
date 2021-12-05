@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Verify Email</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-title style="padding: 20px;">
+      Please check your email and click on the link to verfiy your email
+      address!
+    </ion-card-title>
+    <ion-card-content>
+      <ion-button type="submit" (click)="db.SendVerificationMail()">
+        Resend Verification Email
+      </ion-button>
+      <ion-button [routerLink]="['/login']">
+        Login
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <br />
+</ion-content>

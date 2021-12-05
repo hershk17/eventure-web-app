@@ -1,34 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title> Register </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label position="stacked">Full Name</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Email</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Username</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Confirm password</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
+  <form>
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" #email required></ion-input>
+    </ion-item>
 
-  <ion-checkbox color="primary"></ion-checkbox> 
-  <ion-label>I agree to the Terms and Conditions</ion-label><br/>
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" #password required></ion-input>
+    </ion-item>
 
-  <ion-button expand="block" >Sign Up</ion-button>
-  <ion-label [navPush]="login">Sign In</ion-label>
+    <ion-item>
+      <ion-label>I agree to the Terms and Conditions</ion-label>
+      <ion-checkbox color="primary" required></ion-checkbox>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button
+          type="submit"
+          (click)="onRegister(email, password)"
+          expand="block"
+          >Register</ion-button
+        >
+        <ion-button [routerLink]="['/login']">Sign In</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>
