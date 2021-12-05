@@ -23,8 +23,9 @@ export class LoginPage implements OnInit {
           return false;
         }
       })
-      .catch((error) => {
-        window.alert(error.message);
+      .catch(async (error) => {
+        await this.db.presentAlert('Error', error.message);
+        // window.alert(error.message);
       });
   }
 }
