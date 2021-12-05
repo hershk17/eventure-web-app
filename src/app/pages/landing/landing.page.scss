@@ -7,15 +7,17 @@
   display: flex;
   flex-direction: column;
 }
-#friends {
+.vertical-section #friends {
   margin-top: 100px;
 }
-#explore {
+.vertical-section #explore {
+  color: rgba(255, 255, 255, 0.774);
   margin-top: 50px;
-  color: rgb(204, 195, 195);
-  animation: neon 1s ease-in-out infinite alternate;
 }
-#arrow {
+.vertical-section #explore #explore-btn {
+  margin: 0 auto;
+}
+.vertical-section #explore #arrow {
   color: rgb(204, 195, 195);
 }
 .glowing-text {
@@ -36,6 +38,9 @@
       0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
   }
 }
+
+//intro section
+
 .intro-section {
   background-color: rgba(0, 3, 39, 0.6);
   display: flex;
@@ -43,18 +48,18 @@
   justify-content: center;
 }
 
-#intro {
+.intro-section #intro {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-#intro > p {
+.intro-section #intro > p {
   text-align: center;
   margin-bottom: 50px;
 }
-.intro-pic {
+.intro-section .intro-pic {
   justify-self: center;
-  max-width: 400px;
+  max-width: 350px;
   box-shadow: 0 0 14px 0 white;
 }
