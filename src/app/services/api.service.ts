@@ -11,6 +11,8 @@ export interface POI {
   position: any;
   score: number;
   type: string;
+  category: string;
+  distance: number;
 }
 
 @Injectable({
