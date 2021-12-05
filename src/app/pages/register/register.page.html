@@ -1,34 +1,41 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title> Register </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-item>
-    <ion-label position="stacked">Full Name</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Email</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Username</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Password</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Confirm password</ion-label>
-    <ion-input></ion-input>
-  </ion-item>
-
-  <ion-checkbox color="primary"></ion-checkbox> 
-  <ion-label>I agree to the Terms and Conditions</ion-label><br/>
-
-  <ion-button expand="block" >Sign Up</ion-button>
-  <ion-label [navPush]="login">Sign In</ion-label>
+  <form>
+    <ion-card style="border-radius: 10px">
+      <ion-card-header>
+        <ion-item lines="full">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="text" #email required></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" #password required></ion-input>
+        </ion-item>
+        <br />
+        <ion-card-subtitle style="margin: 5px;">
+          <ion-row>
+            <ion-checkbox color="primary" required></ion-checkbox>
+            &nbsp;&nbsp;I agree to the Terms and Conditions
+          </ion-row>
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button
+          type="submit"
+          (click)="onRegister(email, password)"
+          color="primary"
+          expand="block"
+          >Register</ion-button
+        >
+        <ion-button [routerLink]="['/login']" color="light" expand="block"
+          >Login</ion-button
+        >
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>

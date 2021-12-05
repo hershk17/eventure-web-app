@@ -4,23 +4,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule)
-  },
-  {
-    path: 'events',
-    loadChildren: () => import('./pages/events/events.module').then( m => m.EventsPageModule)
-  },
-  {
-    path: 'events/:id',
-    loadChildren: () => import('./pages/event-details/event-details.module').then( m => m.EventDetailsPageModule)
-  },
-  {
-    path: 'locations',
-    loadChildren: () => import('./pages/locations/locations.module').then( m => m.LocationsPageModule)
-  },
-  {
-    path: 'locations/:id',
-    loadChildren: () => import('./pages/location-details/location-details.module').then( m => m.LocationDetailsPageModule)
   },
   {
     path: 'profile',
@@ -33,6 +22,10 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'verify-email',
+    loadChildren: () => import('./pages/verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
   }
 ];
 @NgModule({
