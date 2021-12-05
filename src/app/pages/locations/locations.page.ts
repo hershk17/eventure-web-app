@@ -38,6 +38,13 @@ export class LocationsPage implements OnInit {
       this.api.getPOI(query).subscribe((data) => {
         console.log(data.results);
         this.pois = data.results;
+
+        this.pois.forEach(poi => {
+          poi.category = poi.poi.categories[0] + " " + poi.poi.categories[1];
+          console.log(poi.position.lat);
+          console.log(poi.position.lon);
+          poi.distance = parseFloat((poi.dist / 1000).toFixed(2));
+        });
       });
     } else {
       await this.presentAlert('Error', 'Please enter a search query!');

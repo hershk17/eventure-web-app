@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EventsPage } from './events.page';
+import { VerifyEmailPage } from './verify-email.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: EventsPage,
-  },
+    component: VerifyEmailPage
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class EventsPageRoutingModule {}
+export class VerifyEmailPageRoutingModule {}
