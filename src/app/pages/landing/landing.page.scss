@@ -1,23 +1,37 @@
-.main-section {
+.container {
+  background: url("https://www.inwebson.com/wp-content/uploads/2012/02/starry-background-step2.png")
+    repeat top center;
+  z-index: 0;
+  animation: stary 200s linear infinite;
+}
+@keyframes stary {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -1000px 500px;
+  }
+}
+.flex-container {
   background-color: rgba(0, 3, 39, 0.6);
   display: flex;
   justify-content: space-evenly;
 }
-.vertical-section {
+.main-section {
   display: flex;
   flex-direction: column;
 }
-.vertical-section #friends {
+.main-section #friends {
   margin-top: 100px;
 }
-.vertical-section #explore {
+.main-section #explore {
   color: rgba(255, 255, 255, 0.774);
   margin-top: 50px;
 }
-.vertical-section #explore #explore-btn {
+.main-section #explore #explore-btn {
   margin: 0 auto;
 }
-.vertical-section #explore #arrow {
+.main-section #explore #arrow {
   color: rgb(204, 195, 195);
 }
 .glowing-text {
@@ -41,24 +55,17 @@
 
 //intro section
 
-.intro-section {
-  background-color: rgba(0, 3, 39, 0.6);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.intro-section #intro {
+#intro {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-.intro-section #intro > p {
+#intro > p {
   text-align: center;
   margin-bottom: 50px;
 }
-.intro-section .intro-pic {
+#intro .intro-pic {
   justify-self: center;
   max-width: 350px;
   box-shadow: 0 0 14px 0 white;
