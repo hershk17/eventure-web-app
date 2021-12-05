@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
     this.db
       .signInUsingEmail(email.value, password.value)
       .then((res) => {
-        if (this.db.isEmailVerified) {
+        if (this.db.isEmailVerified()) {
           this.router.navigate(['/tabs']);
         } else {
           window.alert('Email is not verified');

@@ -86,17 +86,8 @@ export class DbService {
       .catch((error: any) => console.error(error));
   }
 
-  public logout(email: string, pass: string) {
-    this.auth
-      .signOut()
-      .then((res: any) => console.log(res))
-      .catch((error: any) => console.error(error));
-  }
-
   public signInUsingEmail(email: string, password: string) {
-    const r = this.auth.signInWithEmailAndPassword(email, password);
-    console.log(r);
-    return r;
+    return this.auth.signInWithEmailAndPassword(email, password);
   }
 
   public registerUsingEmail(email: string, password: string) {
@@ -124,9 +115,9 @@ export class DbService {
     return user !== null && user.emailVerified !== false ? true : false;
   }
 
-  public get isEmailVerified(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user.emailVerified !== false ? true : false;
+  public async isEmailVerified(): Promise<boolean> {
+    (await this.auth.currentUser).reload();
+    return (await this.auth.currentUser).emailVerified !== false ? true : false;
   }
 
   public setUserData(user: User) {
@@ -145,10 +136,9 @@ export class DbService {
     });
   }
 
-  public signOut() {
-    return this.auth.signOut().then(() => {
-      localStorage.removeItem('user');
-      this.router.navigate(['login']);
-    });
+  public async signOut() {
+    await this.auth.signOut();
+    localStorage.removeItem('user');
+    this.router.navigate(['login']);
   }
 }
