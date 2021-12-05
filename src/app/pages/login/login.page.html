@@ -18,16 +18,16 @@
         </ion-item>
       </ion-card-header>
       <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-button
-              type="submit"
-              (click)="onSignIn(email, password)"
-              expand="block"
-              >Login</ion-button
-            >
-          </ion-col>
-        </ion-row>
+        <ion-button
+          type="submit"
+          (click)="onSignIn(email, password)"
+          color="primary"
+          expand="block"
+          >Login</ion-button
+        >
+        <ion-button [routerLink]="['/register']" color="light" expand="block"
+          >Register</ion-button
+        >
       </ion-card-content>
     </ion-card>
   </form>

@@ -17,24 +17,12 @@
     (search)="getLocations($event.target.value)"
     animated
   ></ion-searchbar>
-  
-  <!-- <ion-list>
-    <ion-item
-      *ngFor="let poi of this.pois"
-      button="true"
-      [detail]="false"
-      (click)="selected.emit(poi)"
-    >
-      {{ poi.poi.name }}
-    </ion-item>
-
-  </ion-list> -->
 
   <ion-list style="background-color: transparent;">
     <ion-card
     *ngFor="let poi of this.pois"
     button="true"
-    (click)="selected.emit(poi)"
+    [routerLink]="['/tabs/locations',poi.id]"
     style="margin: 20px; margin-top: 10px; border-radius: 10px;"
     >
       <ion-card-header style="padding: 0px">

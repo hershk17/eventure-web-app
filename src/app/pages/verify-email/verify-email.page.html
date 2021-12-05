@@ -8,18 +8,16 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-title style="padding: 20px;">
-      Please check your email and click on the link to verfiy your email
+  <ion-card style="border-radius: 10px">
+    <ion-card-header style="margin: 5px;">
+      Please check your email and click on the link to verify your email
       address!
-    </ion-card-title>
+    </ion-card-header>
     <ion-card-content>
-      <ion-button type="submit" (click)="db.SendVerificationMail()">
+      <ion-button type="submit" (click)="db.SendVerificationMail()" color="light">
         Resend Verification Email
       </ion-button>
-      <ion-button [routerLink]="['/login']">
-        Login
-      </ion-button>
+      <ion-button [routerLink]="['/login']" color="tertiary"> Login </ion-button>
     </ion-card-content>
   </ion-card>
   <br />

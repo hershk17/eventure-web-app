@@ -20,15 +20,23 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
+        path: 'events/:id',
+        loadChildren: () => import('../event-details/event-details.module').then( m => m.EventDetailsPageModule)
+      },
+      {
+        path: 'locations/:id',
+        loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
+      },
+      {
         path: '',
-        redirectTo: '/events',
+        redirectTo: 'events',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/events',
+    redirectTo: 'events',
     pathMatch: 'full'
   }
 ];

@@ -94,7 +94,9 @@ export class DbService {
   }
 
   public signInUsingEmail(email: string, password: string) {
-    return this.auth.signInWithEmailAndPassword(email, password);
+    const r = this.auth.signInWithEmailAndPassword(email, password);
+    console.log(r);
+    return r;
   }
 
   public registerUsingEmail(email: string, password: string) {
