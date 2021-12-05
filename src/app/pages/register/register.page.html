@@ -5,16 +5,28 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="registerForm">
     <ion-card style="border-radius: 10px">
       <ion-card-header>
         <ion-item lines="full">
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input autocapitalize type="text" formControlName="firstName" inputmode="text" required ></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input autocapitalize type="text" formControlName="lastName" inputmode="text" required ></ion-input>
+        </ion-item>
+        <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="text" #email required></ion-input>
+          <ion-input autocapitalize type="text" formControlName="userEmail" inputmode="email" required ></ion-input>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" #password required></ion-input>
+          <ion-input type="password" formControlName="password1" required></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Repeat Password</ion-label>
+          <ion-input type="password" formControlName="password2" required></ion-input>
         </ion-item>
         <br />
         <ion-card-subtitle style="margin: 5px;">
@@ -30,6 +42,7 @@
           (click)="onRegister(email, password)"
           color="primary"
           expand="block"
+          
           >Register</ion-button
         >
         <ion-button [routerLink]="['/login']" color="light" expand="block"

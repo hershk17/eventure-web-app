@@ -2,6 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import { AlertController } from '@ionic/angular';
 import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import {
   AngularFirestore,
@@ -45,7 +46,8 @@ export class DbService {
     public auth: AngularFireAuth,
     public afStore: AngularFirestore,
     public router: Router,
-    public ngZone: NgZone
+    public ngZone: NgZone,
+    private alertController: AlertController
   ) {
     this.auth.authState.subscribe((user) => {
       if (user) {
@@ -57,6 +59,19 @@ export class DbService {
         JSON.parse(localStorage.getItem('user'));
       }
     });
+  }
+
+  async presentAlert(title: string, msg: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: title,
+      message: msg,
+      buttons: [
+        {
+          text: 'OK',
+        },
+      ],
+    });
+    await alert.present();
   }
 
   public async getEvents(): Promise<Event[]> {
