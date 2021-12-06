@@ -12,15 +12,15 @@ export class RegisterPage implements OnInit {
 
 public errorMessages = {
   firstName: [
-    { type: 'required', message: 'Name is required' },
-    { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
+    { type: 'required', message: 'First name is required' },
+    { type: 'maxlength', message: 'First name cannot be longer than 20 characters' }
   ],
   lastName: [
-    { type: 'required', message: 'Name is required' },
-    { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
+    { type: 'required', message: 'Last name is required' },
+    { type: 'maxlength', message: 'Last name cannot be longer than 20 characters' }
   ],
   userEmail: [
-    { type: 'required', message: 'Email is required' },
+    { type: 'required', message: 'An email address is required' },
     { type: 'pattern', message: 'Please enter a valid email address' }
   ],
   password1: [
@@ -29,7 +29,7 @@ public errorMessages = {
   ],
   password2: [
     { type: 'required', message: 'Password is required' },
-    { type: 'pattern', message: 'Please enter a valid password that matches' }
+    { type: 'match', message: 'Please enter a valid password that matches' }
   ],
 };
 
