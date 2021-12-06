@@ -31,6 +31,9 @@ public errorMessages = {
     { type: 'required', message: 'Password confirmation is required' },
     { type: 'mustMatch', message: 'Passwords do not match' }
   ],
+  termsConditions:[
+    { type: 'requiredtrue', message: 'You must agree to the terms and conditions to proceed' }
+  ]
 };
 
 get firstName() {
@@ -48,11 +51,15 @@ get password1() {
 get password2() {
   return this.registerForm.get('password2');
 }
+get termsConditions() {
+  return this.registerForm.get('termsConditions');
+}
 
   registerForm: FormGroup;
   constructor(
     private db: DbService,
     public router: Router,
+    // public isTermsConditions,
     private formBuilder: FormBuilder,
     ) {
 
@@ -61,7 +68,8 @@ get password2() {
         password1: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required]],
         firstName: ['', [Validators.required, Validators.maxLength(25)]],
-        lastName: ['', [Validators.required, Validators.maxLength(25)]]
+        lastName: ['', [Validators.required, Validators.maxLength(25)]],
+        termsConditions: ['', Validators.required]
     },
     {
       validator: this.comparePassword('password1','password2')
@@ -72,7 +80,9 @@ get password2() {
   //  get f() {
   //   return this.registerForm.controls;
   // }
-  ngOnInit() {}
+  ngOnInit() {
+    this.registerForm.controls.termsConditions.setValue(false);
+  }
 
   comparePassword(controlName: string, matchingControlName: string)
   {
@@ -80,9 +90,6 @@ get password2() {
     return(formGroup: FormGroup)=>{
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
-
-      console.log(control);
-      console.log(matchingControl);
       if(matchingControl.errors && !matchingControl.errors.mustMatch){
         return;
       }
@@ -96,9 +103,10 @@ get password2() {
     };
   }
 
-  public onRegister(email: { value: string }, password: { value: string }) {
-    console.log(this.registerForm.value);
-    this.db
+  public async onRegister(email: { value: string }, password: { value: string }) {
+    if (true === this.registerForm.value.termsConditions)
+    {
+      this.db
       .registerUsingEmail(this.registerForm.value.userEmail, this.registerForm.value.password1)
       .then((res) => {
         this.db.sendVerificationMail();
@@ -108,8 +116,16 @@ get password2() {
         await this.db.presentAlert('Error', error.message);
         // window.alert(error.message);
       });
+    }
+    else
+    {
+      await this.db.presentAlert('Error', 'You must accept terms and conditions');
+    }
   }
 
-
+  // public updateTermsConditions(){
+  //   this.isTermsConditions = !this.isTermsConditions;
+  //   console.log(this.isTermsConditions);
+  // }
 
 }
