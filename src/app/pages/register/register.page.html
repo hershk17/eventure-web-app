@@ -45,11 +45,11 @@
           </ng-container>
         </div>
         <ion-item lines="full">
-          <ion-label position="floating">Repeat Password</ion-label>
+          <ion-label position="floating">Confirm Password</ion-label>
           <ion-input type="password" formControlName="password2" required></ion-input>
         </ion-item>
-        <div *ngFor="let error of errorMessages.password1">
-          <ng-container *ngIf="password1.hasError(error.type) && (password1.dirty || password1.touched)">
+        <div *ngFor="let error of errorMessages.password2">
+          <ng-container *ngIf="password2.hasError(error.type) && (password2.dirty || password2.touched)">
             <small class="error-message">{{error.message}}</small>
           </ng-container>
         </div>
@@ -67,7 +67,7 @@
           (click)="onRegister(email, password)"
           color="primary"
           expand="block"
-          
+          [disabled]="!registerForm.valid"
           >Register</ion-button
         >
         <ion-button [routerLink]="['/login']" color="light" expand="block"

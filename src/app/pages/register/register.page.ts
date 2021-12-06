@@ -13,11 +13,11 @@ export class RegisterPage implements OnInit {
 public errorMessages = {
   firstName: [
     { type: 'required', message: 'First name is required' },
-    { type: 'maxlength', message: 'First name cannot be longer than 20 characters' }
+    { type: 'maxlength', message: 'First name cannot be longer than 25 characters' }
   ],
   lastName: [
     { type: 'required', message: 'Last name is required' },
-    { type: 'maxlength', message: 'Last name cannot be longer than 20 characters' }
+    { type: 'maxlength', message: 'Last name cannot be longer than 25 characters' }
   ],
   userEmail: [
     { type: 'required', message: 'An email address is required' },
@@ -25,11 +25,11 @@ public errorMessages = {
   ],
   password1: [
     { type: 'required', message: 'Password is required' },
-    { type: 'pattern', message: 'Please enter a valid password' }
+    { type: 'minlength', message: 'Password cannot be less than 6 characters' }
   ],
   password2: [
-    { type: 'required', message: 'Password is required' },
-    { type: 'match', message: 'Please enter a valid password that matches' }
+    { type: 'required', message: 'Password confirmation is required' },
+    { type: 'mustMatch', message: 'Passwords do not match' }
   ],
 };
 
@@ -58,14 +58,43 @@ get password2() {
 
       this.registerForm = this.formBuilder.group({
         userEmail: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-        password1: ['',[Validators.required]],
-        password2: ['',[Validators.required]],
-        firstName: ['',[Validators.required]],
-        lastName: ['',[Validators.required]]
+        password1: ['', [Validators.required, Validators.minLength(6)]],
+        password2: ['', [Validators.required]],
+        firstName: ['', [Validators.required, Validators.maxLength(25)]],
+        lastName: ['', [Validators.required, Validators.maxLength(25)]]
+    },
+    {
+      validator: this.comparePassword('password1','password2')
     });
 
   }
+  //  // Getter function in order to get form controls value
+  //  get f() {
+  //   return this.registerForm.controls;
+  // }
   ngOnInit() {}
+
+  comparePassword(controlName: string, matchingControlName: string)
+  {
+
+    return(formGroup: FormGroup)=>{
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+
+      console.log(control);
+      console.log(matchingControl);
+      if(matchingControl.errors && !matchingControl.errors.mustMatch){
+        return;
+      }
+      if (control.value !== matchingControl.value){
+        matchingControl.setErrors({mustMatch:true});
+      }
+      else
+      {
+        matchingControl.setErrors(null);
+      }
+    };
+  }
 
   public onRegister(email: { value: string }, password: { value: string }) {
     console.log(this.registerForm.value);
