@@ -1,7 +1,34 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { RouteGuardService } from './services/route-guard.service';
-const routes: Routes = [
+// import { RouteGuardService } from './services/route-guard.service';
+
+import {
+  AngularFireAuthGuard,
+  redirectLoggedInTo,
+  emailVerified,
+  AuthPipeGenerator,
+  loggedIn,
+} from '@angular/fire/compat/auth-guard';
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
+
+const redirectAuthorizedTo = (redirect: any[]) =>
+  pipe(
+    emailVerified,
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    map((emailVerified) => (loggedIn && emailVerified) || redirect)
+  );
+const redirectUnauthorizedToLogin = () => redirectAuthorizedTo(['login']);
+
+const redirectVerifiedTo = (redirect: any[]) =>
+  pipe(
+    emailVerified,
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    map((emailVerified) => !emailVerified || redirect)
+  );
+const redirectVerifiedToTabs = () => redirectVerifiedTo(['tabs']);
+
+export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
@@ -11,19 +38,15 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () =>
       import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
-    canActivate: [RouteGuardService],
-  },
-  {
-    path: 'profile',
-    loadChildren: () =>
-      import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
-    canActivate: [RouteGuardService],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
   },
   {
     path: 'login',
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
-    canActivate: [RouteGuardService],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectVerifiedToTabs },
   },
   {
     path: 'register',
@@ -31,12 +54,15 @@ const routes: Routes = [
       import('./pages/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
-    canActivate: [RouteGuardService],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectVerifiedToTabs },
   },
   {
     path: 'landing',
     loadChildren: () =>
       import('./pages/landing/landing.module').then((m) => m.LandingPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectVerifiedToTabs },
   },
   {
     path: 'verify-email',
@@ -44,7 +70,8 @@ const routes: Routes = [
       import('./pages/verify-email/verify-email.module').then(
         (m) => m.VerifyEmailPageModule
       ),
-    canActivate: [RouteGuardService],
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectVerifiedToTabs },
   },
 ];
 @NgModule({

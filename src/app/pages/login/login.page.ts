@@ -15,13 +15,8 @@ export class LoginPage implements OnInit {
   public async onSignIn(email: { value: string }, password: { value: string }) {
     try {
       const res = await this.db.signInUsingEmail(email.value, password.value);
-      const emailVerified = await this.db.isEmailVerified();
-      if(emailVerified) {
-        setTimeout(() => {
-          this.router.navigate(['/tabs']);
-        }, 500);
-      }
-    } catch(error) {
+      this.router.navigate(['/tabs']);
+    } catch (error) {
       window.alert(error.message);
       return false;
     }
