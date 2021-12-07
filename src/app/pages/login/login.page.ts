@@ -45,19 +45,33 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   public onSignIn(email: { value: string }, password: { value: string }) {
+    let errorMessage = '';
     this.db
       .signInUsingEmail(this.loginForm.value.userEmail, this.loginForm.value.password)
-      .then((res) => {
+      .then(async (res) => {
         if (this.db.isEmailVerified()) {
           this.router.navigate(['/tabs']);
         } else {
-          window.alert('Email is not verified');
+          await this.db.presentAlert('Error!', 'Email is not verified.');
+          // window.alert('Email is not verified');
           return false;
         }
       })
       .catch(async (error) => {
-        await this.db.presentAlert('Error', error.message);
-        // window.alert(error.message);
+        if (error.code === 'auth/wrong-password')
+        {
+          errorMessage = 'Email and password does not match our records.';
+        }
+        else if (error.code === 'auth/user-not-found')
+        {
+          errorMessage = 'Email address has not been registered yet.';
+        }
+        else
+        {
+          errorMessage = error.code;
+        }
+        await this.db.presentAlert('Error!', errorMessage);
+
       });
   }
 }
