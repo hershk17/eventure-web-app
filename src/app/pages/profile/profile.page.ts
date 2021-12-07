@@ -12,14 +12,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {}
 
-  public onSignOut() {
-    this.db
-      .signOut()
-      .then((res) => {
-        this.router.navigate(['/login']);
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+  public async onSignOut() {
+    await this.db.signOut();
   }
 }
