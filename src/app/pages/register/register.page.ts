@@ -106,6 +106,7 @@ get termsConditions() {
   public async onRegister(email: { value: string }, password: { value: string }) {
     if (true === this.registerForm.value.termsConditions)
     {
+      let errorMessage = '';
       this.db
       .registerUsingEmail(this.registerForm.value.userEmail, this.registerForm.value.password1)
       .then((res) => {
@@ -113,19 +114,23 @@ get termsConditions() {
         this.router.navigate(['verify-email']);
       })
       .catch(async (error) => {
-        await this.db.presentAlert('Error', error.message);
-        // window.alert(error.message);
+        if (error.code === 'auth/email-already-in-use')
+        {
+          errorMessage = 'This email is already in use. \nPlease try logging in.';
+        }
+        else
+        {
+          errorMessage = error.message;
+        }
+
+        await this.db.presentAlert('Error!', errorMessage);
       });
     }
     else
     {
-      await this.db.presentAlert('Error', 'You must accept terms and conditions');
+      await this.db.presentAlert('Error!', 'You must accept terms and conditions.');
     }
   }
 
-  // public updateTermsConditions(){
-  //   this.isTermsConditions = !this.isTermsConditions;
-  //   console.log(this.isTermsConditions);
-  // }
 
 }
