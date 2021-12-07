@@ -6,12 +6,13 @@ import { DbService } from './db.service';
 })
 export class RouteGuardService implements CanActivate {
   constructor(private db: DbService, private router: Router) {}
-  async canActivate(route: ActivatedRouteSnapshot): Promise<boolean> {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const loggedIn = this.db.isLoggedIn();
     if (!loggedIn) {
       if (
         route.routeConfig.path !== 'login' &&
-        route.routeConfig.path !== 'register'
+        route.routeConfig.path !== 'register' &&
+        route.routeConfig.path !== 'verify-email'
       ) {
         this.router.navigate(['login']);
       }
@@ -19,7 +20,8 @@ export class RouteGuardService implements CanActivate {
     }
     if (
       route.routeConfig.path === 'login' ||
-      route.routeConfig.path === 'register'
+      route.routeConfig.path === 'register' ||
+      route.routeConfig.path === 'verify-email'
     ) {
       this.router.navigate(['tabs']);
       return false;
