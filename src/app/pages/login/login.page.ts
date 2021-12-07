@@ -12,19 +12,18 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  public onSignIn(email: { value: string }, password: { value: string }) {
-    this.db
-      .signInUsingEmail(email.value, password.value)
-      .then((res) => {
-        if (this.db.isEmailVerified) {
+  public async onSignIn(email: { value: string }, password: { value: string }) {
+    try {
+      const res = await this.db.signInUsingEmail(email.value, password.value);
+      const emailVerified = await this.db.isEmailVerified();
+      if(emailVerified) {
+        setTimeout(() => {
           this.router.navigate(['/tabs']);
-        } else {
-          window.alert('Email is not verified');
-          return false;
-        }
-      })
-      .catch((error) => {
-        window.alert(error.message);
-      });
+        }, 500);
+      }
+    } catch(error) {
+      window.alert(error.message);
+      return false;
+    }
   }
 }

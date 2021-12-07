@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>landing</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="flex-container">
+      <div class="main-section">
+        <div class="glowing-text">Gather and have fun!</div>
+        <img id="friends" src="assets/band.png" />
+        <ion-button id="explore" fill="clear" [routerLink]="['/login']">Explore events<ion-icon id="arrow" slot="end" name="arrow-forward"></ion-icon></ion-button>
+      </div>
+    </div>
+    <div class="flex-container">
+      <div id="intro">
+        <img class="intro-pic" src="assets/map.png" />
+        <p>Explore what's happenin around you!</p>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>
