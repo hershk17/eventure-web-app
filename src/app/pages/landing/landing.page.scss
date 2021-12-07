@@ -1,0 +1,72 @@
+.container {
+  background: url("https://www.inwebson.com/wp-content/uploads/2012/02/starry-background-step2.png")
+    repeat top center;
+  z-index: 0;
+  animation: stary 200s linear infinite;
+}
+@keyframes stary {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -1000px 500px;
+  }
+}
+.flex-container {
+  background-color: rgba(0, 3, 39, 0.6);
+  display: flex;
+  justify-content: space-evenly;
+}
+.main-section {
+  display: flex;
+  flex-direction: column;
+}
+.main-section #friends {
+  margin-top: 100px;
+}
+.main-section #explore {
+  color: rgba(255, 255, 255, 0.774);
+  margin-top: 50px;
+}
+.main-section #explore #explore-btn {
+  margin: 0 auto;
+}
+.main-section #explore #arrow {
+  color: rgb(204, 195, 195);
+}
+.glowing-text {
+  font-family: "Vibur", cursive;
+  font-size: 50px;
+  text-align: center;
+  color: pink;
+  animation: neon 1s ease-in-out infinite alternate;
+}
+@keyframes neon {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+//intro section
+
+#intro {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#intro > p {
+  text-align: center;
+  margin-bottom: 50px;
+}
+#intro .intro-pic {
+  justify-self: center;
+  max-width: 350px;
+  box-shadow: 0 0 14px 0 white;
+}
