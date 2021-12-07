@@ -5,16 +5,16 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="loginForm">
     <ion-card style="border-radius: 10px">
       <ion-card-header>
         <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="text" #email required></ion-input>
+          <ion-input autocapitalize type="text" formControlName="userEmail" required></ion-input>
         </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" #password required></ion-input>
+          <ion-input type="password" formControlName="password" required></ion-input>
         </ion-item>
       </ion-card-header>
       <ion-card-content>
@@ -23,9 +23,13 @@
           (click)="onSignIn(email, password)"
           color="primary"
           expand="block"
+          [disabled]="!loginForm.valid"
           >Login</ion-button
         >
-        <ion-button [routerLink]="['/register']" color="light" expand="block"
+        <ion-button 
+          [routerLink]="['/register']" 
+          color="light" 
+          expand="block"
           >Register</ion-button
         >
       </ion-card-content>
