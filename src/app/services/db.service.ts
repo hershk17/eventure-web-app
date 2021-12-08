@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -11,6 +11,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
+import { Observable } from 'rxjs';
 
 export interface Event {
   capacity: number;
@@ -77,8 +78,8 @@ export class DbService {
   public async getEvents(): Promise<Event[]> {
     this.events = [];
     const querySnapshot = await getDocs(collection(this.db, 'Events'));
-    querySnapshot.forEach((doc) => {
-      const data: any = doc.data();
+    querySnapshot.forEach((docu) => {
+      const data: any = docu.data();
       const event: Event = data;
       this.events.push(event);
     });
@@ -152,6 +153,24 @@ export class DbService {
       merge: true,
     });
   }
+
+  public getUserByUid( userUid: string ): Observable<any> {
+    return this.afStore.collection<any> ( 'users' , ref => ref.where ( 'uid' , '==' , userUid ) ).valueChanges ();
+  }
+
+  public getUserByEmail( userEmail: string ): Observable<any> {
+    return this.afStore.collection<any> ( 'users' , ref => ref.where ( 'email' , '==' , userEmail ) ).valueChanges ();
+  }
+
+
+  public async getUserData() {
+    const userDoc = await getDoc(doc(this.db, 'users', (await this.auth.currentUser).uid));
+    console.log(userDoc.data());
+  }
+  // public async getUserDataByUid(uid: string): Promise<User>  {
+  //   const userDoc = await getDoc(doc(this.db, 'users', (await this.auth.currentUser).uid));
+  //   console.log(userDoc.data());
+  // }
 
   public async signOut() {
     await this.auth.signOut();
