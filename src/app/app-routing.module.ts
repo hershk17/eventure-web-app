@@ -73,6 +73,10 @@ export const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectAuthorizedToTabs },
   },
+  {
+    path: 'forgot-pass',
+    loadChildren: () => import('./pages/forgot-pass/forgot-pass.module').then( m => m.ForgotPassPageModule)
+  },
 ];
 @NgModule({
   imports: [
