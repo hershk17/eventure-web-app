@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,)
     {
       this.loginForm = this.formBuilder.group({
-        userEmail: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+        userEmail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]],
         password: ['', [Validators.required, Validators.minLength(6)]]
        });
     }
@@ -53,7 +53,6 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/tabs']);
         } else {
           await this.db.presentAlert('Error!', 'Email is not verified.');
-          // window.alert('Email is not verified');
           return false;
         }
       })

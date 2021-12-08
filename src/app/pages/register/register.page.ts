@@ -64,7 +64,7 @@ get termsConditions() {
     ) {
 
       this.registerForm = this.formBuilder.group({
-        userEmail: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+        userEmail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]],
         password1: ['', [Validators.required, Validators.minLength(6)]],
         password2: ['', [Validators.required]],
         firstName: ['', [Validators.required, Validators.maxLength(25)]],
