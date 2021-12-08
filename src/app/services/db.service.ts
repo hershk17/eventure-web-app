@@ -11,7 +11,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
-
+import { auditTime, filter, tap, take } from 'rxjs/operators';
 export interface Event {
   capacity: number;
   date: string;
@@ -53,10 +53,8 @@ export class DbService {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
       }
     });
   }
@@ -131,8 +129,14 @@ export class DbService {
   }
 
   public async isEmailVerified(): Promise<boolean> {
-    (await this.auth.currentUser).reload();
-    return (await this.auth.currentUser).emailVerified !== false ? true : false;
+    try {
+      const user = await this.auth.currentUser;
+      await user.reload();
+      return user.emailVerified !== false ? true : false;
+    } catch(error) {
+      console.error(error);
+      this.presentAlert('Error', 'Can\'t read user\'s state');
+    }
   }
 
   public setUserData(user: User) {
