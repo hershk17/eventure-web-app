@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 8/12/2021
+
+## Added
+
+- Deployment logic for firebase + appetize
+- Exporting app into apk
+- Saving user's info to Firestore database
+- Reset password
+
+## Changed
+
+- Landing page
+
 ## [0.1.1] - 8/12/2021
 
 ### Added:
