@@ -11,10 +11,11 @@ All notable changes to this project will be documented in this file.
 - Login + register forms.
 - Route guard to prevent users from navigating to unauthorized routes.
 - Services for getting events data.
-- Basic landing page.
+- Landing page.
 - POI search.
 - All events page.
 - Event details page.
+- Basic profile page.
 
 ### Removed:
 
