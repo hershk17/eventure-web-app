@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Profile </ion-title>
+    <ion-title>Your Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
+
+<ion-item>
+  <ion-avatar slot="start">
+    <img src="{{ photoURL }}" />
+  </ion-avatar>
+  <ion-label>{{ firstName }} {{ lastName }} </ion-label>
+</ion-item>
+
+
+
 <ion-content>
+  <div innerHTML = "{{ email }}"></div>
+  <div innerHTML = "{{ uid }}"></div>
+
   <ion-button (click)="onSignOut()">Log Out </ion-button>
 </ion-content>

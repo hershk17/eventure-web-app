@@ -116,7 +116,8 @@ get termsConditions() {
           email: this.registerForm.value.userEmail,
           firstName: this.registerForm.value.firstName,
           lastName: this.registerForm.value.lastName,
-          photoURL: 'https://i.imgur.com/FxsD9fh.png',
+          // photoURL: 'https://i.imgur.com/FxsD9fh.png',
+          photoURL: 'https://i.imgur.com/9PFqQQB.jpg',
           emailVerified: res.user.emailVerified
         };
         // console.log(res.user.uid);

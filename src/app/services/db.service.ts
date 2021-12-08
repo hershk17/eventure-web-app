@@ -17,6 +17,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
+import { Observable } from 'rxjs';
 
 export interface Event {
   capacity: number;
@@ -156,9 +157,27 @@ export class DbService {
     });
   }
 
+  public getUserByUid(userUid: string): Observable<any> {
+    return this.afStore
+      .collection<any>('users', (ref) => ref.where('uid', '==', userUid))
+      .valueChanges();
+  }
+
+  public getUserByEmail(userEmail: string): Observable<any> {
+    return this.afStore
+      .collection<any>('users', (ref) => ref.where('email', '==', userEmail))
+      .valueChanges();
+  }
+
   public async signOut() {
     await this.auth.signOut();
     localStorage.removeItem('user');
     this.router.navigate(['landing']);
+  }
+
+  public async getCurrentUser() {
+    return await getDoc(
+      doc(this.db, 'users', (await this.auth.currentUser).uid)
+    );
   }
 }
