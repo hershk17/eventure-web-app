@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Verify Email</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card style="border-radius: 10px">
+    <ion-card-header style="margin: 5px;">
+      {{msg}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button type="submit" (click)="db.sendVerificationMail()" color="light">
+        Resend Verification Email
+      </ion-button>
+      <ion-button [routerLink]="['/login']" color="tertiary"> Login </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <br />
+</ion-content>

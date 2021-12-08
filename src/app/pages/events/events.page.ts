@@ -13,7 +13,6 @@ export class EventsPage implements OnInit {
 
   ngOnInit() {
     this.db.getEvents().then((res) => {
-      console.log(res);
       this.events = res;
     });
   }

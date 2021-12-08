@@ -4,13 +4,15 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Observable } from 'rxjs';
 
 export interface POI {
-  address: string;
+  address: any;
   dist: number;
   id: string;
   poi: any;
   position: any;
   score: number;
   type: string;
+  category: string;
+  distance: number;
 }
 
 @Injectable({
