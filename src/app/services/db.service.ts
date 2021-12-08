@@ -3,7 +3,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -77,8 +83,8 @@ export class DbService {
   public async getEvents(): Promise<Event[]> {
     this.events = [];
     const querySnapshot = await getDocs(collection(this.db, 'Events'));
-    querySnapshot.forEach((doc) => {
-      const data: any = doc.data();
+    querySnapshot.forEach((res) => {
+      const data: any = res.data();
       const event: Event = data;
       this.events.push(event);
     });
@@ -146,7 +152,7 @@ export class DbService {
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
       firstName: user.firstName,
-      lastName: user.lastName
+      lastName: user.lastName,
     };
     return userRef.set(userData, {
       merge: true,
@@ -156,6 +162,6 @@ export class DbService {
   public async signOut() {
     await this.auth.signOut();
     localStorage.removeItem('user');
-    this.router.navigate(['login']);
+    this.router.navigate(['landing']);
   }
 }

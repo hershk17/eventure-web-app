@@ -12,26 +12,26 @@ import {
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 
-const redirectAuthorizedTo = (redirect: any[]) =>
+const redirectUnauthorized = (redirect: any[]) =>
   pipe(
     emailVerified,
     // eslint-disable-next-line @typescript-eslint/no-shadow
     map((emailVerified) => (loggedIn && emailVerified) || redirect)
   );
-const redirectUnauthorizedToLogin = () => redirectAuthorizedTo(['login']);
+const redirectUnauthorizedToLogin = () => redirectUnauthorized(['login']);
 
-const redirectVerifiedTo = (redirect: any[]) =>
+const redirectAuthorized = (redirect: any[]) =>
   pipe(
     emailVerified,
     // eslint-disable-next-line @typescript-eslint/no-shadow
     map((emailVerified) => !emailVerified || redirect)
   );
-const redirectVerifiedToTabs = () => redirectVerifiedTo(['tabs']);
+const redirectAuthorizedToTabs = () => redirectAuthorized(['tabs']);
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'landing',
     pathMatch: 'full',
   },
   {
@@ -46,7 +46,7 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectVerifiedToTabs },
+    data: { authGuardPipe: redirectAuthorizedToTabs },
   },
   {
     path: 'register',
@@ -55,14 +55,14 @@ export const routes: Routes = [
         (m) => m.RegisterPageModule
       ),
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectVerifiedToTabs },
+    data: { authGuardPipe: redirectAuthorizedToTabs },
   },
   {
     path: 'landing',
     loadChildren: () =>
       import('./pages/landing/landing.module').then((m) => m.LandingPageModule),
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectVerifiedToTabs },
+    data: { authGuardPipe: redirectAuthorizedToTabs },
   },
   {
     path: 'verify-email',
@@ -71,7 +71,7 @@ export const routes: Routes = [
         (m) => m.VerifyEmailPageModule
       ),
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectVerifiedToTabs },
+    data: { authGuardPipe: redirectAuthorizedToTabs },
   },
 ];
 @NgModule({
