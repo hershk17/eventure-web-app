@@ -177,4 +177,8 @@ export class DbService {
     localStorage.removeItem('user');
     this.router.navigate(['login']);
   }
+
+  public async getCurrentUser() {
+    return await getDoc(doc(this.db, 'users', (await this.auth.currentUser).uid));
+  }
 }
