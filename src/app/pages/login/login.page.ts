@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  public onSignIn(email: { value: string }, password: { value: string }) {
+  public async onSignIn(email: { value: string }, password: { value: string }) {
     let errorMessage = '';
     this.db
       .signInUsingEmail(
@@ -58,10 +58,11 @@ export class LoginPage implements OnInit {
         this.loginForm.value.password
       )
       .then(async (res) => {
-        if (this.db.isEmailVerified()) {
+        const emailVerified = await this.db.isEmailVerified();
+        if (emailVerified) {
           this.router.navigate(['/tabs']);
         } else {
-          await this.db.presentAlert('Error!', 'Email is not verified.');
+          this.router.navigate(['/verify-email'], {queryParams: {msg: 'You need to verify your email before logging-in'}});
           return false;
         }
       })
