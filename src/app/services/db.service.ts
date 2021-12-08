@@ -14,7 +14,7 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.prod';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
 import { Observable } from 'rxjs';
