@@ -10,8 +10,7 @@
 <ion-content>
   <ion-card style="border-radius: 10px">
     <ion-card-header style="margin: 5px;">
-      Please check your email and click on the link to verify your email
-      address!
+      {{msg}}
     </ion-card-header>
     <ion-card-content>
       <ion-button type="submit" (click)="db.SendVerificationMail()" color="light">
