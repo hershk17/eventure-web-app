@@ -142,9 +142,11 @@ export class DbService {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      // displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      firstName: user.firstName,
+      lastName: user.lastName
     };
     return userRef.set(userData, {
       merge: true,

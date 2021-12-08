@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterPage implements OnInit {
 
-
+//errors messages
 public errorMessages = {
   firstName: [
     { type: 'required', message: 'First name is required' },
@@ -36,6 +36,7 @@ public errorMessages = {
   ]
 };
 
+//getter methods
 get firstName() {
   return this.registerForm.get('firstName');
 }
@@ -59,10 +60,9 @@ get termsConditions() {
   constructor(
     private db: DbService,
     public router: Router,
-    // public isTermsConditions,
     private formBuilder: FormBuilder,
     ) {
-
+      //validation rules for all the form fields
       this.registerForm = this.formBuilder.group({
         userEmail: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$')]],
         password1: ['', [Validators.required, Validators.minLength(6)]],
@@ -76,17 +76,13 @@ get termsConditions() {
     });
 
   }
-  //  // Getter function in order to get form controls value
-  //  get f() {
-  //   return this.registerForm.controls;
-  // }
+  //set the default value of the T&C checkbox to be false
   ngOnInit() {
     this.registerForm.controls.termsConditions.setValue(false);
   }
-
+  //check to see if passwords in the two fields are the same
   comparePassword(controlName: string, matchingControlName: string)
   {
-
     return(formGroup: FormGroup)=>{
       const control = formGroup.controls[controlName];
       const matchingControl = formGroup.controls[matchingControlName];
@@ -96,23 +92,25 @@ get termsConditions() {
       if (control.value !== matchingControl.value){
         matchingControl.setErrors({mustMatch:true});
       }
-      else
-      {
+      else{
         matchingControl.setErrors(null);
       }
     };
   }
 
   public async onRegister(email: { value: string }, password: { value: string }) {
+    //check if the user has agreed to the terms and conditions
     if (true === this.registerForm.value.termsConditions)
     {
       let errorMessage = '';
       this.db
       .registerUsingEmail(this.registerForm.value.userEmail, this.registerForm.value.password1)
       .then((res) => {
+        //send the verification email
         this.db.sendVerificationMail();
         this.router.navigate(['verify-email']);
       })
+      //catch errors
       .catch(async (error) => {
         if (error.code === 'auth/email-already-in-use')
         {
@@ -122,12 +120,10 @@ get termsConditions() {
         {
           errorMessage = error.message;
         }
-
         await this.db.presentAlert('Error!', errorMessage);
       });
     }
-    else
-    {
+    else{
       await this.db.presentAlert('Error!', 'You must accept terms and conditions.');
     }
   }
