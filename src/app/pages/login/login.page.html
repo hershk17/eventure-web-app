@@ -5,25 +5,42 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="loginForm">
     <ion-card style="border-radius: 10px">
       <ion-card-header>
         <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="text" #email required></ion-input>
+          <ion-input autocapitalize type="text" formControlName="userEmail" required></ion-input>
         </ion-item>
+        <div *ngFor="let error of errorMessages.userEmail">
+          <ng-container *ngIf="userEmail.hasError(error.type) && (userEmail.dirty || userEmail.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" #password required></ion-input>
+          <ion-input type="password" formControlName="password" required></ion-input>
         </ion-item>
+        <div *ngFor="let error of errorMessages.password">
+          <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
       </ion-card-header>
       <ion-card-content>
         <ion-button
           type="submit"
           (click)="onSignIn(email, password)"
           color="primary"
-          expand="block">Login</ion-button>
-        <ion-button [routerLink]="['/register']" color="light" expand="block">Register</ion-button
+          expand="block"
+          [disabled]="!loginForm.valid"
+          >Login</ion-button
+        >
+        <ion-button 
+          [routerLink]="['/register']" 
+          color="light" 
+          expand="block"
+          >Register</ion-button
         >
       </ion-card-content>
     </ion-card>
