@@ -3,7 +3,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
-import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+} from 'firebase/firestore';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -11,7 +17,8 @@ import {
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
-import { auditTime, filter, tap, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 export interface Event {
   capacity: number;
   date: string;
@@ -75,8 +82,8 @@ export class DbService {
   public async getEvents(): Promise<Event[]> {
     this.events = [];
     const querySnapshot = await getDocs(collection(this.db, 'Events'));
-    querySnapshot.forEach((doc) => {
-      const data: any = doc.data();
+    querySnapshot.forEach((res) => {
+      const data: any = res.data();
       const event: Event = data;
       this.events.push(event);
     });
@@ -115,11 +122,8 @@ export class DbService {
   public async sendPasswordResetMail(passwordResetEmail: any) {
     try {
       await this.auth.sendPasswordResetEmail(passwordResetEmail);
-      window.alert(
-        'Password reset email has been sent, please check your inbox.'
-      );
     } catch (error) {
-      window.alert(error);
+      this.presentAlert('Error', error);
     }
   }
 
@@ -146,18 +150,38 @@ export class DbService {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      // displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
+      firstName: user.firstName,
+      lastName: user.lastName,
     };
     return userRef.set(userData, {
       merge: true,
     });
   }
 
+  public getUserByUid(userUid: string): Observable<any> {
+    return this.afStore
+      .collection<any>('users', (ref) => ref.where('uid', '==', userUid))
+      .valueChanges();
+  }
+
+  public getUserByEmail(userEmail: string): Observable<any> {
+    return this.afStore
+      .collection<any>('users', (ref) => ref.where('email', '==', userEmail))
+      .valueChanges();
+  }
+
   public async signOut() {
     await this.auth.signOut();
     localStorage.removeItem('user');
-    this.router.navigate(['login']);
+    this.router.navigate(['landing']);
+  }
+
+  public async getCurrentUser() {
+    return await getDoc(
+      doc(this.db, 'users', (await this.auth.currentUser).uid)
+    );
   }
 }
