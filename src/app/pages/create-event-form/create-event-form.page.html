@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>create-event-form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="createEvent">
+    <ion-card-header>
+      <ion-list>
+        <ion-item lines="full">
+          <ion-label position="floating">Event Name</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="floating">Location</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-label position="floating">Start Date </ion-label>
+              <ion-datetime
+                presentation="date-time"
+                max="2099-10-31"
+                position="floating"
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-label position="floating">Start Time </ion-label>
+              <ion-datetime
+                max="2099-10-31"
+                position="floating"
+                display-format="h:mm A"
+                picker-format="h:mm A"
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-label position="floating"> End Date </ion-label>
+              <ion-datetime max="2099-10-31" position="floating"></ion-datetime>
+            </ion-item>
+          </ion-col>
+          <ion-col>
+            <ion-item lines="full">
+              <ion-label position="floating">End Time </ion-label>
+              <ion-datetime
+                max="2099-10-31"
+                position="floating"
+                display-format="h:mm A"
+                picker-format="h:mm A"
+              ></ion-datetime>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label>Event Privacy</ion-label>
+            <ion-select interface="action-sheet" value="privacy">
+              <ion-select-option value="public"
+                >Public (anyone can see)</ion-select-option
+              >
+              <ion-select-option value="youFollow"
+                >People You Follow</ion-select-option
+              >
+              <ion-select-option value="ps">PlayStation</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-row>
+        <ion-item lines="full">
+          <ion-label position="floating">Additional Info (optional)</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Where?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Where?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Where?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+        <ion-item lines="full">
+          <ion-label position="floating">Where?</ion-label>
+          <ion-input></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-header>
+  </form>
+</ion-content>
