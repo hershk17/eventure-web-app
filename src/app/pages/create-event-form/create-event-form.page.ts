@@ -42,7 +42,7 @@ export class CreateEventFormPage implements OnInit {
     'Literature',
     'Religion',
     'Theatre',
-    'Misc'
+    'Misc',
   ];
 
   createEvent: FormGroup;
@@ -87,6 +87,12 @@ export class CreateEventFormPage implements OnInit {
   //create event button call
   public async onCreateEvent() {
     console.log('nice');
+    console.log('Event Name: ', this.createEvent.value.eventName);
+    console.log('Location: ', this.createEvent.value.location);
+    console.log('Event Start Date: ', this.createEvent.value.startDate);
+    console.log('Event Start Time: ', this.createEvent.value.startTime);
+    console.log('Event Privacy: ', this.createEvent.value.privacy);
+    console.log('Event Category: ', this.createEvent.value.category);
   }
 
   ngOnInit() {}
