@@ -16,12 +16,10 @@ export class CreateEventFormPage implements OnInit {
       { type: 'required', message: 'An event description is required' },
     ],
     location: [{ type: 'required', message: 'An event location is required' }],
-    date: [{ type: 'required', message: 'A start date is required.' }],
-    time: [{ type: 'required', message: 'A start time is required.' }],
     category: [{ type: 'required', message: 'A category is required.' }],
-    participantCnt: [{ type: 'required', message: 'A category is required.' }],
-    privacy: [{ type: 'required', message: 'A category is required.' }],
-    fee: [{ type: 'required', message: 'A fee is required.' }],
+    participantCnt: [
+      { type: 'required', message: 'A participant count is required.' },
+    ],
   };
 
   public minDate: string = new Date().toISOString();
@@ -46,6 +44,7 @@ export class CreateEventFormPage implements OnInit {
     'Theatre',
     'Misc',
   ];
+  public privacyOptions: string[] = ['Public', 'Followers Only', 'Invite Only'];
 
   get name() {
     return this.eventForm.get('name');
@@ -75,19 +74,19 @@ export class CreateEventFormPage implements OnInit {
     return this.eventForm.get('fee');
   }
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      location: ['', [Validators.required, Validators.minLength(2)]],
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      date: ['', [Validators.required]],
-      time: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      date: [this.minDate],
+      time: [this.minDate],
+      privacy: [this.privacyOptions[0]],
       category: ['', [Validators.required]],
-      privacy: ['', [Validators.required]],
-      participantCnt: ['', [Validators.required]],
-      fee: ['', [Validators.required]],
+      participantCnt: [5, [Validators.required]],
+      fee: [0],
     });
   }
 

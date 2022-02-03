@@ -67,66 +67,6 @@
             </ng-container>
           </div>
 
-          <ion-row>
-            <ion-col>
-              <ion-item lines="full">
-                <ion-label position="floating">Start Date </ion-label>
-                <ion-datetime
-                  formControlName="date"
-                  presentation="date-time"
-                  [min]="minDate"
-                  [max]="maxDate"
-                  position="floating"
-                ></ion-datetime>
-              </ion-item>
-            </ion-col>
-            <div *ngFor="let error of errorMessages.date">
-              <ng-container
-                *ngIf="date?.hasError(error.type) && (date.dirty || date.touched)"
-              >
-                <small class="error-message">{{error.message}}</small>
-              </ng-container>
-            </div>
-
-            <ion-col>
-              <ion-item lines="full">
-                <ion-label position="floating">Start Time </ion-label>
-                <ion-datetime
-                  formControlName="time"
-                  position="floating"
-                  display-format="h:mm A"
-                  picker-format="h:mm A"
-                  required
-                ></ion-datetime>
-              </ion-item>
-            </ion-col>
-            <div *ngFor="let error of errorMessages.time">
-              <ng-container
-                *ngIf="time?.hasError(error.type) && (time.dirty || time.touched)"
-              >
-                <small class="error-message">{{error.message}}</small>
-              </ng-container>
-            </div>
-          </ion-row>
-
-          <ion-item>
-            <ion-label position="floating">Event Privacy</ion-label>
-            <ion-select formControlName="privacy" interface="popover" required>
-              <ion-select-option value="public">Public</ion-select-option>
-              <ion-select-option value="followers"
-                >Followers Only</ion-select-option
-              >
-              <ion-select-option value="invite">Invite Only</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <div *ngFor="let error of errorMessages.privacy">
-            <ng-container
-              *ngIf="privacy?.hasError(error.type) && (privacy.dirty || privacy.touched)"
-            >
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
-
           <ion-item>
             <ion-label position="floating">Category</ion-label>
             <ion-select formControlName="category" multiple="true">
@@ -145,6 +85,44 @@
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+            <div>
+              <ion-item lines="full">
+                <ion-label position="floating">Start Date </ion-label>
+                <ion-datetime
+                  formControlName="date"
+                  presentation="date-time"
+                  [min]="minDate"
+                  [max]="maxDate"
+                  position="floating"
+                ></ion-datetime>
+              </ion-item>
+            </div>
+            <div>
+              <ion-item lines="full">
+                <ion-label position="floating">Start Time </ion-label>
+                <ion-datetime
+                  formControlName="time"
+                  position="floating"
+                  display-format="h:mm A"
+                  picker-format="h:mm A"
+                  required
+                ></ion-datetime>
+              </ion-item>
+            </div>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Event Privacy</ion-label>
+            <ion-select formControlName="privacy" interface="popover" required>
+              <ion-select-option
+                *ngFor="let privacyOption of privacyOptions"
+                value="{{privacyOption}}"
+                >{{privacyOption}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
 
           <ion-item>
             <ion-label position="floating">Max Participants</ion-label>
@@ -174,13 +152,6 @@
               required
             ></ion-input>
           </ion-item>
-          <div *ngFor="let error of errorMessages.fee">
-            <ng-container
-              *ngIf="fee?.hasError(error.type) && (fee.dirty || fee.touched)"
-            >
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
         </ion-list>
       </ion-card-header>
       <ion-card-content>
@@ -191,9 +162,9 @@
           [disabled]="!eventForm.valid"
           >Create Event</ion-button
         >
-        <!-- <ion-button [routerLink]="['/login']" color="light" expand="block"
-          >Back to Login</ion-button
-        > -->
+        <ion-button [routerLink]="['..']" color="light" expand="block"
+          >Cancel</ion-button
+        >
       </ion-card-content>
     </ion-card>
   </form>
