@@ -55,17 +55,23 @@
                 <ion-datetime
                   formControlName="startDate"
                   presentation="date-time"
+                  [(ngModel)]="minDate"
+                  min="{{minDate}}"
                   max="2099-10-31"
                   position="floating"
                 ></ion-datetime>
               </ion-item>
+              <!-- ****************** -->
             </ion-col>
+
             <ion-col>
               <ion-item lines="full">
                 <ion-label position="floating">Start Time </ion-label>
                 <ion-datetime
                   formControlName="startTime"
                   max="2099-10-31"
+                  [(ngModel)]="minDate"
+                  min="{{minDate}}"
                   position="floating"
                   display-format="h:mm A"
                   picker-format="h:mm A"
@@ -110,7 +116,11 @@
           </ion-item>
           <ion-item>
             <ion-label>Category</ion-label>
-            <ion-select interface="action-sheet" value="privacy">
+            <ion-select
+              formControlName="category"
+              interface="action-sheet"
+              value="privacy"
+            >
               <ion-select-option value="networking"
                 >Networking</ion-select-option
               >

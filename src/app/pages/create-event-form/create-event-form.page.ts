@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./create-event-form.page.scss'],
 })
 export class CreateEventFormPage implements OnInit {
+  // getter methods
+
   // errors messages
   public errorMessages = {
     eventName: [{ type: 'required', message: 'An event name is required' }],
@@ -16,15 +18,16 @@ export class CreateEventFormPage implements OnInit {
       { type: 'required', message: 'An event location is required' },
     ],
     startDate: [{ type: 'required', message: 'A start date is required.' }],
-    startTime: [{ type: 'required', message: 'A start date is required.' }],
-    endDate: [{ type: 'required', message: 'A start date is required.' }],
-    endTime: [{ type: 'required', message: 'A start date is required.' }],
-    category: [{ type: 'required', message: 'A start date is required.' }],
+    startTime: [{ type: 'required', message: 'A start time is required.' }],
+    endDate: [{ type: 'required', message: 'An end date is required.' }],
+    endTime: [{ type: 'required', message: 'An end time is required.' }],
+    category: [{ type: 'required', message: 'A category is required.' }],
   };
+
+  public minDate: string = new Date().toISOString();
   createEvent: FormGroup;
   private urlHistory: string[] = [];
 
-  // getter methods
   get eventName() {
     return this.createEvent.get('eventName');
   }
@@ -45,6 +48,7 @@ export class CreateEventFormPage implements OnInit {
       startTime: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
       endTime: ['', [Validators.required]],
+      category: ['', [Validators.required]],
     });
 
     //routing for back button (adds history to the urlHistory)
@@ -60,8 +64,8 @@ export class CreateEventFormPage implements OnInit {
     console.log('nice');
   }
 
-  //logic for going back
   ngOnInit() {}
+  //logic for going back
   navBack() {
     this.urlHistory.pop();
     this.location.back();
