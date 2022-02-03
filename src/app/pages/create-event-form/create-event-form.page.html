@@ -55,9 +55,9 @@
                 <ion-datetime
                   formControlName="startDate"
                   presentation="date-time"
-                  [(ngModel)]="minDate"
-                  min="{{minDate}}"
-                  max="2099-10-31"
+                  [(ngModel)]="startDate"
+                  [min]="minDate"
+                  [max]="maxDate"
                   position="floating"
                 ></ion-datetime>
               </ion-item>
@@ -69,33 +69,7 @@
                 <ion-label position="floating">Start Time </ion-label>
                 <ion-datetime
                   formControlName="startTime"
-                  max="2099-10-31"
-                  [(ngModel)]="minDate"
-                  min="{{minDate}}"
-                  position="floating"
-                  display-format="h:mm A"
-                  picker-format="h:mm A"
-                ></ion-datetime>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-item lines="full">
-                <ion-label position="floating"> End Date </ion-label>
-                <ion-datetime
-                  formControlName="endDate"
-                  max="2099-10-31"
-                  position="floating"
-                ></ion-datetime>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item lines="full">
-                <ion-label position="floating">End Time </ion-label>
-                <ion-datetime
-                  formControlName="endTime"
-                  max="2099-10-31"
+                  [(ngModel)]="startTime"
                   position="floating"
                   display-format="h:mm A"
                   picker-format="h:mm A"
@@ -105,44 +79,26 @@
           </ion-row>
           <ion-item>
             <ion-label>Event Privacy</ion-label>
-            <ion-select interface="action-sheet" value="privacy">
+            <ion-select interface="popover" value="privacy">
               <ion-select-option value="public"
-                >Public (anyone can see)</ion-select-option
+                >Public</ion-select-option
               >
               <ion-select-option value="youFollow"
-                >People You Follow</ion-select-option
+                >Followers Only</ion-select-option
+              >
+              <ion-select-option value="youFollow"
+                >Invite Only</ion-select-option
               >
             </ion-select>
           </ion-item>
           <ion-item>
             <ion-label>Category</ion-label>
-            <ion-select
-              formControlName="category"
-              interface="action-sheet"
-              value="privacy"
-            >
-              <ion-select-option value="networking"
-                >Networking</ion-select-option
+            <ion-select formControlName="category" multiple="true">
+              <ion-select-option
+                *ngFor="let category of this.categories"
+                [value]="category"
+                >{{category}}</ion-select-option
               >
-              <ion-select-option value="home">Home</ion-select-option>
-              <ion-select-option value="music">Music</ion-select-option>
-              <ion-select-option value="party">Party</ion-select-option>
-              <ion-select-option value="food">Food</ion-select-option>
-              <ion-select-option value="drinks">Drinks</ion-select-option>
-              <ion-select-option value="sports">Sports</ion-select-option>
-              <ion-select-option value="games">Games</ion-select-option>
-              <ion-select-option value="art">Art</ion-select-option>
-              <ion-select-option value="comedy">Comedy</ion-select-option>
-              <ion-select-option value="dance">Dance</ion-select-option>
-              <ion-select-option value="film">Film</ion-select-option>
-              <ion-select-option value="fitness">Fitness</ion-select-option>
-              <ion-select-option value="health">Health</ion-select-option>
-              <ion-select-option value="literature"
-                >Literature</ion-select-option
-              >
-              <ion-select-option value="religion">Religion</ion-select-option>
-              <ion-select-option value="theatre">Theatre</ion-select-option>
-              <ion-select-option value="misc">Misc</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>

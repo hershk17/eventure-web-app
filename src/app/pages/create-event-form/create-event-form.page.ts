@@ -24,8 +24,35 @@ export class CreateEventFormPage implements OnInit {
     category: [{ type: 'required', message: 'A category is required.' }],
   };
 
-  public minDate: string = new Date().toISOString();
+  public categories: string[] = [
+    'Home',
+    'Music',
+    'Party',
+    'Food',
+    'Drinks',
+    'Sports',
+    'Games',
+    'Art',
+    'Comedy',
+    'Dance',
+    'Networking',
+    'Film',
+    'Fitness',
+    'Health',
+    'Literature',
+    'Religion',
+    'Theatre',
+    'Misc'
+  ];
+
   createEvent: FormGroup;
+
+  public minDate: string = new Date().toISOString();
+  public maxDate = '2040-12-31';
+
+  public startDate: string = this.minDate;
+  public startTime: string = this.minDate;
+
   private urlHistory: string[] = [];
 
   get eventName() {
@@ -46,8 +73,6 @@ export class CreateEventFormPage implements OnInit {
       eventName: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       startTime: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-      endTime: ['', [Validators.required]],
       category: ['', [Validators.required]],
     });
 
