@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-event-form',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-event-form.page.scss'],
 })
 export class CreateEventFormPage implements OnInit {
+  private urlHistory: string[] = [];
 
     // errors messages
   public errorMessages = {
@@ -34,9 +37,19 @@ export class CreateEventFormPage implements OnInit {
     ]
   };
 
-  constructor() { }
+  constructor(private location: Location, private router: Router) { 
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.urlHistory.push(event.urlAfterRedirects)
+        }
+      })
+    }
 
   ngOnInit() {
+  }
+  navBack() {
+    this.urlHistory.pop();
+    this.location.back();
   }
 
 }
