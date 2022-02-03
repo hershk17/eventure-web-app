@@ -18,4 +18,7 @@ export class EventDetailsPage implements OnInit {
     );
     console.log(this.event);
   }
+  CreateForm() {
+    
+  }
 }

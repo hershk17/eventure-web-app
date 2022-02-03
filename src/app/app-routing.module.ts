@@ -77,10 +77,6 @@ export const routes: Routes = [
     path: 'forgot-pass',
     loadChildren: () => import('./pages/forgot-pass/forgot-pass.module').then( m => m.ForgotPassPageModule)
   },
-  {
-    path: 'create-event-form',
-    loadChildren: () => import('./pages/create-event-form/create-event-form.module').then( m => m.CreateEventFormPageModule)
-  },
 
 ];
 @NgModule({
