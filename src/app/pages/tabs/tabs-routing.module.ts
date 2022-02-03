@@ -21,7 +21,7 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
-        path: 'events/createEvent',
+        path: 'events/create',
         loadChildren: () => import('../create-event-form/create-event-form.module').then( m => m.CreateEventFormPageModule)
       },
       {
@@ -35,11 +35,6 @@ const routes: Routes = [
       {
         path: 'locations/:id',
         loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
-      },
-      {
-        path: 'create-event-form',
-        loadChildren: () =>
-        import('../create-event-form/create-event-form.module').then( m => m.CreateEventFormPageModule)
       },
       {
         path: '',
