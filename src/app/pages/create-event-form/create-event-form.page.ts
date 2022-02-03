@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,24 +8,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./create-event-form.page.scss'],
 })
 export class CreateEventFormPage implements OnInit {
-  // getter methods
+  eventForm: FormGroup;
 
-  // errors messages
   public errorMessages = {
-    eventName: [{ type: 'required', message: 'An event name is required' }],
-    eventDescription: [
+    name: [{ type: 'required', message: 'An event name is required' }],
+    description: [
       { type: 'required', message: 'An event description is required' },
     ],
-    eventLocation: [
-      { type: 'required', message: 'An event location is required' },
-    ],
-    startDate: [{ type: 'required', message: 'A start date is required.' }],
-    startTime: [{ type: 'required', message: 'A start time is required.' }],
-    endDate: [{ type: 'required', message: 'An end date is required.' }],
-    endTime: [{ type: 'required', message: 'An end time is required.' }],
+    location: [{ type: 'required', message: 'An event location is required' }],
+    date: [{ type: 'required', message: 'A start date is required.' }],
+    time: [{ type: 'required', message: 'A start time is required.' }],
     category: [{ type: 'required', message: 'A category is required.' }],
+    participantCnt: [{ type: 'required', message: 'A category is required.' }],
+    privacy: [{ type: 'required', message: 'A category is required.' }],
+    fee: [{ type: 'required', message: 'A fee is required.' }],
   };
 
+  public minDate: string = new Date().toISOString();
+  public maxDate = '2040-12-31';
   public categories: string[] = [
     'Home',
     'Music',
@@ -48,59 +47,51 @@ export class CreateEventFormPage implements OnInit {
     'Misc',
   ];
 
-  eventForm: FormGroup;
-
-  public minDate: string = new Date().toISOString();
-  public maxDate = '2040-12-31';
-
-  public startDate: string = this.minDate;
-  public startTime: string = this.minDate;
-
-  private urlHistory: string[] = [];
-
-  get eventName() {
-    return this.eventForm.get('eventName');
+  get name() {
+    return this.eventForm.get('name');
   }
-  get eventDescription() {
-    return this.eventForm.get('eventDescription');
+  get description() {
+    return this.eventForm.get('description');
   }
-  get eventLocation() {
-    return this.eventForm.get('eventLocation');
+  get location() {
+    return this.eventForm.get('location');
   }
-
-  constructor(
-    private location: Location,
-    private router: Router,
-    private formBuilder: FormBuilder
-  ) {
-    // validation rules for all the form fields
-
-    //routing for back button (adds history to the urlHistory)
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.urlHistory.push(event.urlAfterRedirects);
-      }
-    });
+  get date() {
+    return this.eventForm.get('date');
+  }
+  get time() {
+    return this.eventForm.get('time');
+  }
+  get category() {
+    return this.eventForm.get('category');
+  }
+  get privacy() {
+    return this.eventForm.get('privacy');
+  }
+  get participantCnt() {
+    return this.eventForm.get('participantCnt');
+  }
+  get fee() {
+    return this.eventForm.get('fee');
   }
 
-  //create event button call
-  public async onCreateEvent() {
-    console.log('nice');
-  }
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      eventLocation: ['', [Validators.required, Validators.minLength(2)]],
-      eventName: ['', [Validators.required]],
-      eventDescription: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      startTime: ['', [Validators.required]],
+      location: ['', [Validators.required, Validators.minLength(2)]],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      date: ['', [Validators.required]],
+      time: ['', [Validators.required]],
       category: ['', [Validators.required]],
+      privacy: ['', [Validators.required]],
+      participantCnt: ['', [Validators.required]],
+      fee: ['', [Validators.required]],
     });
   }
-  //logic for going back
-  navBack() {
-    this.urlHistory.pop();
-    this.location.back();
+
+  public async onCreateEvent() {
+    console.log('event should be created here');
   }
 }
