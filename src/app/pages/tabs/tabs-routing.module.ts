@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -26,6 +27,15 @@ const routes: Routes = [
       {
         path: 'locations/:id',
         loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
+      },
+      {
+        path: 'locations/:id',
+        loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
+      },
+      {
+        path: 'create-event-form',
+        loadChildren: () =>
+        import('../create-event-form/create-event-form.module').then( m => m.CreateEventFormPageModule)
       },
       {
         path: '',
