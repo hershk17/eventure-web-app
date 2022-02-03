@@ -77,6 +77,7 @@ export const routes: Routes = [
     path: 'forgot-pass',
     loadChildren: () => import('./pages/forgot-pass/forgot-pass.module').then( m => m.ForgotPassPageModule)
   },
+
 ];
 @NgModule({
   imports: [
