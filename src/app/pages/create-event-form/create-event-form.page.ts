@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-event-form',
@@ -8,48 +9,41 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./create-event-form.page.scss'],
 })
 export class CreateEventFormPage implements OnInit {
+  // errors messages
   public errorMessages = {
-    eventName: [
-      { type: 'required', message: 'Event name is required' },
-      {
-        type: 'maxlength',
-        message: 'Event name cannot be longer than 100 characters',
-      },
+    eventName: [{ type: 'required', message: 'An event name is required' }],
+    eventLocation: [
+      { type: 'required', message: 'An event location is required' },
     ],
-    lastName: [
-      { type: 'required', message: 'Last name is required' },
-      {
-        type: 'maxlength',
-        message: 'Last name cannot be longer than 25 characters',
-      },
-    ],
-    userEmail: [
-      { type: 'required', message: 'An email address is required' },
-      { type: 'pattern', message: 'Please enter a valid email address' },
-    ],
-    password1: [
-      { type: 'required', message: 'Password is required' },
-      {
-        type: 'minlength',
-        message: 'Password cannot be less than 6 characters',
-      },
-    ],
-    password2: [
-      { type: 'required', message: 'Password confirmation is required' },
-      { type: 'mustMatch', message: 'Passwords do not match' },
-    ],
-    termsConditions: [
-      {
-        type: 'requiredtrue',
-        message: 'You must agree to the terms and conditions to proceed',
-      },
-    ],
+    startDate: [{ type: 'required', message: 'A start date is required.' }],
+    startTime: [{ type: 'required', message: 'A start date is required.' }],
+    endDate: [{ type: 'required', message: 'A start date is required.' }],
+    endTime: [{ type: 'required', message: 'A start date is required.' }],
+    category: [{ type: 'required', message: 'A start date is required.' }],
   };
+  createEvent: FormGroup;
   private urlHistory: string[] = [];
 
-  // errors messages
+  // getter methods
+  get eventName() {
+    return this.createEvent.get('eventName');
+  }
+  get eventLocation() {
+    return this.createEvent.get('eventLocation');
+  }
 
-  constructor(private location: Location, private router: Router) {
+  constructor(
+    private location: Location,
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+    // validation rules for all the form fields
+    this.createEvent = this.formBuilder.group({
+      eventName: ['', [Validators.required]],
+      eventLocation: ['', [Validators.required]],
+    });
+
+    //routing for back button (adds history to the urlHistory)
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.urlHistory.push(event.urlAfterRedirects);
@@ -57,6 +51,12 @@ export class CreateEventFormPage implements OnInit {
     });
   }
 
+  //create event button call
+  public async onCreateEvent() {
+    console.log('nice');
+  }
+
+  //logic for going back
   ngOnInit() {}
   navBack() {
     this.urlHistory.pop();
