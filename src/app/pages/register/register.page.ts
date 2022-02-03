@@ -82,7 +82,7 @@ get termsConditions() {
   ngOnInit() {
     this.registerForm.controls.termsConditions.setValue(false);
   }
-  // check to see if passwords in the two fields are the same
+  // check to see if passwords in the two fields are th32e same
   comparePassword(controlName: string, matchingControlName: string)
   {
     return(formGroup: FormGroup)=>{
