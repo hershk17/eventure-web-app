@@ -56,16 +56,16 @@ export class RegisterPage implements OnInit {
     return this.registerForm.get('lastName');
   }
   get userEmail() {
-    return this.registerForm.get('userEmail');
+    return this.registerForm.get('startDate');
   }
   get password1() {
-    return this.registerForm.get('password1');
+    return this.registerForm.get('startTime');
   }
   get password2() {
-    return this.registerForm.get('password2');
+    return this.registerForm.get('endDate');
   }
   get termsConditions() {
-    return this.registerForm.get('termsConditions');
+    return this.registerForm.get('endTime');
   }
 
   registerForm: FormGroup;

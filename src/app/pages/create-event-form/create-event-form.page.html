@@ -53,6 +53,7 @@
               <ion-item lines="full">
                 <ion-label position="floating">Start Date </ion-label>
                 <ion-datetime
+                  formControlName="startDate"
                   presentation="date-time"
                   max="2099-10-31"
                   position="floating"
@@ -63,6 +64,7 @@
               <ion-item lines="full">
                 <ion-label position="floating">Start Time </ion-label>
                 <ion-datetime
+                  formControlName="startTime"
                   max="2099-10-31"
                   position="floating"
                   display-format="h:mm A"
@@ -76,6 +78,7 @@
               <ion-item lines="full">
                 <ion-label position="floating"> End Date </ion-label>
                 <ion-datetime
+                  formControlName="endDate"
                   max="2099-10-31"
                   position="floating"
                 ></ion-datetime>
@@ -85,6 +88,7 @@
               <ion-item lines="full">
                 <ion-label position="floating">End Time </ion-label>
                 <ion-datetime
+                  formControlName="endTime"
                   max="2099-10-31"
                   position="floating"
                   display-format="h:mm A"
@@ -139,7 +143,7 @@
           (click)="onCreateEvent()"
           color="primary"
           expand="block"
-          [disabled]="!eventName.valid"
+          [disabled]="!createEvent.valid"
           >Create Event</ion-button
         >
         <!-- <ion-button [routerLink]="['/login']" color="light" expand="block"
