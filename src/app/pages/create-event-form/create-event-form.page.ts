@@ -40,7 +40,11 @@ export class CreateEventFormPage implements OnInit {
     // validation rules for all the form fields
     this.createEvent = this.formBuilder.group({
       eventLocation: ['', [Validators.required, Validators.minLength(2)]],
-      eventName: ['', [Validators.required, Validators.minLength(2)]],
+      eventName: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      startTime: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      endTime: ['', [Validators.required]],
     });
 
     //routing for back button (adds history to the urlHistory)
