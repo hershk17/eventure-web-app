@@ -14,6 +14,9 @@ export class CreateEventFormPage implements OnInit {
   // errors messages
   public errorMessages = {
     eventName: [{ type: 'required', message: 'An event name is required' }],
+    eventDescription: [
+      { type: 'required', message: 'An event description is required' },
+    ],
     eventLocation: [
       { type: 'required', message: 'An event location is required' },
     ],
@@ -42,10 +45,10 @@ export class CreateEventFormPage implements OnInit {
     'Literature',
     'Religion',
     'Theatre',
-    'Misc'
+    'Misc',
   ];
 
-  createEvent: FormGroup;
+  eventForm: FormGroup;
 
   public minDate: string = new Date().toISOString();
   public maxDate = '2040-12-31';
@@ -56,10 +59,13 @@ export class CreateEventFormPage implements OnInit {
   private urlHistory: string[] = [];
 
   get eventName() {
-    return this.createEvent.get('eventName');
+    return this.eventForm.get('eventName');
+  }
+  get eventDescription() {
+    return this.eventForm.get('eventDescription');
   }
   get eventLocation() {
-    return this.createEvent.get('eventLocation');
+    return this.eventForm.get('eventLocation');
   }
 
   constructor(
@@ -68,13 +74,6 @@ export class CreateEventFormPage implements OnInit {
     private formBuilder: FormBuilder
   ) {
     // validation rules for all the form fields
-    this.createEvent = this.formBuilder.group({
-      eventLocation: ['', [Validators.required, Validators.minLength(2)]],
-      eventName: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      startTime: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-    });
 
     //routing for back button (adds history to the urlHistory)
     this.router.events.subscribe((event) => {
@@ -89,7 +88,16 @@ export class CreateEventFormPage implements OnInit {
     console.log('nice');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.eventForm = this.formBuilder.group({
+      eventLocation: ['', [Validators.required, Validators.minLength(2)]],
+      eventName: ['', [Validators.required]],
+      eventDescription: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      startTime: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+    });
+  }
   //logic for going back
   navBack() {
     this.urlHistory.pop();

@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Create Event</ion-title>
-    <button icon-only clear item-right (click)="navBack()" slot="start">
-      <ion-icon size="large" name="chevron-back-circle-outline"></ion-icon>
-    </button>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="createEvent">
+  <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
     <ion-card style="border-radius: 10px">
       <ion-card-header>
         <ion-list>
@@ -24,7 +24,26 @@
           </ion-item>
           <div *ngFor="let error of errorMessages.eventName">
             <ng-container
-              *ngIf="eventName.hasError(error.type) && (eventName.dirty || eventName.touched)"
+              *ngIf="eventName?.hasError(error.type) && (eventName.dirty || eventName.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Event Description</ion-label>
+            <ion-input
+              autocapitalize
+              type="text"
+              formControlName="eventDescription"
+              placeholder="Write something about this event..."
+              inputmode="text"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.eventDescription">
+            <ng-container
+              *ngIf="eventDescription?.hasError(error.type) && (eventDescription.dirty || eventDescription.touched)"
             >
               <small class="error-message">{{error.message}}</small>
             </ng-container>
@@ -40,14 +59,14 @@
               required
             ></ion-input>
           </ion-item>
-
           <div *ngFor="let error of errorMessages.eventLocation">
             <ng-container
-              *ngIf="eventLocation.hasError(error.type) && (eventLocation.dirty || eventLocation.touched)"
+              *ngIf="eventLocation?.hasError(error.type) && (eventLocation.dirty || eventLocation.touched)"
             >
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
+
           <ion-row>
             <ion-col>
               <ion-item lines="full">
@@ -55,13 +74,11 @@
                 <ion-datetime
                   formControlName="startDate"
                   presentation="date-time"
-                  [(ngModel)]="startDate"
                   [min]="minDate"
                   [max]="maxDate"
                   position="floating"
                 ></ion-datetime>
               </ion-item>
-              <!-- ****************** -->
             </ion-col>
 
             <ion-col>
@@ -69,7 +86,6 @@
                 <ion-label position="floating">Start Time </ion-label>
                 <ion-datetime
                   formControlName="startTime"
-                  [(ngModel)]="startTime"
                   position="floating"
                   display-format="h:mm A"
                   picker-format="h:mm A"
@@ -78,21 +94,19 @@
             </ion-col>
           </ion-row>
           <ion-item>
-            <ion-label>Event Privacy</ion-label>
+            <ion-label position="floating">Event Privacy</ion-label>
             <ion-select interface="popover" value="privacy">
-              <ion-select-option value="public"
-                >Public</ion-select-option
-              >
-              <ion-select-option value="youFollow"
+              <ion-select-option value="public">Public</ion-select-option>
+              <ion-select-option value="followers"
                 >Followers Only</ion-select-option
               >
-              <ion-select-option value="youFollow"
+              <ion-select-option value="invite"
                 >Invite Only</ion-select-option
               >
             </ion-select>
           </ion-item>
           <ion-item>
-            <ion-label>Category</ion-label>
+            <ion-label position="floating">Category</ion-label>
             <ion-select formControlName="category" multiple="true">
               <ion-select-option
                 *ngFor="let category of this.categories"
@@ -101,15 +115,24 @@
               >
             </ion-select>
           </ion-item>
+          <ion-item>
+            <ion-label position="floating">Max Participants</ion-label>
+            <ion-input
+              type="number"
+              formControlName="eventParticipantCnt"
+              inputmode="number"
+              value="5"
+              required
+            ></ion-input>
+          </ion-item>
         </ion-list>
       </ion-card-header>
       <ion-card-content>
         <ion-button
           type="submit"
-          (click)="onCreateEvent()"
           color="primary"
           expand="block"
-          [disabled]="!createEvent.valid"
+          [disabled]="!eventForm.valid"
           >Create Event</ion-button
         >
         <!-- <ion-button [routerLink]="['/login']" color="light" expand="block"
