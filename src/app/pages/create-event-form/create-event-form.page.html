@@ -1,0 +1,171 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Event</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
+    <ion-card style="border-radius: 10px">
+      <ion-card-header>
+        <ion-list>
+          <ion-item lines="full">
+            <ion-label position="floating">Event Name</ion-label>
+            <ion-input
+              autocapitalize
+              type="text"
+              formControlName="name"
+              inputmode="text"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.name">
+            <ng-container
+              *ngIf="name?.hasError(error.type) && (name.dirty || name.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Event Description</ion-label>
+            <ion-input
+              autocapitalize
+              type="text"
+              formControlName="description"
+              placeholder="Write something about this event..."
+              inputmode="text"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.description">
+            <ng-container
+              *ngIf="description?.hasError(error.type) && (description.dirty || description.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Location</ion-label>
+            <ion-input
+              autocapitalize
+              type="text"
+              formControlName="location"
+              inputmode="text"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.location">
+            <ng-container
+              *ngIf="location?.hasError(error.type) && (location.dirty || location.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Category</ion-label>
+            <ion-select formControlName="category" multiple="true">
+              <ion-select-option
+                *ngFor="let category of this.categories"
+                [value]="category"
+                required
+                >{{category}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.category">
+            <ng-container
+              *ngIf="category?.hasError(error.type) && (category.dirty || category.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+            <div>
+              <ion-item lines="full">
+                <ion-label position="floating">Start Date </ion-label>
+                <ion-datetime
+                  formControlName="date"
+                  presentation="date-time"
+                  [min]="minDate"
+                  [max]="maxDate"
+                  position="floating"
+                ></ion-datetime>
+              </ion-item>
+            </div>
+            <div>
+              <ion-item lines="full">
+                <ion-label position="floating">Start Time </ion-label>
+                <ion-datetime
+                  formControlName="time"
+                  position="floating"
+                  display-format="h:mm A"
+                  picker-format="h:mm A"
+                  required
+                ></ion-datetime>
+              </ion-item>
+            </div>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Event Privacy</ion-label>
+            <ion-select formControlName="privacy" interface="popover" required>
+              <ion-select-option
+                *ngFor="let privacyOption of privacyOptions"
+                value="{{privacyOption}}"
+                >{{privacyOption}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Max Participants</ion-label>
+            <ion-input
+              type="number"
+              formControlName="participantCnt"
+              inputmode="number"
+              value="5"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.participantCnt">
+            <ng-container
+              *ngIf="participantCnt?.hasError(error.type) && (participantCnt.dirty || participantCnt.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Entry Fee</ion-label>
+            <ion-input
+              type="number"
+              formControlName="fee"
+              inputmode="number"
+              value="0"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button
+          type="submit"
+          color="primary"
+          expand="block"
+          [disabled]="!eventForm.valid"
+          >Create Event</ion-button
+        >
+        <ion-button [routerLink]="['..']" color="light" expand="block"
+          >Cancel</ion-button
+        >
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>
