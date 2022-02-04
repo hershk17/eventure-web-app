@@ -19,4 +19,10 @@ export class EventDetailsPage implements OnInit {
       this.activatedRoute.snapshot.paramMap.get('id')
     );
   }
+
+  join() {
+    this.db.joinEvent(this.event.id).then((res) => {
+      window.alert('Joined!');
+    });
+  }
 }

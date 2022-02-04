@@ -4,6 +4,7 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
 import {
+  arrayUnion,
   collection,
   doc,
   getDoc,
@@ -111,8 +112,26 @@ export class DbService {
       event.images = [];
       event.images.push(url);
       await setDoc(doc(this.db, 'Events2', uniqid()), event);
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ organized: arrayUnion(event.id) });
     } catch (error) {
       console.error(error);
+      return false;
+    }
+    return true;
+  }
+
+  public async joinEvent(eventID: string): Promise<boolean> {
+    try {
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ joined: arrayUnion(eventID) });
+      await this.afStore
+        .doc(`Events2/${eventID}`)
+        .update({ participants: arrayUnion(this.userData.uid) });
+    } catch (err) {
+      console.error(err);
       return false;
     }
     return true;
@@ -192,7 +211,7 @@ export class DbService {
       return user.emailVerified !== false ? true : false;
     } catch (error) {
       console.error(error);
-      this.presentAlert('Error', 'Can\'t read user\'s state');
+      this.presentAlert('Error', "Can't read user's state");
     }
   }
 

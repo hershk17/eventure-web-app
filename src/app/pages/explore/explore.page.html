@@ -2,9 +2,6 @@
   <ion-toolbar>
     <ion-title> Explore </ion-title>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <ion-searchbar
     placeholder="Enter a POI"
     searchIcon="search"
@@ -12,6 +9,9 @@
     animated
   >
   </ion-searchbar>
+</ion-header>
+
+<ion-content>
   <ion-list style="background-color: transparent">
     <ion-card
       *ngFor="let poi of this.pois"
@@ -22,9 +22,7 @@
       <ion-card-header class="location-card">
         <ion-card-title>{{ poi.poi.name }}</ion-card-title>
       </ion-card-header>
-      <ion-card-content
-        style="padding: 20px; padding-top: 20px; padding-bottom: 25px"
-      >
+      <ion-card-content>
         {{poi.poi.categories[0]}} &bull; {{poi.distance}} km away<br />
         {{poi.address.freeformAddress}} <br />
         {{poi.poi.phone}}

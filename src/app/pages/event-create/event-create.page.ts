@@ -87,7 +87,7 @@ export class EventCreatePage implements OnInit {
 
   async ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      id: [uniqid('e-')],
+      id: [uniqid()],
       location: [this.activatedRoute.snapshot.paramMap.get('id')],
       eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -97,14 +97,11 @@ export class EventCreatePage implements OnInit {
       category: ['', [Validators.required]],
       capacity: [5, [Validators.required]],
       entryFee: [0],
-      organizer: [''],
+      organizer: [this.db.userData.uid],
       participants: [[]],
       reviews: [[]],
       score: [0],
     });
-    this.eventForm
-      .get('organizer')
-      .setValue((await this.db.auth.currentUser).uid);
   }
 
   public onFileChange($event: any): void {
