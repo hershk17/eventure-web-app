@@ -10,19 +10,12 @@ import { DbService, Event } from 'src/app/services/db.service';
 export class EventDetailsPage implements OnInit {
   event: Event = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private db: DbService) {
-    console.log(this.activatedRoute.snapshot.paramMap.get('id'));
-  }
+  constructor(private activatedRoute: ActivatedRoute, private db: DbService) {}
 
   ngOnInit() {
     this.event = this.db.getEventByID(
       this.activatedRoute.snapshot.paramMap.get('id')
     );
-  }
-
-  join() {
-    this.db.joinEvent(this.event.id).then((res) => {
-      window.alert('Joined!');
-    });
+    console.log(this.event);
   }
 }
