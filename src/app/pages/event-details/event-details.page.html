@@ -8,42 +8,22 @@
 </ion-header>
 
 <ion-content>
-  <ion-card style="height: 95%">
+  <ion-card-content>
     <img src="{{event.images[0]}}" style="width: 100%; object-fit: cover" />
-    <ion-card-title style="padding: 20px; padding-top: 0px; padding-bottom: 0px">
-      {{ event.eventName }}
-    </ion-card-title>
-    <ion-card-content style="padding: 20px; padding-top: 20px; padding-bottom: 25px">
-      {{event.description}}
-    </ion-card-content>
-    <ion-card-header style="padding: 20px; padding-top: 15px; padding-bottom: 0px">
-      <ion-card-subtitle>
-        {{event.score}}★ ({{event.reviews.length}})
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        {{event.time}}, {{event.date}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        Capacity: {{event.capacity}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        Entry Fee: {{event.entryFee}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        Location: {{event.location}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        Organizers: {{event.organizer}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        participants: {{event.participants}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        reviews: {{event.reviews}}
-      </ion-card-subtitle>
-      <ion-card-subtitle>
-        visibility: {{event.visibility}}
-      </ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
+    <ion-card-title> {{ event.eventName }} </ion-card-title>
+    <ion-card-subtitle> {{event.description}} </ion-card-subtitle>
+    <ion-card-subtitle>
+      {{event.score}}★ ({{event.reviews.length}})
+    </ion-card-subtitle>
+    <ion-card-subtitle> {{event.time}}, {{event.date}} </ion-card-subtitle>
+    <ion-card-subtitle> Capacity: {{event.capacity}} </ion-card-subtitle>
+    <ion-card-subtitle> Entry Fee: {{event.entryFee}} </ion-card-subtitle>
+    <ion-card-subtitle> Location: {{event.location}} </ion-card-subtitle>
+    <ion-card-subtitle> Organizers: {{event.organizer}} </ion-card-subtitle>
+    <ion-card-subtitle>
+      participants: {{event.participants}}
+    </ion-card-subtitle>
+    <ion-card-subtitle> reviews: {{event.reviews}} </ion-card-subtitle>
+    <ion-card-subtitle> visibility: {{event.visibility}} </ion-card-subtitle>
+  </ion-card-content>
 </ion-content>
