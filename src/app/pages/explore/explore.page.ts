@@ -37,7 +37,6 @@ export default class ExplorePage implements OnInit {
     if (query !== '') {
       this.api.getPOI(query).subscribe((data) => {
         this.pois = data.results;
-
         this.pois.forEach((poi) => {
           poi.category = poi.poi.categories[0] + ' ' + poi.poi.categories[1];
           poi.distance = parseFloat((poi.dist / 1000).toFixed(2));
