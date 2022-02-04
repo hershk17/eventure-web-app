@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService, Event } from 'src/app/services/db.service';
+import { PopoverController } from '@ionic/angular';
+import { PopoverComponent } from '../../components/popover/popover.component';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +10,8 @@ import { DbService, Event } from 'src/app/services/db.service';
 })
 export class HomePage implements OnInit {
   events: Event[] = [];
-
-  constructor(private db: DbService) {}
+  public isOpen = false;
+  constructor(private db: DbService, private popCtrl: PopoverController) {}
 
   ngOnInit() {
     this.db.getEvents().then((res) => {
@@ -19,5 +21,16 @@ export class HomePage implements OnInit {
 
   onSelect(event: Event) {
     console.log(event);
+  }
+
+  //popover filter options
+  //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
+  async onPopover(ev: any) {
+    const popover = await this.popCtrl.create({
+      component: PopoverComponent,
+      event: ev,
+    });
+
+    return await popover.present();
   }
 }
