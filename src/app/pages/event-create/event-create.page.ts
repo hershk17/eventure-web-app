@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { POI } from 'src/app/services/api.service';
 import { DbService } from 'src/app/services/db.service';
+import uniqid from 'uniqid';
 
 @Component({
   selector: 'app-event-create',
@@ -46,7 +47,12 @@ export class EventCreatePage implements OnInit {
     'Theatre',
     'Misc',
   ];
-  public visibilityOptions: string[] = ['Public', 'Followers Only', 'Invite Only'];
+  public visibilityOptions: string[] = [
+    'Public',
+    'Followers Only',
+    'Invite Only',
+  ];
+  image: any;
 
   get eventName() {
     return this.eventForm.get('eventName');
@@ -72,14 +78,16 @@ export class EventCreatePage implements OnInit {
   get entryFee() {
     return this.eventForm.get('entryFee');
   }
-  get image() {
-    return this.eventForm.get('image');
-  }
 
-  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private db: DbService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private db: DbService
+  ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.eventForm = this.formBuilder.group({
+      id: [uniqid('e-')],
       location: [this.activatedRoute.snapshot.paramMap.get('id')],
       eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -89,18 +97,22 @@ export class EventCreatePage implements OnInit {
       category: ['', [Validators.required]],
       capacity: [5, [Validators.required]],
       entryFee: [0],
-      image: null,
+      organizer: [''],
+      participants: [[]],
+      reviews: [[]],
+      score: [0],
     });
+    this.eventForm
+      .get('organizer')
+      .setValue((await this.db.auth.currentUser).uid);
   }
 
   public onFileChange($event: any): void {
-    this.eventForm.value.image = $event.target.files[0];
+    this.image = $event.target.files[0];
   }
 
   public async onCreateEvent(): Promise<void> {
-    const imgFile = this.eventForm.value.image;
-    this.eventForm.value.image = null;
-    const uploaded = await this.db.uploadEvent(this.eventForm.value, imgFile);
+    const uploaded = await this.db.uploadEvent(this.eventForm.value, this.image);
     console.log(uploaded);
   }
 }

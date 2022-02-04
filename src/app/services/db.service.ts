@@ -23,17 +23,16 @@ import { Observable } from 'rxjs';
 import uniqid from 'uniqid';
 
 export interface Event {
+  id: string;
   capacity: number;
+  category: string[];
   date: string;
-  deleted: boolean;
   description: string;
   entryFee: number;
-  eventID: string;
   eventName: string;
-  feeReqd: boolean;
   images: string[];
-  locationID: string;
-  organizers: string[];
+  location: string;
+  organizer: string;
   participants: string[];
   reviews: string[];
   score: number;
