@@ -109,8 +109,8 @@ export class DbService {
       if(!url) {
         return false;
       }
+      event.images = [];
       event.images.push(url);
-
       await setDoc(doc(this.db, 'Events', uniqid()), event);
     } catch(error) {
       console.error(error);
