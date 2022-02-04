@@ -20,7 +20,7 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
-        path: 'explore/location/:id/create',
+        path: 'explore/create/:id',
         loadChildren: () => import('../event-create/event-create.module').then( m => m.EventCreatePageModule)
       },
       {
