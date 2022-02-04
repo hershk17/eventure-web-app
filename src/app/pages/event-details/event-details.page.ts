@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DbService, Event } from 'src/app/services/db.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-event-details',
@@ -15,8 +16,46 @@ export class EventDetailsPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private db: DbService,
-    public auth: AngularFireAuth
+    public auth: AngularFireAuth,
+    public toastController: ToastController
   ) {}
+
+  async presentToast(yourMessage) {
+    const toast = await this.toastController.create({
+      message: yourMessage,
+      duration: 2000,
+    });
+    toast.present();
+  }
+
+  async presentToastWithOptions() {
+    const toast = await this.toastController.create({
+      header: 'Toast header',
+      message: 'Click to Close',
+      position: 'top',
+      buttons: [
+        {
+          side: 'start',
+          icon: 'star',
+          text: 'Favorite',
+          handler: () => {
+            console.log('Favorite clicked');
+          },
+        },
+        {
+          text: 'Done',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+      ],
+    });
+    await toast.present();
+
+    const { role } = await toast.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
 
   ngOnInit() {
     // public aUID = (await this.auth.currentUser).uid;
@@ -26,7 +65,17 @@ export class EventDetailsPage implements OnInit {
     console.log(this.event);
   }
 
+  public edit() {
+    console.log('edit');
+  }
+
+  public delete() {
+    console.log('delete');
+    this.presentToast('Your event has been deleted!');
+  }
+
   join() {
     this.db.joinEvent(this.event.id);
+    this.presentToast('You have joined the event!');
   }
 }
