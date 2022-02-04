@@ -7,10 +7,14 @@ import {
   arrayUnion,
   collection,
   doc,
+  documentId,
   getDoc,
   getDocs,
   getFirestore,
+  query,
+  QuerySnapshot,
   setDoc,
+  where,
 } from 'firebase/firestore';
 import { uploadBytes, getDownloadURL, ref, getStorage } from 'firebase/storage';
 import {
@@ -22,6 +26,7 @@ import { Router } from '@angular/router';
 import { User } from '../shared/auth';
 import { Observable } from 'rxjs';
 import uniqid from 'uniqid';
+import { Console } from 'console';
 
 export interface Event {
   id: string;
@@ -161,10 +166,44 @@ export class DbService {
     return this.events;
   }
 
+  public async getJoined(): Promise<Event[]> {
+    await this.getEvents();
+    const joinedEvents: Event[] = [];
+    const q = query(
+      collection(this.db, 'users'),
+      where('uid', '==', this.userData.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((usr) => {
+      const eventIDs = usr.data().joined;
+      eventIDs.forEach((e: string) => {
+        joinedEvents.push(this.getEventByID(e));
+      });
+    });
+    return joinedEvents;
+  }
+
+  public async getCreated(): Promise<Event[]> {
+    await this.getEvents();
+    const joinedEvents: Event[] = [];
+    const q = query(
+      collection(this.db, 'users'),
+      where('uid', '==', this.userData.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((usr) => {
+      const eventIDs = usr.data().organized;
+      eventIDs.forEach((e: string) => {
+        joinedEvents.push(this.getEventByID(e));
+      });
+    });
+    return joinedEvents;
+  }
+
+  // either make this reference the database or set up observer/subscription to events collection for dynamic updates
   public getEventByID(id: string): Event {
     for (const event of this.events) {
       if (event.id === id) {
-        console.log(event);
         return event;
       }
     }
