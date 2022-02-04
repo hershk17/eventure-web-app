@@ -24,7 +24,7 @@ const routes: Routes = [
         loadChildren: () => import('../event-create/event-create.module').then( m => m.EventCreatePageModule)
       },
       {
-        path: 'home/:id',
+        path: 'home/event/:id',
         loadChildren: () => import('../event-details/event-details.module').then( m => m.EventDetailsPageModule)
       },
       {

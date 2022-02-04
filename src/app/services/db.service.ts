@@ -110,7 +110,7 @@ export class DbService {
       }
       event.images = [];
       event.images.push(url);
-      await setDoc(doc(this.db, 'Events', uniqid()), event);
+      await setDoc(doc(this.db, 'Events2', uniqid()), event);
     } catch (error) {
       console.error(error);
       return false;
@@ -133,7 +133,7 @@ export class DbService {
 
   public async getEvents(): Promise<Event[]> {
     this.events = [];
-    const querySnapshot = await getDocs(collection(this.db, 'Events'));
+    const querySnapshot = await getDocs(collection(this.db, 'Events2'));
     querySnapshot.forEach((res) => {
       const data: any = res.data();
       const event: Event = data;
@@ -144,7 +144,8 @@ export class DbService {
 
   public getEventByID(id: string): Event {
     for (const event of this.events) {
-      if (event.eventID === id) {
+      if (event.id === id) {
+        console.log(event);
         return event;
       }
     }
