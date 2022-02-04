@@ -75,9 +75,20 @@ export const routes: Routes = [
   },
   {
     path: 'forgot-pass',
-    loadChildren: () => import('./pages/forgot-pass/forgot-pass.module').then( m => m.ForgotPassPageModule)
+    loadChildren: () =>
+      import('./pages/forgot-pass/forgot-pass.module').then(
+        (m) => m.ForgotPassPageModule
+      ),
   },
-
+  {
+    path: 'your-events',
+    loadChildren: () =>
+      import('./pages/your-events/your-events.module').then(
+        (m) => m.YourEventsPageModule
+      ),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectAuthorizedToTabs },
+  },
 ];
 @NgModule({
   imports: [
