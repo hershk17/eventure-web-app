@@ -4,18 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { LocationsPageRoutingModule } from './locations-routing.module';
+import { ExplorePageRoutingModule } from './explore-routing.module';
 
-import { LocationsPage } from './locations.page';
+import ExplorePage from './explore.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LocationsPageRoutingModule,
+    ExplorePageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [LocationsPage]
+  declarations: [ExplorePage]
 })
-export class LocationsPageModule {}
+export class ExplorePageModule {}

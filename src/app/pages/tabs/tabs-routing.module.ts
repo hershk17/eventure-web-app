@@ -8,35 +8,39 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'events',
-        loadChildren: () => import('../events/events.module').then(m => m.EventsPageModule)
+        path: 'home',
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'locations',
-        loadChildren: () => import('../locations/locations.module').then(m => m.LocationsPageModule)
+        path: 'explore',
+        loadChildren: () => import('../explore/explore.module').then(m => m.ExplorePageModule)
       },
       {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
-        path: 'events/:id',
+        path: 'explore/create/:id',
+        loadChildren: () => import('../event-create/event-create.module').then( m => m.EventCreatePageModule)
+      },
+      {
+        path: 'home/event/:id',
         loadChildren: () => import('../event-details/event-details.module').then( m => m.EventDetailsPageModule)
       },
       {
-        path: 'locations/:id',
+        path: 'explore/location/:id',
         loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
       },
       {
         path: '',
-        redirectTo: 'events',
+        redirectTo: 'home',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'events',
+    redirectTo: 'home',
     pathMatch: 'full'
   }
 ];

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ApiService, POI } from 'src/app/services/api.service';
-import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-locations',
-  templateUrl: './locations.page.html',
-  styleUrls: ['./locations.page.scss'],
+  selector: 'app-explore',
+  templateUrl: './explore.page.html',
+  styleUrls: ['./explore.page.scss'],
 })
-export class LocationsPage implements OnInit {
+export default class ExplorePage implements OnInit {
   pois: POI[] = [];
 
   processing = false;
@@ -37,11 +36,8 @@ export class LocationsPage implements OnInit {
     if (query !== '') {
       this.api.getPOI(query).subscribe((data) => {
         this.pois = data.results;
-
         this.pois.forEach((poi) => {
           poi.category = poi.poi.categories[0] + ' ' + poi.poi.categories[1];
-          console.log(poi.position.lat);
-          console.log(poi.position.lon);
           poi.distance = parseFloat((poi.dist / 1000).toFixed(2));
         });
       });

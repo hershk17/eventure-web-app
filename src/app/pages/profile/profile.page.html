@@ -1,23 +1,81 @@
+<!-- <ion-menu side="end" content-id="main-content">
+  <ion-header>
+    <ion-toolbar translucent>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-icon name="mail" slot="start"></ion-icon>
+        <ion-label>Inbox</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="paper-plane" slot="start"></ion-icon>
+        <ion-label>Outbox</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content"></div> -->
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>Your Profile</ion-title>
+    <ion-title>{{ firstName }} {{ lastName }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-
-
-<ion-item>
-  <ion-avatar slot="start">
-    <img src="{{ photoURL }}" />
-  </ion-avatar>
-  <ion-label>{{ firstName }} {{ lastName }} </ion-label>
-</ion-item>
-
-
-
 <ion-content>
-  <div innerHTML = "{{ email }}"></div>
-  <div innerHTML = "{{ uid }}"></div>
+  <div class="profile-container">
+    <div class="profile-info">
+      <ion-avatar class="avatar">
+        <img
+          src="https://www.savoric.com/wp-content/uploads/2018/03/profil-pic_dummy.png"
+        />
+      </ion-avatar>
 
-  <ion-button (click)="onSignOut()">Log Out </ion-button>
+      <div class="follow-info">
+        <ion-list lines="full">
+          <ion-item>
+            <ion-router-link href="#">Followers</ion-router-link>
+          </ion-item>
+          <div class="follow-counts">14</div>
+          <ion-item>
+            <ion-router-link href="#">Following</ion-router-link>
+          </ion-item>
+          <div class="follow-counts">16</div>
+        </ion-list>
+      </div>
+    </div>
+    <ion-button (click)="onEditProfile()" expand="block"
+      >EDIT PROFILE</ion-button
+    >
+    <div>
+      <ion-item-divider
+        ><span class="email">Email: </span> {{email}}
+      </ion-item-divider>
+      <!-- <ion-item-divider>
+        <span class="country">Country: </span> {{country}}
+      </ion-item-divider>
+      <ion-item-divider
+        ><span class="gender">Gender: </span> {{gender}}
+      </ion-item-divider> -->
+    </div>
+
+    <ion-button (click)="onCreatedEvents()" expand="block"
+      >CREATED EVENTS</ion-button
+    >
+    <ion-button (click)="onJoinedEvents()" expand="block"
+      >JOINED EVENTS</ion-button
+    >
+
+    <br />
+    <ion-button (click)="onSignOut()" color="light" expand="block"
+      >LOG OUT</ion-button
+    >
+  </div>
 </ion-content>

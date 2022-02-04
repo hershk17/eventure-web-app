@@ -1,16 +1,51 @@
+<ion-menu side="end" content-id="home-filter">
+  <ion-header>
+    <ion-toolbar translucent>
+      <ion-title>Filters</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-item button *ngFor="let item of list" (click)="handleClick(item)">
+      {{item}}
+    </ion-item>
+  </ion-content>
+</ion-menu>
+
+<div class="home-page" id="home-filter"></div>
+
 <ion-header>
   <ion-toolbar>
-    <ion-title> Events </ion-title>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+<!-- PopoverButton -->
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title> Home </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="onPopover($event)">
+        <ion-icon
+          slot="icon-only"
+          ios="ellipsis-horizontal"
+          md="ellipsis-vertical"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
 <ion-content>
-  <ion-list style="background-color: transparent;">
+  <ion-list style="background-color: transparent">
     <ion-card
       *ngFor="let event of this.events"
       button="true"
-      [routerLink]="['/tabs/events',event.eventID]"
-      style="margin: 20px; margin-top: 10px; border-radius: 10px;"
+      [routerLink]="['event',event.id]"
+      style="margin: 20px; margin-top: 10px; border-radius: 10px"
     >
       <div>
         <ion-card class="myCard">

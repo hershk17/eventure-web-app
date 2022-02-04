@@ -4,12 +4,17 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
 import {
+  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
   getFirestore,
+  query,
+  setDoc,
+  where,
 } from 'firebase/firestore';
+import { uploadBytes, getDownloadURL, ref, getStorage } from 'firebase/storage';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -18,19 +23,19 @@ import { environment } from 'src/environments/environment.prod';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
 import { Observable } from 'rxjs';
+import uniqid from 'uniqid';
 
 export interface Event {
+  id: string;
   capacity: number;
+  category: string[];
   date: string;
-  deleted: boolean;
   description: string;
   entryFee: number;
-  eventID: string;
   eventName: string;
-  feeReqd: boolean;
   images: string[];
-  locationID: string;
-  organizers: string[];
+  location: string;
+  organizer: string;
   participants: string[];
   reviews: string[];
   score: number;
@@ -48,7 +53,7 @@ export class DbService {
   private db = getFirestore();
 
   private events: any = [];
-
+  private storage = getStorage();
   constructor(
     public auth: AngularFireAuth,
     public afStore: AngularFirestore,
@@ -64,6 +69,74 @@ export class DbService {
         localStorage.setItem('user', null);
       }
     });
+  }
+  /**
+   * Do any validation to event data
+   *
+   * @param event
+   * @returns true if valid
+   */
+  public validateEvent(event: Event): boolean {
+    return true;
+  }
+
+  /**
+   * @param imgFile a blob
+   * @returns an url if upload successfully or null if fail
+   */
+  public async uploadImg(imgFile: any): Promise<string> {
+    try {
+      const name = uniqid('img-');
+      const storageRef = ref(this.storage, name);
+      const snapshot = await uploadBytes(storageRef, imgFile);
+      const url = await getDownloadURL(ref(this.storage, name));
+      return url;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  /**
+   * @param event
+   * @returns true if the event is uploaded successfully
+   */
+  public async uploadEvent(event: Event, imgFile: any): Promise<boolean> {
+    const valid = this.validateEvent(event);
+    if (!valid) {
+      return false;
+    }
+    try {
+      const url = await this.uploadImg(imgFile);
+      if (!url) {
+        return false;
+      }
+      event.images = [];
+      event.images.push(url);
+      await setDoc(doc(this.db, 'Events2', event.id), event);
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ organized: arrayUnion(event.id) });
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    return true;
+  }
+
+  public async joinEvent(eventID: string): Promise<boolean> {
+    try {
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ joined: arrayUnion(eventID) });
+      await this.afStore
+        .doc(`Events2/${eventID}`)
+        .update({ participants: arrayUnion(this.userData.uid) });
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+    return true;
   }
 
   async presentAlert(title: string, msg: string): Promise<void> {
@@ -81,7 +154,7 @@ export class DbService {
 
   public async getEvents(): Promise<Event[]> {
     this.events = [];
-    const querySnapshot = await getDocs(collection(this.db, 'Events'));
+    const querySnapshot = await getDocs(collection(this.db, 'Events2'));
     querySnapshot.forEach((res) => {
       const data: any = res.data();
       const event: Event = data;
@@ -90,9 +163,44 @@ export class DbService {
     return this.events;
   }
 
+  public async getJoined(): Promise<Event[]> {
+    await this.getEvents();
+    const joinedEvents: Event[] = [];
+    const q = query(
+      collection(this.db, 'users'),
+      where('uid', '==', this.userData.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((usr) => {
+      const eventIDs = usr.data().joined;
+      eventIDs.forEach((e: string) => {
+        joinedEvents.push(this.getEventByID(e));
+      });
+    });
+    return joinedEvents;
+  }
+
+  public async getCreated(): Promise<Event[]> {
+    await this.getEvents();
+    const joinedEvents: Event[] = [];
+    const q = query(
+      collection(this.db, 'users'),
+      where('uid', '==', this.userData.uid)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((usr) => {
+      const eventIDs = usr.data().organized;
+      eventIDs.forEach((e: string) => {
+        joinedEvents.push(this.getEventByID(e));
+      });
+    });
+    return joinedEvents;
+  }
+
+  // either make this reference the database or set up observer/subscription to events collection for dynamic updates
   public getEventByID(id: string): Event {
     for (const event of this.events) {
-      if (event.eventID === id) {
+      if (event.id === id) {
         return event;
       }
     }
@@ -137,7 +245,7 @@ export class DbService {
       const user = await this.auth.currentUser;
       await user.reload();
       return user.emailVerified !== false ? true : false;
-    } catch(error) {
+    } catch (error) {
       console.error(error);
       this.presentAlert('Error', 'Can\'t read user\'s state');
     }
@@ -150,11 +258,12 @@ export class DbService {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      // displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
       firstName: user.firstName,
       lastName: user.lastName,
+      organized: [],
+      joined: [],
     };
     return userRef.set(userData, {
       merge: true,
@@ -163,13 +272,17 @@ export class DbService {
 
   public getUserByUid(userUid: string): Observable<any> {
     return this.afStore
-      .collection<any>('users', (ref) => ref.where('uid', '==', userUid))
+      .collection<any>('users', (userRef) =>
+        userRef.where('uid', '==', userUid)
+      )
       .valueChanges();
   }
 
   public getUserByEmail(userEmail: string): Observable<any> {
     return this.afStore
-      .collection<any>('users', (ref) => ref.where('email', '==', userEmail))
+      .collection<any>('users', (userRef) =>
+        userRef.where('email', '==', userEmail)
+      )
       .valueChanges();
   }
 

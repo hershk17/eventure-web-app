@@ -1,0 +1,171 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Event</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
+    <ion-card class="create-event-card">
+      <ion-card-content>
+        <ion-list>
+          <ion-item lines="none">
+            <ion-label position="stacked">Cover Image</ion-label>
+            <ion-input
+              type="file"
+              accept="image/*"
+              (change)="onFileChange($event)"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Event Name</ion-label>
+            <ion-input
+              autocapitalize
+              type="text"
+              formControlName="eventName"
+              inputmode="text"
+              placeholder="Enter an event name here"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.eventName">
+            <ng-container
+              *ngIf="eventName?.hasError(error.type) && (eventName.dirty || eventName.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="stacked">Event Description</ion-label>
+            <ion-textarea
+              autocapitalize
+              type="text"
+              formControlName="description"
+              placeholder="Enter the event description here"
+              inputmode="text"
+              required
+            ></ion-textarea>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.description">
+            <ng-container
+              *ngIf="description?.hasError(error.type) && (description.dirty || description.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item>
+            <ion-label position="stacked">Category</ion-label>
+            <ion-select
+              formControlName="category"
+              placeholder="Select relevant categories"
+              multiple="true"
+            >
+              <ion-select-option
+                *ngFor="let category of this.categories"
+                [value]="category"
+                required
+                >{{category}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.category">
+            <ng-container
+              *ngIf="category?.hasError(error.type) && (category.dirty || category.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+            <div>
+              <ion-item lines="full">
+                <ion-label position="stacked">Start Date </ion-label>
+                <ion-datetime
+                  formControlName="date"
+                  presentation="date-time"
+                  [min]="minDate"
+                  [max]="maxDate"
+                  position="floating"
+                ></ion-datetime>
+              </ion-item>
+            </div>
+            <div>
+              <ion-item lines="full">
+                <ion-label position="stacked">Start Time </ion-label>
+                <ion-datetime
+                  formControlName="time"
+                  position="floating"
+                  display-format="h:mm A"
+                  picker-format="h:mm A"
+                  required
+                ></ion-datetime>
+              </ion-item>
+            </div>
+          </div>
+
+          <ion-item>
+            <ion-label position="stacked">Event Privacy</ion-label>
+            <ion-select
+              formControlName="visibility"
+              interface="popover"
+              required
+            >
+              <ion-select-option
+                *ngFor="let visibility of visibilityOptions"
+                value="{{visibility}}"
+                >{{visibility }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Max Participants</ion-label>
+            <ion-input
+              type="number"
+              formControlName="capacity"
+              inputmode="number"
+              value="5"
+              required
+            ></ion-input>
+          </ion-item>
+          <div *ngFor="let error of errorMessages.capacity">
+            <ng-container
+              *ngIf="capacity?.hasError(error.type) && (capacity.dirty || capacity.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+
+          <ion-item lines="none">
+            <ion-label position="stacked">Entry Fee</ion-label>
+            <ion-input
+              type="number"
+              formControlName="entryFee"
+              inputmode="number"
+              value="0"
+              required
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <app-img-preview [imgFile]="eventForm.value.image"></app-img-preview>
+      </ion-card-content>
+    </ion-card>
+    <ion-button
+      type="submit"
+      color="primary"
+      expand="block"
+      [disabled]="!eventForm.valid"
+      >Create Event</ion-button
+    >
+    <ion-button [routerLink]="['..']" color="light" expand="block"
+      >Cancel</ion-button
+    >
+  </form>
+</ion-content>

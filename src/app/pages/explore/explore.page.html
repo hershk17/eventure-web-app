@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Explore </ion-title>
+  </ion-toolbar>
+  <ion-searchbar
+    placeholder="Enter a POI"
+    searchIcon="search"
+    (search)="getLocations($event.target.value)"
+    animated
+  >
+  </ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="background-color: transparent">
+    <!-- 
+    <ion-card
+      *ngFor="let poi of this.pois"
+      button="true"
+      [routerLink]="['/tabs/explore/location',poi.id]"
+      style="margin: 20px; margin-top: 10px; border-radius: 10px"
+    > -->
+    <ion-card
+      *ngFor="let poi of this.pois"
+      style="margin: 20px; margin-top: 10px; border-radius: 10px"
+    >
+      <ion-card-header class="location-card">
+        <ion-card-title>{{ poi.poi.name }}</ion-card-title>
+        <ion-button class="create-button" [routerLink]="['create', poi.id]"
+          ><ion-icon name="add-sharp"></ion-icon
+        ></ion-button>
+      </ion-card-header>
+      <ion-card-content>
+        {{poi.poi.categories[0]}} &bull; {{poi.distance}} km away<br />
+        {{poi.address.freeformAddress}} <br />
+        {{poi.poi.phone}}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

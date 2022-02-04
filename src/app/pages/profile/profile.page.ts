@@ -16,36 +16,45 @@ export class ProfilePage implements OnInit {
   public firstName: string;
   public lastName: string;
   public uid: string;
+  public country: string;
+  public gender: string;
   public aUser: User;
-  constructor(
 
+  constructor(
     private db: DbService,
     public router: Router,
     public auth: AngularFireAuth,
-    public afStore: AngularFirestore,
-    ) {}
+    public afStore: AngularFirestore
+  ) {}
 
-    async ngOnInit() {
-      await (await this.auth.currentUser).reload();
-      const aUID = (await this.auth.currentUser).uid;
-      this.db.getUserByUid(aUID).subscribe((data)=>{
-      // console.log(data);
+  async ngOnInit() {
+    await (await this.auth.currentUser).reload();
+    const aUID = (await this.auth.currentUser).uid;
+    this.db.getUserByUid(aUID).subscribe((data) => {
       this.aUser = data[0];
       this.photoURL = this.aUser.photoURL;
       this.email = this.aUser.email;
       this.firstName = this.aUser.firstName;
       this.lastName = this.aUser.lastName;
       this.uid = this.aUser.uid;
-      // console.log(this.aUser);
 
+      this.email = 'mletemps@hotmail.com';
+      this.country = 'Canada';
+      this.gender = 'Male';
     });
-    // this.db.getCurrentUser().then((user) => {
-    //   console.log(user.data());
-    // });
   }
 
-
-
+  public async onEditProfile() {
+    console.log('Editing Profile TODO!');
+  }
+  public async onCreatedEvents() {
+    console.log('onCreatedEvents TODO!');
+  }
+  public async onJoinedEvents() {
+    this.db.getJoined().then((res) => {
+      console.log(res);
+    });
+  }
   public async onSignOut() {
     await this.db.signOut();
   }
