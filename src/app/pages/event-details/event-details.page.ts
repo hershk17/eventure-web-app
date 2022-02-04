@@ -69,11 +69,13 @@ export class EventDetailsPage implements OnInit {
 
   public edit() {
     console.log('edit');
+    this.presentToast('Your settings have been saved!');
   }
 
   public delete() {
     console.log('delete');
     this.presentToast('Your event has been deleted!');
+    this.location.back();
   }
 
   join() {
