@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { CreateEventFormPageRoutingModule } from './create-event-form-routing.module';
+import { EventCreatePageRoutingModule } from './event-create-routing.module';
 
-import { CreateEventFormPage } from './create-event-form.page';
+import { EventCreatePage } from './event-create.page';
 
 @NgModule({
   imports: [
@@ -14,8 +14,8 @@ import { CreateEventFormPage } from './create-event-form.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    CreateEventFormPageRoutingModule,
+    EventCreatePageRoutingModule,
   ],
-  declarations: [CreateEventFormPage],
+  declarations: [EventCreatePage],
 })
-export class CreateEventFormPageModule {}
+export class EventCreatePageModule {}

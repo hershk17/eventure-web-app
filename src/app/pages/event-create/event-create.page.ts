@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService, POI } from 'src/app/services/api.service';
 
 @Component({
-  selector: 'app-create-event-form',
-  templateUrl: './create-event-form.page.html',
-  styleUrls: ['./create-event-form.page.scss'],
+  selector: 'app-event-create',
+  templateUrl: './event-create.page.html',
+  styleUrls: ['./event-create.page.scss'],
 })
-export class CreateEventFormPage implements OnInit {
+export class EventCreatePage implements OnInit {
   eventForm: FormGroup;
   pois: POI[] = [];
 

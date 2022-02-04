@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('../events/home.module').then(m => m.HomePageModule)
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
         path: 'explore',
@@ -20,15 +20,15 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
       },
       {
-        path: 'home/create',
-        loadChildren: () => import('../create-event-form/create-event-form.module').then( m => m.CreateEventFormPageModule)
+        path: 'explore/location/:id/create',
+        loadChildren: () => import('../event-create/event-create.module').then( m => m.EventCreatePageModule)
       },
       {
         path: 'home/:id',
         loadChildren: () => import('../event-details/event-details.module').then( m => m.EventDetailsPageModule)
       },
       {
-        path: 'explore/:id',
+        path: 'explore/location/:id',
         loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
       },
       {

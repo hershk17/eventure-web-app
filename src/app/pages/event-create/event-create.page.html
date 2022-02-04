@@ -12,13 +12,6 @@
     <ion-card class="create-event-card">
       <ion-card-content>
         <ion-list>
-          <ion-searchbar
-            formControlName="location"
-            (search)="search($event.target.value)"
-            placeholder="Search Location"
-            required
-            animated
-          ></ion-searchbar>
           <div *ngFor="let error of errorMessages.location">
             <ng-container
               *ngIf="location?.hasError(error.type) && (location.dirty || location.touched)"
