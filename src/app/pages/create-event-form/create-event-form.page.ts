@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService, POI } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-create-event-form',
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateEventFormPage implements OnInit {
   eventForm: FormGroup;
+  pois: POI[] = [];
 
   public errorMessages = {
     name: [{ type: 'required', message: 'An event name is required' }],
@@ -74,7 +75,7 @@ export class CreateEventFormPage implements OnInit {
     return this.eventForm.get('fee');
   }
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private api: ApiService) {}
 
   ngOnInit() {
     this.eventForm = this.formBuilder.group({
@@ -90,7 +91,16 @@ export class CreateEventFormPage implements OnInit {
     });
   }
 
-  public async onCreateEvent() {
+  async search(query: any) {
+    if (query !== '') {
+      this.api.getPOI(query).subscribe((data: { results: POI[] }) => {
+        this.pois = data.results;
+        console.log(this.pois);
+      });
+    }
+  }
+
+  public async onCreateEvent(): Promise<void> {
     console.log('event should be created here');
   }
 }

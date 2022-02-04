@@ -8,17 +8,32 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
-    <ion-card style="border-radius: 10px">
-      <ion-card-header>
+  <form [formGroup]="eventForm">
+    <ion-card class="create-event-card">
+      <ion-card-content>
         <ion-list>
-          <ion-item lines="full">
-            <ion-label position="floating">Event Name</ion-label>
+          <ion-searchbar
+            formControlName="location"
+            (search)="search($event.target.value)"
+            placeholder="Search Location"
+            required
+            animated
+          ></ion-searchbar>
+          <div *ngFor="let error of errorMessages.location">
+            <ng-container
+              *ngIf="location?.hasError(error.type) && (location.dirty || location.touched)"
+            >
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
+          <ion-item>
+            <ion-label position="stacked">Event Name</ion-label>
             <ion-input
               autocapitalize
               type="text"
               formControlName="name"
               inputmode="text"
+              placeholder="Enter an event name here"
               required
             ></ion-input>
           </ion-item>
@@ -30,16 +45,16 @@
             </ng-container>
           </div>
 
-          <ion-item lines="full">
-            <ion-label position="floating">Event Description</ion-label>
-            <ion-input
+          <ion-item>
+            <ion-label position="stacked">Event Description</ion-label>
+            <ion-textarea
               autocapitalize
               type="text"
               formControlName="description"
-              placeholder="Write something about this event..."
+              placeholder="Enter the event description here"
               inputmode="text"
               required
-            ></ion-input>
+            ></ion-textarea>
           </ion-item>
           <div *ngFor="let error of errorMessages.description">
             <ng-container
@@ -49,27 +64,13 @@
             </ng-container>
           </div>
 
-          <ion-item lines="full">
-            <ion-label position="floating">Location</ion-label>
-            <ion-input
-              autocapitalize
-              type="text"
-              formControlName="location"
-              inputmode="text"
-              required
-            ></ion-input>
-          </ion-item>
-          <div *ngFor="let error of errorMessages.location">
-            <ng-container
-              *ngIf="location?.hasError(error.type) && (location.dirty || location.touched)"
-            >
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
-
           <ion-item>
-            <ion-label position="floating">Category</ion-label>
-            <ion-select formControlName="category" multiple="true">
+            <ion-label position="stacked">Category</ion-label>
+            <ion-select
+              formControlName="category"
+              placeholder="Select relevant categories"
+              multiple="true"
+            >
               <ion-select-option
                 *ngFor="let category of this.categories"
                 [value]="category"
@@ -89,7 +90,7 @@
           <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
             <div>
               <ion-item lines="full">
-                <ion-label position="floating">Start Date </ion-label>
+                <ion-label position="stacked">Start Date </ion-label>
                 <ion-datetime
                   formControlName="date"
                   presentation="date-time"
@@ -101,7 +102,7 @@
             </div>
             <div>
               <ion-item lines="full">
-                <ion-label position="floating">Start Time </ion-label>
+                <ion-label position="stacked">Start Time </ion-label>
                 <ion-datetime
                   formControlName="time"
                   position="floating"
@@ -114,7 +115,7 @@
           </div>
 
           <ion-item>
-            <ion-label position="floating">Event Privacy</ion-label>
+            <ion-label position="stacked">Event Privacy</ion-label>
             <ion-select formControlName="privacy" interface="popover" required>
               <ion-select-option
                 *ngFor="let privacyOption of privacyOptions"
@@ -125,7 +126,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Max Participants</ion-label>
+            <ion-label position="stacked">Max Participants</ion-label>
             <ion-input
               type="number"
               formControlName="participantCnt"
@@ -142,8 +143,8 @@
             </ng-container>
           </div>
 
-          <ion-item>
-            <ion-label position="floating">Entry Fee</ion-label>
+          <ion-item lines="none">
+            <ion-label position="stacked">Entry Fee</ion-label>
             <ion-input
               type="number"
               formControlName="fee"
@@ -153,19 +154,17 @@
             ></ion-input>
           </ion-item>
         </ion-list>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-button
-          type="submit"
-          color="primary"
-          expand="block"
-          [disabled]="!eventForm.valid"
-          >Create Event</ion-button
-        >
-        <ion-button [routerLink]="['..']" color="light" expand="block"
-          >Cancel</ion-button
-        >
       </ion-card-content>
     </ion-card>
+    <ion-button
+      type="submit"
+      color="primary"
+      expand="block"
+      [disabled]="!eventForm.valid"
+      >Create Event</ion-button
+    >
+    <ion-button [routerLink]="['..']" color="light" expand="block"
+      >Cancel</ion-button
+    >
   </form>
 </ion-content>
