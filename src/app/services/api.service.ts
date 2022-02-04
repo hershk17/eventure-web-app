@@ -19,6 +19,8 @@ export interface POI {
   providedIn: 'root',
 })
 export class ApiService {
+  public pois: Observable<POI[]>;
+
   private baseURL = 'https://api.tomtom.com';
   private searchParam = '/search';
   private poiSearch = '/poiSearch/';
@@ -27,7 +29,6 @@ export class ApiService {
   private apiKey = 'YlHRCAWHnD2YVU8wWQqwfJA5VRKpHOPm';
 
   private location: any = {};
-  private pois: Observable<POI[]>;
 
   constructor(
     private httpClient: HttpClient,
@@ -55,7 +56,6 @@ export class ApiService {
           '&key=' +
           this.apiKey
       );
-      // this.pois.subscribe((data) => data);
       return this.pois;
     } catch (err) {
       console.log('ERROR: ' + err);

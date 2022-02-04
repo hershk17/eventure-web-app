@@ -142,6 +142,8 @@ export class RegisterPage implements OnInit {
             // photoURL: 'https://i.imgur.com/FxsD9fh.png',
             photoURL: 'https://i.imgur.com/9PFqQQB.jpg',
             emailVerified: res.user.emailVerified,
+            organized: [],
+            joined: [],
           };
           // console.log(res.user.uid);
           // add the user information into the firebase db

@@ -7,12 +7,10 @@ import {
   arrayUnion,
   collection,
   doc,
-  documentId,
   getDoc,
   getDocs,
   getFirestore,
   query,
-  QuerySnapshot,
   setDoc,
   where,
 } from 'firebase/firestore';
@@ -26,7 +24,6 @@ import { Router } from '@angular/router';
 import { User } from '../shared/auth';
 import { Observable } from 'rxjs';
 import uniqid from 'uniqid';
-import { Console } from 'console';
 
 export interface Event {
   id: string;
@@ -250,7 +247,7 @@ export class DbService {
       return user.emailVerified !== false ? true : false;
     } catch (error) {
       console.error(error);
-      this.presentAlert('Error', "Can't read user's state");
+      this.presentAlert('Error', 'Can\'t read user\'s state');
     }
   }
 
@@ -261,11 +258,12 @@ export class DbService {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      // displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
       firstName: user.firstName,
       lastName: user.lastName,
+      organized: [],
+      joined: [],
     };
     return userRef.set(userData, {
       merge: true,

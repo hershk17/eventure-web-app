@@ -13,14 +13,20 @@
 
 <ion-content>
   <ion-list style="background-color: transparent">
+    <!-- 
     <ion-card
       *ngFor="let poi of this.pois"
       button="true"
       [routerLink]="['/tabs/explore/location',poi.id]"
       style="margin: 20px; margin-top: 10px; border-radius: 10px"
+    > -->
+    <ion-card
+      *ngFor="let poi of this.pois"
+      style="margin: 20px; margin-top: 10px; border-radius: 10px"
     >
       <ion-card-header class="location-card">
         <ion-card-title>{{ poi.poi.name }}</ion-card-title>
+        <ion-button class="create-button"><ion-icon name="add-sharp"></ion-icon></ion-button>
       </ion-card-header>
       <ion-card-content>
         {{poi.poi.categories[0]}} &bull; {{poi.distance}} km away<br />
