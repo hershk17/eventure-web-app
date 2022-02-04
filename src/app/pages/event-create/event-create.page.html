@@ -8,31 +8,33 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="eventForm">
+  <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
     <ion-card class="create-event-card">
       <ion-card-content>
         <ion-list>
-          <div *ngFor="let error of errorMessages.location">
-            <ng-container
-              *ngIf="location?.hasError(error.type) && (location.dirty || location.touched)"
-            >
-              <small class="error-message">{{error.message}}</small>
-            </ng-container>
-          </div>
+          <ion-item lines="none">
+            <ion-label position="stacked">Cover Image</ion-label>
+            <ion-input
+              type="file"
+              accept="image/*"
+              (change)="onFileChange($event)"
+            ></ion-input>
+          </ion-item>
+
           <ion-item>
             <ion-label position="stacked">Event Name</ion-label>
             <ion-input
               autocapitalize
               type="text"
-              formControlName="name"
+              formControlName="eventName"
               inputmode="text"
               placeholder="Enter an event name here"
               required
             ></ion-input>
           </ion-item>
-          <div *ngFor="let error of errorMessages.name">
+          <div *ngFor="let error of errorMessages.eventName">
             <ng-container
-              *ngIf="name?.hasError(error.type) && (name.dirty || name.touched)"
+              *ngIf="eventName?.hasError(error.type) && (eventName.dirty || eventName.touched)"
             >
               <small class="error-message">{{error.message}}</small>
             </ng-container>
@@ -109,11 +111,15 @@
 
           <ion-item>
             <ion-label position="stacked">Event Privacy</ion-label>
-            <ion-select formControlName="privacy" interface="popover" required>
+            <ion-select
+              formControlName="visibility"
+              interface="popover"
+              required
+            >
               <ion-select-option
-                *ngFor="let privacyOption of privacyOptions"
-                value="{{privacyOption}}"
-                >{{privacyOption}}</ion-select-option
+                *ngFor="let visibility of visibilityOptions"
+                value="{{visibility}}"
+                >{{visibility }}</ion-select-option
               >
             </ion-select>
           </ion-item>
@@ -122,15 +128,15 @@
             <ion-label position="stacked">Max Participants</ion-label>
             <ion-input
               type="number"
-              formControlName="participantCnt"
+              formControlName="capacity"
               inputmode="number"
               value="5"
               required
             ></ion-input>
           </ion-item>
-          <div *ngFor="let error of errorMessages.participantCnt">
+          <div *ngFor="let error of errorMessages.capacity">
             <ng-container
-              *ngIf="participantCnt?.hasError(error.type) && (participantCnt.dirty || participantCnt.touched)"
+              *ngIf="capacity?.hasError(error.type) && (capacity.dirty || capacity.touched)"
             >
               <small class="error-message">{{error.message}}</small>
             </ng-container>
@@ -140,13 +146,15 @@
             <ion-label position="stacked">Entry Fee</ion-label>
             <ion-input
               type="number"
-              formControlName="fee"
+              formControlName="entryFee"
               inputmode="number"
               value="0"
               required
             ></ion-input>
           </ion-item>
         </ion-list>
+
+        <app-img-preview [imgFile]="eventForm.value.image"></app-img-preview>
       </ion-card-content>
     </ion-card>
     <ion-button

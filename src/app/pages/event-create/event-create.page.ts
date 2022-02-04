@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService, POI } from 'src/app/services/api.service';
+import { ActivatedRoute } from '@angular/router';
+import { POI } from 'src/app/services/api.service';
+import { DbService } from 'src/app/services/db.service';
 
 @Component({
   selector: 'app-event-create',
@@ -12,13 +14,12 @@ export class EventCreatePage implements OnInit {
   pois: POI[] = [];
 
   public errorMessages = {
-    name: [{ type: 'required', message: 'An event name is required' }],
+    eventName: [{ type: 'required', message: 'An event name is required' }],
     description: [
       { type: 'required', message: 'An event description is required' },
     ],
-    location: [{ type: 'required', message: 'An event location is required' }],
     category: [{ type: 'required', message: 'A category is required.' }],
-    participantCnt: [
+    capacity: [
       { type: 'required', message: 'A participant count is required.' },
     ],
   };
@@ -45,16 +46,13 @@ export class EventCreatePage implements OnInit {
     'Theatre',
     'Misc',
   ];
-  public privacyOptions: string[] = ['Public', 'Followers Only', 'Invite Only'];
+  public visibilityOptions: string[] = ['Public', 'Followers Only', 'Invite Only'];
 
-  get name() {
-    return this.eventForm.get('name');
+  get eventName() {
+    return this.eventForm.get('eventName');
   }
   get description() {
     return this.eventForm.get('description');
-  }
-  get location() {
-    return this.eventForm.get('location');
   }
   get date() {
     return this.eventForm.get('date');
@@ -65,42 +63,44 @@ export class EventCreatePage implements OnInit {
   get category() {
     return this.eventForm.get('category');
   }
-  get privacy() {
-    return this.eventForm.get('privacy');
+  get visibility() {
+    return this.eventForm.get('visibility');
   }
-  get participantCnt() {
-    return this.eventForm.get('participantCnt');
+  get capacity() {
+    return this.eventForm.get('capacity');
   }
-  get fee() {
-    return this.eventForm.get('fee');
+  get entryFee() {
+    return this.eventForm.get('entryFee');
+  }
+  get image() {
+    return this.eventForm.get('image');
   }
 
-  constructor(private formBuilder: FormBuilder, private api: ApiService) {}
+  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private db: DbService) {}
 
   ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      location: [this.activatedRoute.snapshot.paramMap.get('id')],
+      eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      location: ['', [Validators.required]],
       date: [this.minDate],
       time: [this.minDate],
-      privacy: [this.privacyOptions[0]],
+      visibility: [this.visibilityOptions[0]],
       category: ['', [Validators.required]],
-      participantCnt: [5, [Validators.required]],
-      fee: [0],
+      capacity: [5, [Validators.required]],
+      entryFee: [0],
+      image: null,
     });
   }
 
-  async search(query: any) {
-    if (query !== '') {
-      this.api.getPOI(query).subscribe((data: { results: POI[] }) => {
-        this.pois = data.results;
-        console.log(this.pois);
-      });
-    }
+  public onFileChange($event: any): void {
+    this.eventForm.value.image = $event.target.files[0];
   }
 
   public async onCreateEvent(): Promise<void> {
-    console.log('event should be created here');
+    const imgFile = this.eventForm.value.image;
+    this.eventForm.value.image = null;
+    const uploaded = await this.db.uploadEvent(this.eventForm.value, imgFile);
+    console.log(uploaded);
   }
 }
