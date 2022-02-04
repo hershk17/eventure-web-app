@@ -25,4 +25,8 @@ export class EventDetailsPage implements OnInit {
     );
     console.log(this.event);
   }
+
+  join() {
+    this.db.joinEvent(this.event.id);
+  }
 }
