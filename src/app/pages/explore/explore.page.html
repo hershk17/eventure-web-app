@@ -26,7 +26,9 @@
     >
       <ion-card-header class="location-card">
         <ion-card-title>{{ poi.poi.name }}</ion-card-title>
-        <ion-button class="create-button"><ion-icon name="add-sharp"></ion-icon></ion-button>
+        <ion-button class="create-button" [routerLink]="['create', poi.id]"
+          ><ion-icon name="add-sharp"></ion-icon
+        ></ion-button>
       </ion-card-header>
       <ion-card-content>
         {{poi.poi.categories[0]}} &bull; {{poi.distance}} km away<br />
