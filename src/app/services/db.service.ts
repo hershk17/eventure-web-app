@@ -111,7 +111,7 @@ export class DbService {
       }
       event.images = [];
       event.images.push(url);
-      await setDoc(doc(this.db, 'Events2', uniqid()), event);
+      await setDoc(doc(this.db, 'Events2', event.id), event);
       await this.afStore
         .doc(`users/${this.userData.uid}`)
         .update({ organized: arrayUnion(event.id) });

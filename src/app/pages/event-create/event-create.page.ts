@@ -87,7 +87,7 @@ export class EventCreatePage implements OnInit {
 
   async ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      id: [uniqid()],
+      id: [uniqid('e-')],
       location: [this.activatedRoute.snapshot.paramMap.get('id')],
       eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
