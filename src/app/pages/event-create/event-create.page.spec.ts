@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CreateEventFormPage } from './create-event-form.page';
+import { EventCreatePage } from './event-create.page';
 
-describe('CreateEventFormPage', () => {
-  let component: CreateEventFormPage;
-  let fixture: ComponentFixture<CreateEventFormPage>;
+describe('EventCreatePage', () => {
+  let component: EventCreatePage;
+  let fixture: ComponentFixture<EventCreatePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateEventFormPage ],
+      declarations: [ EventCreatePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateEventFormPage);
+    fixture = TestBed.createComponent(EventCreatePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

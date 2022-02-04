@@ -1,18 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Events </ion-title>
+    <ion-title> Home </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" >
-    <ion-fab-button [routerLink]="['/tabs/events/create']"><ion-icon name="add-outline"></ion-icon></ion-fab-button>
-  </ion-fab>
   <ion-list style="background-color: transparent;">
     <ion-card
       *ngFor="let event of this.events"
       button="true"
-      [routerLink]="['/tabs/events',event.eventID]"
+      [routerLink]="['/tabs/home',event.eventID]"
       style="margin: 20px; margin-top: 10px; border-radius: 10px;"
     >
       <div>
