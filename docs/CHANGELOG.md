@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2/4/2022
+
+## Added
+
+- Create event form
+- Upload event/images functions
+- Added join events functionality
+- Added event edit functionality
+- Added event delete functionality
+
 ## [1.1.1] - 8/12/2021
 
 ## Added
