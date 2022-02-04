@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DbService, Event } from 'src/app/services/db.service';
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.page.html',
-  styleUrls: ['./events.page.scss'],
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
-export class EventsPage implements OnInit {
+export class HomePage implements OnInit {
   events: Event[] = [];
 
   constructor(private db: DbService) {}
