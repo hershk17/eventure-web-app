@@ -1,16 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-title> Home </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="onPopover()">
+        <ion-icon
+          slot="icon-only"
+          ios="ellipsis-horizontal"
+          md="ellipsis-vertical"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list style="background-color: transparent;">
+  <ion-list style="background-color: transparent">
     <ion-card
       *ngFor="let event of this.events"
       button="true"
       [routerLink]="['/tabs/home',event.eventID]"
-      style="margin: 20px; margin-top: 10px; border-radius: 10px;"
+      style="margin: 20px; margin-top: 10px; border-radius: 10px"
     >
       <div>
         <ion-card class="myCard">
