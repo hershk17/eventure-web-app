@@ -74,7 +74,7 @@ export class DbService {
    * @param event
    * @returns true if valid
    */
-   public validateEvent(event: Event): boolean {
+  public validateEvent(event: Event): boolean {
     return true;
   }
 
@@ -101,23 +101,24 @@ export class DbService {
    */
   public async uploadEvent(event: Event, imgFile: any): Promise<boolean> {
     const valid = this.validateEvent(event);
-    if(!valid) {
+    if (!valid) {
       return false;
     }
     try {
       const url = await this.uploadImg(imgFile);
-      if(!url) {
+      if (!url) {
         return false;
       }
       event.images = [];
       event.images.push(url);
       await setDoc(doc(this.db, 'Events', uniqid()), event);
-    } catch(error) {
+    } catch (error) {
       console.error(error);
       return false;
     }
     return true;
   }
+
   async presentAlert(title: string, msg: string): Promise<void> {
     const alert = await this.alertController.create({
       header: title,
@@ -189,7 +190,7 @@ export class DbService {
       const user = await this.auth.currentUser;
       await user.reload();
       return user.emailVerified !== false ? true : false;
-    } catch(error) {
+    } catch (error) {
       console.error(error);
       this.presentAlert('Error', 'Can\'t read user\'s state');
     }
@@ -215,13 +216,17 @@ export class DbService {
 
   public getUserByUid(userUid: string): Observable<any> {
     return this.afStore
-      .collection<any>('users', (userRef) => userRef.where('uid', '==', userUid))
+      .collection<any>('users', (userRef) =>
+        userRef.where('uid', '==', userUid)
+      )
       .valueChanges();
   }
 
   public getUserByEmail(userEmail: string): Observable<any> {
     return this.afStore
-      .collection<any>('users', (userRef) => userRef.where('email', '==', userEmail))
+      .collection<any>('users', (userRef) =>
+        userRef.where('email', '==', userEmail)
+      )
       .valueChanges();
   }
 
