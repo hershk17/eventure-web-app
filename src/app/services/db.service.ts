@@ -9,7 +9,9 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  setDoc,
 } from 'firebase/firestore';
+import { uploadBytes, getDownloadURL, ref, getStorage } from 'firebase/storage';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
@@ -18,6 +20,7 @@ import { environment } from 'src/environments/environment.prod';
 import { Router } from '@angular/router';
 import { User } from '../shared/auth';
 import { Observable } from 'rxjs';
+import uniqid from 'uniqid';
 
 export interface Event {
   capacity: number;
@@ -48,7 +51,7 @@ export class DbService {
   private db = getFirestore();
 
   private events: any = [];
-
+  private storage = getStorage();
   constructor(
     public auth: AngularFireAuth,
     public afStore: AngularFirestore,
@@ -65,7 +68,56 @@ export class DbService {
       }
     });
   }
+  /**
+   * Do any validation to event data
+   *
+   * @param event
+   * @returns true if valid
+   */
+   public validateEvent(event: Event): boolean {
+    return true;
+  }
 
+  /**
+   * @param imgFile a blob
+   * @returns an url if upload successfully or null if fail
+   */
+  public async uploadImg(imgFile: any): Promise<string> {
+    try {
+      const name = uniqid('img-');
+      const storageRef = ref(this.storage, name);
+      const snapshot = await uploadBytes(storageRef, imgFile);
+      const url = await getDownloadURL(ref(this.storage, name));
+      return url;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  /**
+   * @param event
+   * @returns true if the event is uploaded successfully
+   */
+  public async uploadEvent(event: Event, imgFile: any): Promise<boolean> {
+    const valid = this.validateEvent(event);
+    if(!valid) {
+      return false;
+    }
+    try {
+      const url = await this.uploadImg(imgFile);
+      if(!url) {
+        return false;
+      }
+      event.images = [];
+      event.images.push(url);
+      await setDoc(doc(this.db, 'Events', uniqid()), event);
+    } catch(error) {
+      console.error(error);
+      return false;
+    }
+    return true;
+  }
   async presentAlert(title: string, msg: string): Promise<void> {
     const alert = await this.alertController.create({
       header: title,
@@ -163,13 +215,13 @@ export class DbService {
 
   public getUserByUid(userUid: string): Observable<any> {
     return this.afStore
-      .collection<any>('users', (ref) => ref.where('uid', '==', userUid))
+      .collection<any>('users', (userRef) => userRef.where('uid', '==', userUid))
       .valueChanges();
   }
 
   public getUserByEmail(userEmail: string): Observable<any> {
     return this.afStore
-      .collection<any>('users', (ref) => ref.where('email', '==', userEmail))
+      .collection<any>('users', (userRef) => userRef.where('email', '==', userEmail))
       .valueChanges();
   }
 
