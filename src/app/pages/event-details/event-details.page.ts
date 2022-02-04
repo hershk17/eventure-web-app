@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DbService, Event } from 'src/app/services/db.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-event-details',
@@ -17,7 +18,8 @@ export class EventDetailsPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private db: DbService,
     public auth: AngularFireAuth,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private location: Location
   ) {}
 
   async presentToast(yourMessage) {
@@ -77,5 +79,6 @@ export class EventDetailsPage implements OnInit {
   join() {
     this.db.joinEvent(this.event.id);
     this.presentToast('You have joined the event!');
+    this.location.back();
   }
 }
