@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 import { POI } from 'src/app/services/api.service';
 import { DbService } from 'src/app/services/db.service';
 import uniqid from 'uniqid';
@@ -82,7 +84,9 @@ export class EventCreatePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private db: DbService
+    private location: Location,
+    private db: DbService,
+    public toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -104,18 +108,22 @@ export class EventCreatePage implements OnInit {
     });
   }
 
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Event created successfully.',
+      duration: 2000
+    });
+    toast.present();
+  }
+
   public onFileChange($event: any): void {
     this.image = $event.target.files[0];
   }
 
   public async onCreateEvent(): Promise<void> {
-    const uploaded = await this.db.uploadEvent(
-      this.eventForm.value,
-      this.image
-    );
-    //update the events so that they reload with the new event
-    // this.db.getEvents();
-
-    console.log(uploaded);
+    this.db.uploadEvent(this.eventForm.value, this.image).then(() => {
+      this.presentToast();
+      this.location.back();
+    });
   }
 }
