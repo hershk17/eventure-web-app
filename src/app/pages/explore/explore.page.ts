@@ -12,7 +12,6 @@ export default class ExplorePage implements OnInit {
 
   processing = false;
 
-
   constructor(
     private api: ApiService,
     private alertController: AlertController

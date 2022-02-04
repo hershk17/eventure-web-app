@@ -109,7 +109,13 @@ export class EventCreatePage implements OnInit {
   }
 
   public async onCreateEvent(): Promise<void> {
-    const uploaded = await this.db.uploadEvent(this.eventForm.value, this.image);
+    const uploaded = await this.db.uploadEvent(
+      this.eventForm.value,
+      this.image
+    );
+    //update the events so that they reload with the new event
+    // this.db.getEvents();
+
     console.log(uploaded);
   }
 }
