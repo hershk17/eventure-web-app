@@ -12,6 +12,7 @@ import { MenuController } from '@ionic/angular';
 export class HomePage implements OnInit {
   list: any = ['All Events', 'My Created Events', 'My Joined Events'];
   events: Event[] = [];
+  allEvents: Event[] = [];
   public isOpen = false;
   constructor(
     private db: DbService,
@@ -32,6 +33,20 @@ export class HomePage implements OnInit {
   handleClick(field) {
     console.log(field);
     this.menu.close();
+
+    if (field === 'All Events') {
+      this.db.getEvents().then((res) => {
+        this.events = res;
+      });
+    } else if (field === 'My Created Events') {
+      this.db.getCreated().then((res) => {
+        this.events = res;
+      });
+    } else {
+      this.db.getJoined().then((res) => {
+        this.events = res;
+      });
+    }
   }
   //popover filter options
   //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
