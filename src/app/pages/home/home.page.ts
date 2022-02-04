@@ -19,17 +19,16 @@ export class HomePage implements OnInit {
     });
   }
 
-  filterHandler() {
-    console.log('nice');
-  }
-
   onSelect(event: Event) {
     console.log(event);
   }
 
-  async onPopover() {
+  //popover filter options
+  //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
+  async onPopover(ev: any) {
     const popover = await this.popCtrl.create({
       component: PopoverComponent,
+      event: ev,
     });
 
     return await popover.present();
