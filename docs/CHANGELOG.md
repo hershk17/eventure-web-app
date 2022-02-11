@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.2.1] - 2/4/2022
+## [1.2.2] - 2/11/2022
+
+### Fixed
+
+- Fixed delete functionality not in db
+
+## [1.2.1] - 2/11/2022
 
 ### Added
 
