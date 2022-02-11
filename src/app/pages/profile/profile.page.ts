@@ -37,10 +37,6 @@ export class ProfilePage implements OnInit {
       this.firstName = this.aUser.firstName;
       this.lastName = this.aUser.lastName;
       this.uid = this.aUser.uid;
-
-      this.email = 'mletemps@hotmail.com';
-      this.country = 'Canada';
-      this.gender = 'Male';
     });
   }
 

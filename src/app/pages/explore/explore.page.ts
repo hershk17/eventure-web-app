@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService, POI } from 'src/app/services/api.service';
 
 @Component({
@@ -7,18 +7,38 @@ import { ApiService, POI } from 'src/app/services/api.service';
   templateUrl: './explore.page.html',
   styleUrls: ['./explore.page.scss'],
 })
-export default class ExplorePage implements OnInit {
+export default class ExplorePage implements OnInit, OnChanges  {
+  @Output() locationIdEmit = new EventEmitter<any>();
   pois: POI[] = [];
+  modal;
 
   processing = false;
 
   constructor(
     private api: ApiService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private modalController: ModalController
   ) {}
-
+  ngOnChanges(changes: SimpleChanges): void {
+      console.log(this.modal);
+  }
   ngOnInit() {}
+  dismissModal(poi?) {
+    if(poi) {
+      this.modalController.dismiss(poi);
+    } else {
+      this.modalController.dismiss();
+    }
 
+  }
+  returnLocationId(poi: any) {
+    this.locationIdEmit.emit(poi);
+  }
+  pickLocation(poi) {
+    if(this.modal) {
+      this.dismissModal(poi);
+    }
+  }
   async presentAlert(title: string, msg: string) {
     const alert = await this.alertController.create({
       header: title,

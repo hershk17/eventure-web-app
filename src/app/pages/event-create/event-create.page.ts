@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { POI } from 'src/app/services/api.service';
 import { DbService } from 'src/app/services/db.service';
 import uniqid from 'uniqid';
-
+import ExplorePage from '../explore/explore.page';
+import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.page.html',
@@ -14,8 +15,7 @@ import uniqid from 'uniqid';
 })
 export class EventCreatePage implements OnInit {
   eventForm: FormGroup;
-  pois: POI[] = [];
-
+  poiData: any;
   public errorMessages = {
     eventName: [{ type: 'required', message: 'An event name is required' }],
     description: [
@@ -27,6 +27,11 @@ export class EventCreatePage implements OnInit {
     ],
   };
 
+  // public isEditMode: false;
+  // public eventNameFiller: 'Enter an event name here';
+  // public eventDescriptionFiller: 'Enter the event description here';
+
+  public;
   public minDate: string = new Date().toISOString();
   public maxDate = '2040-12-31';
   public categories: string[] = [
@@ -83,16 +88,16 @@ export class EventCreatePage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute,
     private location: Location,
     private db: DbService,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public modalController: ModalController
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.eventForm = this.formBuilder.group({
       id: [uniqid('e-')],
-      location: [this.activatedRoute.snapshot.paramMap.get('id')],
+      location: [null],
       eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
       date: [this.minDate],
@@ -101,19 +106,38 @@ export class EventCreatePage implements OnInit {
       category: ['', [Validators.required]],
       capacity: [5, [Validators.required]],
       entryFee: [0],
-      organizer: [this.db.userData.uid],
+      organizer: [(await this.db.auth.currentUser).uid],
       participants: [[]],
       reviews: [[]],
       score: [0],
     });
   }
-
+  public addLocationId(poi: any) {
+    this.eventForm.controls.location.setValue(poi.id);
+    // console.log(this.eventForm.value);
+  }
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Event created successfully.',
-      duration: 2000
+      duration: 2000,
     });
     toast.present();
+  }
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ExplorePage,
+      componentProps: {
+        modal: true,
+      },
+    });
+    modal.onDidDismiss().then((data) => {
+      this.poiData = data.data;
+      this.eventForm.controls.location.setValue(this.poiData);
+      // this.eventForm.controls.location.setValue(this.poiData.poi.id);
+
+      console.log(this.poiData.id);
+    });
+    await modal.present();
   }
 
   public onFileChange($event: any): void {

@@ -9,40 +9,59 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        loadChildren: () =>
+          import('../home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: 'explore',
-        loadChildren: () => import('../explore/explore.module').then(m => m.ExplorePageModule)
+        loadChildren: () =>
+          import('../explore/explore.module').then((m) => m.ExplorePageModule),
+      },
+      {
+        path: 'create',
+        loadChildren: () =>
+          import('../event-create/event-create.module').then(
+            (m) => m.EventCreatePageModule
+          ),
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then(m => m.ProfilePageModule)
-      },
-      {
-        path: 'explore/create/:id',
-        loadChildren: () => import('../event-create/event-create.module').then( m => m.EventCreatePageModule)
+        loadChildren: () =>
+          import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
       {
         path: 'home/event/:id',
-        loadChildren: () => import('../event-details/event-details.module').then( m => m.EventDetailsPageModule)
+        loadChildren: () =>
+          import('../event-details/event-details.module').then(
+            (m) => m.EventDetailsPageModule
+          ),
+      },
+      {
+        path: 'home/event/:id/edit',
+        loadChildren: () =>
+          import('../event-create/event-create.module').then(
+            (m) => m.EventCreatePageModule
+          ),
       },
       {
         path: 'explore/location/:id',
-        loadChildren: () => import('../location-details/location-details.module').then( m => m.LocationDetailsPageModule)
+        loadChildren: () =>
+          import('../location-details/location-details.module').then(
+            (m) => m.LocationDetailsPageModule
+          ),
       },
       {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
-      }
-    ]
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
     redirectTo: 'home',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

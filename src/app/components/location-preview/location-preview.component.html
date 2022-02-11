@@ -1,0 +1,13 @@
+<ion-card
+*ngIf="poi"
+  style="margin: 20px; margin-top: 10px; border-radius: 10px"
+>
+  <ion-card-header class="location-card">
+    <ion-card-title>{{ poi.poi.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{poi.poi.categories[0]}} &bull; {{poi.distance}} km away<br />
+    {{poi.address.freeformAddress}} <br />
+    {{poi.poi.phone}}
+  </ion-card-content>
+</ion-card>

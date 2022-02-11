@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DbService, Event } from 'src/app/services/db.service';
+import {
+  DbService,
+  Event,
+  TomtomLocation,
+  TomtomAddress,
+} from 'src/app/services/db.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -12,7 +17,9 @@ import { Location } from '@angular/common';
 })
 export class EventDetailsPage implements OnInit {
   event: Event = null;
-
+  public userFirstName: string;
+  public userLastName: string;
+  public participants: Array<string> = [];
   // public myUID = this.db.getUserByUid(aUID);
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -64,12 +71,29 @@ export class EventDetailsPage implements OnInit {
     this.event = this.db.getEventByID(
       this.activatedRoute.snapshot.paramMap.get('id')
     );
-    console.log(this.event);
+
+    // is an observable that we subscribe to
+    // get the user of the event.organizer
+    this.db.getUserByUid(this.event.organizer).subscribe((user) => {
+      if (user) {
+        // get the first and last name of the user who created the event
+        this.userFirstName = user[0].firstName;
+        this.userLastName = user[0].lastName;
+      }
+    });
+    // loop through all participants and push them into the participants array
+    this.event.participants.forEach((participantID) => {
+      this.db.getUserByUid(participantID).subscribe((participantData) => {
+        this.participants.push(
+          participantData[0].firstName + ' ' + participantData[0].lastName
+        );
+      });
+    });
   }
 
   public edit() {
     console.log('edit');
-    this.presentToast('Your settings have been saved!');
+    // this.presentToast('Your settings have been saved!');
   }
 
   public delete() {
