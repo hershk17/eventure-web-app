@@ -97,7 +97,7 @@ export class EventDetailsPage implements OnInit {
   }
 
   public delete() {
-    console.log('delete');
+    this.db.removeEvent(this.event.id);
     this.presentToast('Your event has been deleted!');
     this.location.back();
   }
