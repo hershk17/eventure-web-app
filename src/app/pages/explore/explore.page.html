@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title> Explore </ion-title>
+    <ion-buttons *ngIf="modal" slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-searchbar
     placeholder="Enter a POI"
@@ -13,7 +16,7 @@
 
 <ion-content>
   <ion-list style="background-color: transparent">
-    <!-- 
+    <!--
     <ion-card
       *ngFor="let poi of this.pois"
       button="true"
@@ -23,12 +26,10 @@
     <ion-card
       *ngFor="let poi of this.pois"
       style="margin: 20px; margin-top: 10px; border-radius: 10px"
+      (click)="pickLocation(poi)"
     >
       <ion-card-header class="location-card">
         <ion-card-title>{{ poi.poi.name }}</ion-card-title>
-        <ion-button class="create-button" [routerLink]="['create', poi.id]"
-          ><ion-icon name="add-sharp"></ion-icon
-        ></ion-button>
       </ion-card-header>
       <ion-card-content>
         {{poi.poi.categories[0]}} &bull; {{poi.distance}} km away<br />

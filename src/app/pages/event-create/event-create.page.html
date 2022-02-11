@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
+  <form *ngIf="eventForm" [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
     <ion-card class="create-event-card">
       <ion-card-content>
         <ion-list>
@@ -58,6 +58,14 @@
               <small class="error-message">{{error.message}}</small>
             </ng-container>
           </div>
+
+          <ion-item>
+            <ion-label position="stacked">Choose a location</ion-label>
+            <app-location-preview [poi]="poiData"></app-location-preview>
+          </ion-item>
+          <ion-button size="small" (click)="openModal()">
+            Choose a location
+          </ion-button>
 
           <ion-item>
             <ion-label position="stacked">Category</ion-label>

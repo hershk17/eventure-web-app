@@ -4,9 +4,12 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { AlertController } from '@ionic/angular';
 import {
+  arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   doc,
+  FieldValue,
   getDoc,
   getDocs,
   getFirestore,
@@ -25,6 +28,23 @@ import { User } from '../shared/auth';
 import { Observable } from 'rxjs';
 import uniqid from 'uniqid';
 
+export interface TomtomAddress {
+  freeformAddress: string;
+  streetNumber: number;
+  streetName: string;
+  country: string;
+  countryCode: string;
+  countrySubdivisionName: string;
+  extendedPostalCode: string;
+  municipality: string;
+}
+
+export interface TomtomLocation {
+  address: TomtomAddress;
+  category: string;
+  id: string;
+}
+
 export interface Event {
   id: string;
   capacity: number;
@@ -34,7 +54,7 @@ export interface Event {
   entryFee: number;
   eventName: string;
   images: string[];
-  location: string;
+  location: TomtomLocation;
   organizer: string;
   participants: string[];
   reviews: string[];
@@ -161,6 +181,25 @@ export class DbService {
       this.events.push(event);
     });
     return this.events;
+  }
+
+  public async removeEvent(id: string): Promise<boolean> {
+    try {
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ organized: arrayRemove(id) });
+      await this.afStore.doc(`Events2/${id}`).delete();
+      this.getEventByID(id).participants.forEach(async (participant) => {
+        await this.afStore
+          .doc(`users/${participant}`)
+          .update({ joined: arrayRemove(id) });
+      });
+      await this.getEvents();
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+    return true;
   }
 
   public async getJoined(): Promise<Event[]> {

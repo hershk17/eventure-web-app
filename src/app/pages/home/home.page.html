@@ -61,7 +61,7 @@
       <ion-card-header style="padding: 0px">
         <ion-card-subtitle
           style="padding: 20px; padding-top: 15px; padding-bottom: 0px"
-          >{{event.time}}, {{event.date}}</ion-card-subtitle
+          >{{event.date | date}} at {{event.time | date:"shortTime" }}</ion-card-subtitle
         >
         <ion-card-title
           style="padding: 20px; padding-top: 0px; padding-bottom: 0px"
