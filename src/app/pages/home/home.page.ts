@@ -48,6 +48,9 @@ export class HomePage implements OnInit {
       });
     }
   }
+  hasJoined(eventId) {
+    return this.db.hasUserJoined(eventId);
+  }
   //popover filter options
   //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
   async onPopover(ev: any) {

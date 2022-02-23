@@ -58,11 +58,15 @@
           </div>
         </ion-card>
       </div>
-      <ion-card-header style="padding: 0px">
-        <ion-card-subtitle
-          style="padding: 20px; padding-top: 15px; padding-bottom: 0px"
-          >{{event.date | date}} at {{event.time | date:"shortTime" }}</ion-card-subtitle
-        >
+      <ion-card-header style="padding: 10px 0px">
+        <div class="date-container">
+          <ion-card-subtitle style="padding-left: 20px">
+            {{event.date | date}} at {{event.time | date:"shortTime" }}
+          </ion-card-subtitle>
+          <ion-button *ngIf="hasJoined(event.id)" size="small" color="medium" disabled style="margin-left: auto; margin-right: 5px;">
+            Joined
+          </ion-button>
+        </div>
         <ion-card-title
           style="padding: 20px; padding-top: 0px; padding-bottom: 0px"
           >{{ event.eventName }}</ion-card-title

@@ -2,7 +2,7 @@
   position: relative;
   padding: 0px;
   margin: 0%;
-  height: 150px; 
+  height: 150px;
 }
 
 .myOverlay {
@@ -13,4 +13,9 @@
   color: white;
   text-align: end;
   padding: 5px;
+}
+.date-container {
+  display: flex;
+  align-items: center;
+  padding-top: "10px";
 }

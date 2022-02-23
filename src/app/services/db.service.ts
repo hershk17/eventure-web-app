@@ -68,6 +68,7 @@ export interface Event {
 })
 export class DbService {
   userData: any;
+  currentUser: any;
 
   private app = firebase.initializeApp(environment.firebase);
   private db = getFirestore();
@@ -81,10 +82,13 @@ export class DbService {
     public ngZone: NgZone,
     private alertController: AlertController
   ) {
-    this.auth.authState.subscribe((user) => {
+    this.auth.authState.subscribe(async (user) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
+        this.getUserByUid(user.uid).subscribe((data) => {
+          this.currentUser = data[0];
+        })
       } else {
         localStorage.setItem('user', null);
       }
@@ -152,11 +156,32 @@ export class DbService {
       await this.afStore
         .doc(`Events2/${eventID}`)
         .update({ participants: arrayUnion(this.userData.uid) });
+      console.log('Joined event successfully');
     } catch (err) {
       console.error(err);
       return false;
     }
     return true;
+  }
+
+  public async leaveEvent(eventID: string): Promise<boolean> {
+    try {
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ joined: arrayRemove(eventID) });
+      await this.afStore
+        .doc(`Events2/${eventID}`)
+        .update({ participants: arrayRemove(this.userData.uid) });
+      console.log('Left event successfully');
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+    return true;
+  }
+
+  public hasUserJoined(eventId) {
+    return this.currentUser.joined.includes(eventId);
   }
 
   async presentAlert(title: string, msg: string): Promise<void> {
