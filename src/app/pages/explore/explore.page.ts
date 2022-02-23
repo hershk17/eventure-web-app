@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService, POI } from 'src/app/services/api.service';
+import { NavExtrasService } from 'src/app/services/navextraservice.service';
 
 @Component({
   selector: 'app-explore',
@@ -17,7 +19,8 @@ export default class ExplorePage implements OnInit, OnChanges  {
   constructor(
     private api: ApiService,
     private alertController: AlertController,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private navExtras: NavExtrasService
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
       console.log(this.modal);
@@ -38,6 +41,7 @@ export default class ExplorePage implements OnInit, OnChanges  {
     if(this.modal) {
       this.dismissModal(poi);
     }
+    this.navExtras.setExtras(poi);
   }
   async presentAlert(title: string, msg: string) {
     const alert = await this.alertController.create({

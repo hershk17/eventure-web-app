@@ -61,4 +61,32 @@ export class ApiService {
       console.log('ERROR: ' + err);
     }
   }
+  public getPOIdetails(id: string): any {
+    try{
+      //https://{baseURL}/search/{versionNumber}/poiDetails.{ext}?key={Your_API_Key}&id={id}&sourceName={sourceName}
+      let url = this.baseURL + 
+      this.searchParam +
+      this.versionNumber +
+      "/poiDetails" + 
+      this.responseFormat +
+      "?key=" +
+      this.apiKey +
+      "&id=" + id;
+      console.log(url);
+      let res = this.httpClient.get(
+        this.baseURL + 
+        this.searchParam +
+        this.versionNumber +
+        "/poiDetails" + 
+        this.responseFormat +
+        "?key=" +
+        this.apiKey +
+        "&id=" + id
+       );
+      return res;     
+      
+    }catch (err) {
+      console.log('ERROR: ' + err);
+    }
+  }
 }
