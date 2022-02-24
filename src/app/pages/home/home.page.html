@@ -28,14 +28,12 @@
 </ion-header>
 
 <ion-content>
+  <div class="clear-filter" *ngIf="filteredEvent !=='all'">
+    <ion-button [routerLink]="['/tabs/home']" [queryParams]="{filterBy: 'all'}"
+      >Clear Filters</ion-button
+    >
+  </div>
   <div *ngIf="hasEvents, else elseBlock">
-    <div class="clear-filter" *ngIf="filteredEvent !=='all'">
-      <ion-button
-        [routerLink]="['/tabs/home']"
-        [queryParams]="{filterBy: 'all'}"
-        >Clear Filters</ion-button
-      >
-    </div>
     <ion-list style="background-color: transparent">
       <ion-card
         *ngFor="let event of this.events"
