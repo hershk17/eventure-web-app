@@ -5,8 +5,13 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-item button *ngFor="let item of list" (click)="handleClick(item)">
-      {{item}}
+    <ion-item
+      button
+      *ngFor="let item of list"
+      [routerLink]="['/tabs/home']"
+      [queryParams]="{filterBy: item.urlParam}"
+    >
+      {{item.text}}
     </ion-item>
   </ion-content>
 </ion-menu>
@@ -21,8 +26,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-
 
 <ion-content>
   <div *ngIf="hasEvents, else elseBlock">

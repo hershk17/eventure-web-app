@@ -10,7 +10,14 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  list: string[] = ['All Events', 'My Created Events', 'My Joined Events'];
+  // list: string[] = ['All Events', 'My Created Events', 'My Joined Events'];
+  list = [
+    { text: 'All Events', urlParam: 'all' },
+    { text: 'My Created Events', urlParam: 'created' },
+    { text: 'My Joined Events', urlParam: 'joined' },
+  ];
+
+  // list = [{'All Events', 'all'}, {'My Created Events', 'created'}, {'My Joined Events', 'joined'}];
   events: Event[] = [];
   allEvents: Event[] = [];
   filteredEvent = 'all';
@@ -28,7 +35,7 @@ export class HomePage implements OnInit {
       this.filterBy = params.filterBy;
 
       // console.log('ngOnInit');
-      if (this.filterBy === undefined) {
+      if (this.filterBy === undefined || this.filterBy === 'all') {
         this.handleClick('All Events');
         // console.log('Handling All in ngOnInit');
       } else if (this.filterBy === 'created') {
@@ -86,6 +93,4 @@ export class HomePage implements OnInit {
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
   }
-
-
 }
