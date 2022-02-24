@@ -3,6 +3,7 @@ import { DbService, Event } from 'src/app/services/db.service';
 import { PopoverController } from '@ionic/angular';
 import { PopoverComponent } from '../../components/popover/popover.component';
 import { MenuController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,31 +15,36 @@ export class HomePage implements OnInit {
   events: Event[] = [];
   allEvents: Event[] = [];
   hasEvents = false;
-
-  // public isOpen = false;
+  filterBy: string;
   constructor(
     private db: DbService,
     private popCtrl: PopoverController,
-    private menu: MenuController
+    private menu: MenuController,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.db.getEvents().then((res) => {
-      if (!res || res.length === 0 || res[0] == null) {
-        // console.log('result: ');
-        // console.log(res);
-        // console.log('result[0]: ' + res[0]);
-        this.hasEvents = false;
-      } else {
-        this.events = res;
-        this.hasEvents = true;
-        console.log('nicememe');
+    //get parameters from url
+    this.route.queryParams.subscribe((params) => {
+      this.filterBy = params.filterBy;
+
+      // console.log('ngOnInit');
+      if (this.filterBy === undefined) {
+        this.handleClick('All Events');
+        // console.log('Handling All in ngOnInit');
+      } else if (this.filterBy === 'created') {
+        // console.log('Handling Joined in ngOnInit');
+        this.handleClick('My Created Events');
+      } else if (this.filterBy === 'joined') {
+        // console.log('Handling Created in ngOnInit');
+        this.handleClick('Joined Events');
       }
     });
   }
 
   onSelect(event: Event) {
     console.log(event);
+    console.log('nice');
   }
   //handles the click
   async handleClick(field) {
@@ -49,7 +55,7 @@ export class HomePage implements OnInit {
     if (field === 'All Events') {
       await this.db.getEvents().then((res) => {
         result = res;
-        console.log(result);
+        // console.log(result);
       });
     } else if (field === 'My Created Events') {
       await this.db.getCreated().then((res) => {
@@ -61,12 +67,12 @@ export class HomePage implements OnInit {
       });
     }
 
-     //check if there are no values to display
+    //check if there are no values to display
     if (!result || result.length === 0 || result[0] == null) {
       this.hasEvents = false;
-      console.log('result: ');
-      console.log(result);
-      console.log('result[0]: ' + result[0]);
+      // console.log('result: ');
+      // console.log(result);
+      // console.log('result[0]: ' + result[0]);
     } else {
       this.hasEvents = true;
       //there should be something to display
@@ -74,9 +80,11 @@ export class HomePage implements OnInit {
     }
   }
 
+  //checks if user has joined an event
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
   }
+
   //popover filter options
   //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
   async onPopover(ev: any) {
@@ -85,16 +93,15 @@ export class HomePage implements OnInit {
       event: ev,
     });
 
+    // //popover filter options
+    // //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
+    // async onPopover(ev: any) {
+    //   const popover = await this.popCtrl.create({
+    //     component: PopoverComponent,
+    //     event: ev,
+    //   });
 
-  // //popover filter options
-  // //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
-  // async onPopover(ev: any) {
-  //   const popover = await this.popCtrl.create({
-  //     component: PopoverComponent,
-  //     event: ev,
-  //   });
-
-  //   return await popover.present();
-  // }
+    //   return await popover.present();
+    // }
   }
 }

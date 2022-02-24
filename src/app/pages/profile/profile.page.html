@@ -69,13 +69,15 @@
     <ion-button
       (click)="onCreatedEvents()"
       expand="block"
-      [routerLink]="['/tabs/home']"
+      [routerLink]="['/tabs/home/']"
+      [queryParams]="{filterBy: 'created'}"
       >CREATED EVENTS</ion-button
     >
     <ion-button
       (click)="onJoinedEvents()"
       expand="block"
       [routerLink]="['/tabs/home']"
+      [queryParams]="{filterBy: 'joined'}"
       >JOINED EVENTS</ion-button
     >
 
