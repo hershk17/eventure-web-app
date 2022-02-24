@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
       });
     }
 
-    //check if there are no values to display
+     //check if there are no values to display
     if (!result || result.length === 0 || result[0] == null) {
       this.hasEvents = false;
       console.log('result: ');
@@ -74,6 +74,18 @@ export class HomePage implements OnInit {
     }
   }
 
+  hasJoined(eventId) {
+    return this.db.hasUserJoined(eventId);
+  }
+  //popover filter options
+  //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
+  async onPopover(ev: any) {
+    const popover = await this.popCtrl.create({
+      component: PopoverComponent,
+      event: ev,
+    });
+
+
   // //popover filter options
   // //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
   // async onPopover(ev: any) {
@@ -84,4 +96,5 @@ export class HomePage implements OnInit {
 
   //   return await popover.present();
   // }
+  }
 }
