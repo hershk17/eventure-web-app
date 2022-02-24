@@ -245,7 +245,10 @@ export class DbService {
     querySnapshot.forEach((usr) => {
       const eventIDs = usr.data().joined;
       eventIDs.forEach((e: string) => {
-        joinedEvents.push(this.getEventByID(e));
+        //check for null/empty
+        if (this.getEventByID(e) != null) {
+          joinedEvents.push(this.getEventByID(e));
+        }
       });
     });
     return joinedEvents;
@@ -262,7 +265,10 @@ export class DbService {
     querySnapshot.forEach((usr) => {
       const eventIDs = usr.data().organized;
       eventIDs.forEach((e: string) => {
-        joinedEvents.push(this.getEventByID(e));
+        //check for null/empty
+        if (this.getEventByID(e) != null) {
+          joinedEvents.push(this.getEventByID(e));
+        }
       });
     });
     return joinedEvents;
