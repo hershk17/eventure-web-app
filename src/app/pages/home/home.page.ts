@@ -14,6 +14,7 @@ export class HomePage implements OnInit {
   list: string[] = ['All Events', 'My Created Events', 'My Joined Events'];
   events: Event[] = [];
   allEvents: Event[] = [];
+  filteredEvent = 'all';
   hasEvents = false;
   filterBy: string;
   constructor(
@@ -55,15 +56,18 @@ export class HomePage implements OnInit {
     if (field === 'All Events') {
       await this.db.getEvents().then((res) => {
         result = res;
+        this.filteredEvent = 'all';
         // console.log(result);
       });
     } else if (field === 'My Created Events') {
       await this.db.getCreated().then((res) => {
         result = res;
+        this.filteredEvent = 'created';
       });
     } else {
       await this.db.getJoined().then((res) => {
         result = res;
+        this.filteredEvent = 'joined';
       });
     }
 
