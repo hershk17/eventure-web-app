@@ -88,7 +88,7 @@ export class DbService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         this.getUserByUid(user.uid).subscribe((data) => {
           this.currentUser = data[0];
-        })
+        });
       } else {
         localStorage.setItem('user', null);
       }
@@ -181,7 +181,14 @@ export class DbService {
   }
 
   public hasUserJoined(eventId) {
-    return this.currentUser.joined.includes(eventId);
+    if (
+      this.currentUser === undefined ||
+      this.currentUser.joined === undefined
+    ) {
+      return false;
+    } else {
+      return this.currentUser.joined.includes(eventId);
+    }
   }
 
   async presentAlert(title: string, msg: string): Promise<void> {
@@ -311,7 +318,7 @@ export class DbService {
       return user.emailVerified !== false ? true : false;
     } catch (error) {
       console.error(error);
-      this.presentAlert('Error', 'Can\'t read user\'s state');
+      this.presentAlert('Error', "Can't read user's state");
     }
   }
 
