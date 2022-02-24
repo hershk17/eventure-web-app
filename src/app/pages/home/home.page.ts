@@ -10,10 +10,12 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  list: any = ['All Events', 'My Created Events', 'My Joined Events'];
+  list: string[] = ['All Events', 'My Created Events', 'My Joined Events'];
   events: Event[] = [];
   allEvents: Event[] = [];
-  public isOpen = false;
+  hasEvents = false;
+
+  // public isOpen = false;
   constructor(
     private db: DbService,
     private popCtrl: PopoverController,
@@ -22,7 +24,16 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.db.getEvents().then((res) => {
-      this.events = res;
+      if (!res || res.length === 0 || res[0] == null) {
+        // console.log('result: ');
+        // console.log(res);
+        // console.log('result[0]: ' + res[0]);
+        this.hasEvents = false;
+      } else {
+        this.events = res;
+        this.hasEvents = true;
+        console.log('nicememe');
+      }
     });
   }
 
@@ -30,32 +41,47 @@ export class HomePage implements OnInit {
     console.log(event);
   }
   //handles the click
-  handleClick(field) {
-    console.log(field);
+  async handleClick(field) {
+    //close the menu
     this.menu.close();
-
+    let result = null;
+    //checks for what is clicked
     if (field === 'All Events') {
-      this.db.getEvents().then((res) => {
-        this.events = res;
+      await this.db.getEvents().then((res) => {
+        result = res;
+        console.log(result);
       });
     } else if (field === 'My Created Events') {
-      this.db.getCreated().then((res) => {
-        this.events = res;
+      await this.db.getCreated().then((res) => {
+        result = res;
       });
     } else {
-      this.db.getJoined().then((res) => {
-        this.events = res;
+      await this.db.getJoined().then((res) => {
+        result = res;
       });
     }
-  }
-  //popover filter options
-  //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
-  async onPopover(ev: any) {
-    const popover = await this.popCtrl.create({
-      component: PopoverComponent,
-      event: ev,
-    });
 
-    return await popover.present();
+    //check if there are no values to display
+    if (!result || result.length === 0 || result[0] == null) {
+      this.hasEvents = false;
+      console.log('result: ');
+      console.log(result);
+      console.log('result[0]: ' + result[0]);
+    } else {
+      this.hasEvents = true;
+      //there should be something to display
+      this.events = result;
+    }
   }
+
+  // //popover filter options
+  // //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
+  // async onPopover(ev: any) {
+  //   const popover = await this.popCtrl.create({
+  //     component: PopoverComponent,
+  //     event: ev,
+  //   });
+
+  //   return await popover.present();
+  // }
 }

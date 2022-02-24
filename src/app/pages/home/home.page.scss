@@ -2,7 +2,7 @@
   position: relative;
   padding: 0px;
   margin: 0%;
-  height: 150px; 
+  height: 150px;
 }
 
 .myOverlay {
@@ -13,4 +13,13 @@
   color: white;
   text-align: end;
   padding: 5px;
+}
+
+.errorMessage {
+  min-height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  color: white;
 }

@@ -40,39 +40,48 @@
 </ion-header> -->
 
 <ion-content>
-  <ion-list style="background-color: transparent">
-    <ion-card
-      *ngFor="let event of this.events"
-      button="true"
-      [routerLink]="['event',event.id]"
-      style="margin: 20px; margin-top: 10px; border-radius: 10px"
-    >
-      <div>
-        <ion-card class="myCard">
-          <img
-            src="{{event.images[0]}}"
-            style="width: 100%; object-fit: cover"
-          />
-          <div class="myOverlay">
-            {{event.score}}★ ({{event.reviews.length}})
-          </div>
-        </ion-card>
-      </div>
-      <ion-card-header style="padding: 0px">
-        <ion-card-subtitle
-          style="padding: 20px; padding-top: 15px; padding-bottom: 0px"
-          >{{event.date | date}} at {{event.time | date:"shortTime" }}</ion-card-subtitle
-        >
-        <ion-card-title
-          style="padding: 20px; padding-top: 0px; padding-bottom: 0px"
-          >{{ event.eventName }}</ion-card-title
-        >
-      </ion-card-header>
-      <ion-card-content
-        style="padding: 20px; padding-top: 20px; padding-bottom: 25px"
+  <div *ngIf="hasEvents, else elseBlock">
+    <ion-list style="background-color: transparent">
+      <ion-card
+        *ngFor="let event of this.events"
+        button="true"
+        [routerLink]="['event',event.id]"
+        style="margin: 20px; margin-top: 10px; border-radius: 10px"
       >
-        {{event.description}}
-      </ion-card-content>
+        <div>
+          <ion-card class="myCard">
+            <img
+              src="{{event.images[0]}}"
+              style="width: 100%; object-fit: cover"
+            />
+            <div class="myOverlay">
+              {{event.score}}★ ({{event.reviews.length}})
+            </div>
+          </ion-card>
+        </div>
+        <ion-card-header style="padding: 0px">
+          <ion-card-subtitle
+            style="padding: 20px; padding-top: 15px; padding-bottom: 0px"
+            >{{event.date | date}} at {{event.time | date:"shortTime"
+            }}</ion-card-subtitle
+          >
+          <ion-card-title
+            style="padding: 20px; padding-top: 0px; padding-bottom: 0px"
+            >{{ event.eventName }}</ion-card-title
+          >
+        </ion-card-header>
+        <ion-card-content
+          style="padding: 20px; padding-top: 20px; padding-bottom: 25px"
+        >
+          {{event.description}}
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+  <ng-template #elseBlock>
+    <ion-card class="errorMessage">
+      <div>You have not created or joined any events</div>
+      <ion-card-title></ion-card-title>
     </ion-card>
-  </ion-list>
+  </ng-template>
 </ion-content>

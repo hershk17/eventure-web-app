@@ -66,10 +66,16 @@
       </ion-item-divider> -->
     </div>
 
-    <ion-button (click)="onCreatedEvents()" expand="block"
+    <ion-button
+      (click)="onCreatedEvents()"
+      expand="block"
+      [routerLink]="['/tabs/home']"
       >CREATED EVENTS</ion-button
     >
-    <ion-button (click)="onJoinedEvents()" expand="block"
+    <ion-button
+      (click)="onJoinedEvents()"
+      expand="block"
+      [routerLink]="['/tabs/home']"
       >JOINED EVENTS</ion-button
     >
 
