@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService, Event } from 'src/app/services/db.service';
-import { PopoverController } from '@ionic/angular';
-import { PopoverComponent } from '../../components/popover/popover.component';
+
 import { MenuController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
@@ -19,7 +18,6 @@ export class HomePage implements OnInit {
   filterBy: string;
   constructor(
     private db: DbService,
-    private popCtrl: PopoverController,
     private menu: MenuController,
     private route: ActivatedRoute
   ) {}
@@ -89,23 +87,5 @@ export class HomePage implements OnInit {
     return this.db.hasUserJoined(eventId);
   }
 
-  //popover filter options
-  //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
-  async onPopover(ev: any) {
-    const popover = await this.popCtrl.create({
-      component: PopoverComponent,
-      event: ev,
-    });
 
-    // //popover filter options
-    // //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
-    // async onPopover(ev: any) {
-    //   const popover = await this.popCtrl.create({
-    //     component: PopoverComponent,
-    //     event: ev,
-    //   });
-
-    //   return await popover.present();
-    // }
-  }
 }
