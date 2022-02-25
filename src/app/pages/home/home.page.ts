@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DbService, Event } from 'src/app/services/db.service';
-import { PopoverController } from '@ionic/angular';
-import { PopoverComponent } from '../../components/popover/popover.component';
+
 import { MenuController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +10,41 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  list: any = ['All Events', 'My Created Events', 'My Joined Events'];
+  // list: string[] = ['All Events', 'My Created Events', 'My Joined Events'];
+  list = [
+    { text: 'All Events', urlParam: 'all' },
+    { text: 'My Created Events', urlParam: 'created' },
+    { text: 'My Joined Events', urlParam: 'joined' },
+  ];
+
+  // list = [{'All Events', 'all'}, {'My Created Events', 'created'}, {'My Joined Events', 'joined'}];
   events: Event[] = [];
   allEvents: Event[] = [];
-  public isOpen = false;
+  filteredEvent = 'all';
+  hasEvents = false;
+  filterBy: string;
   constructor(
     private db: DbService,
-    private popCtrl: PopoverController,
-    private menu: MenuController
+    private menu: MenuController,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.db.getEvents().then((res) => {
-      this.events = res;
+    //get parameters from url
+    this.route.queryParams.subscribe((params) => {
+      this.filterBy = params.filterBy;
+
+      // console.log('ngOnInit');
+      if (this.filterBy === undefined || this.filterBy === 'all') {
+        this.handleClick('All Events');
+        // console.log('Handling All in ngOnInit');
+      } else if (this.filterBy === 'created') {
+        // console.log('Handling Joined in ngOnInit');
+        this.handleClick('My Created Events');
+      } else if (this.filterBy === 'joined') {
+        // console.log('Handling Created in ngOnInit');
+        this.handleClick('Joined Events');
+      }
     });
   }
 
@@ -30,32 +52,43 @@ export class HomePage implements OnInit {
     console.log(event);
   }
   //handles the click
-  handleClick(field) {
-    console.log(field);
+  async handleClick(field) {
+    //close the menu
     this.menu.close();
-
+    let result = null;
+    //checks for what is clicked
     if (field === 'All Events') {
-      this.db.getEvents().then((res) => {
-        this.events = res;
+      await this.db.getEvents().then((res) => {
+        result = res;
+        this.filteredEvent = 'all';
+        // console.log(result);
       });
     } else if (field === 'My Created Events') {
-      this.db.getCreated().then((res) => {
-        this.events = res;
+      await this.db.getCreated().then((res) => {
+        result = res;
+        this.filteredEvent = 'created';
       });
     } else {
-      this.db.getJoined().then((res) => {
-        this.events = res;
+      await this.db.getJoined().then((res) => {
+        result = res;
+        this.filteredEvent = 'joined';
       });
     }
-  }
-  //popover filter options
-  //ev sends the coordintes of the button so the popover shows in the correct location instead of middle of screen
-  async onPopover(ev: any) {
-    const popover = await this.popCtrl.create({
-      component: PopoverComponent,
-      event: ev,
-    });
 
-    return await popover.present();
+    //check if there are no values to display
+    if (!result || result.length === 0 || result[0] == null) {
+      this.hasEvents = false;
+      // console.log('result: ');
+      // console.log(result);
+      // console.log('result[0]: ' + result[0]);
+    } else {
+      this.hasEvents = true;
+      //there should be something to display
+      this.events = result;
+    }
+  }
+  //checks if user has joined an event
+  hasJoined(eventId) {
+    return this.db.hasUserJoined(eventId);
   }
 }

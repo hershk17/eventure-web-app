@@ -97,14 +97,27 @@ export class EventDetailsPage implements OnInit {
   }
 
   public delete() {
-    console.log('delete');
+    this.db.removeEvent(this.event.id);
     this.presentToast('Your event has been deleted!');
     this.location.back();
   }
-
-  join() {
-    this.db.joinEvent(this.event.id);
-    this.presentToast('You have joined the event!');
-    this.location.back();
+  hasJoined() {
+    return this.db.hasUserJoined(this.event.id)
+  }
+  async join() {
+    const joined = await this.db.joinEvent(this.event.id);
+    if(!joined) {
+      this.presentToast(`Can't join ${this.event.eventName}`);
+      return;
+    }
+    this.presentToast(`You have joined ${this.event.eventName}`);
+  }
+  async leave() {
+    const joined = await this.db.leaveEvent(this.event.id);
+    if(!joined) {
+      this.presentToast(`Can't leave ${this.event.eventName}`);
+      return;
+    }
+    this.presentToast(`You have left ${this.event.eventName}`);
   }
 }

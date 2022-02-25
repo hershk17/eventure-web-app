@@ -27,6 +27,7 @@
       *ngFor="let poi of this.pois"
       style="margin: 20px; margin-top: 10px; border-radius: 10px"
       (click)="pickLocation(poi)"
+      [routerLink]="['location',poi.id]"
     >
       <ion-card-header class="location-card">
         <ion-card-title>{{ poi.poi.name }}</ion-card-title>
