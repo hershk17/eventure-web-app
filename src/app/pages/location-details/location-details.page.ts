@@ -37,9 +37,7 @@ export class LocationDetailsPage implements OnInit {
     this.loc = this.navExtras.getExtras();
     console.log(this.loc);
     
-      for(let i = 0; i<this.locDetail.priceRange.value; i++){
-        this.money += "$";
-      }
+      
     
   }
 }

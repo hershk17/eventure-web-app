@@ -16,15 +16,15 @@
   <div style="padding-right: 20px; padding-left: 20px; padding-bottom: 70px;">
     <h1>{{loc.poi.name}}</h1>
     <p><ion-icon name="star"></ion-icon> 
-      <span *ngIf="locDetail.rating != null"> {{locDetail.rating.value}}/10 ({{locDetail.rating.totalRatings}}) </span>
+      {{locDetail?.rating?.value}}/10 ({{locDetail?.rating?.totalRatings}})
       &bull; {{money}} <br />
       {{loc.poi.categories[0]}} &bull; {{loc.distance}} km away<br />
     </p>
     <hr />
-    <div *ngIf="locDetail.description != null">
+    <div *ngIf="locDetail?.description != null">
       <h3>Descriptions</h3>
       <p>
-        {{locDetail.description}}
+        {{locDetail?.description}}
       </p>
       <hr />
     </div>
@@ -37,7 +37,8 @@
     </p>
     <hr />
     <h3>Reviews:</h3>
-    <p *ngFor="let review of this.locDetail.reviews">
+    <p *ngIf="review?.date != null">No reviews available</p>
+    <p *ngFor="let review of this.locDetail?.reviews">
       <ion-icon name="calendar-outline"></ion-icon> {{review.date}} <br />
       {{review.text}}
     </p>
