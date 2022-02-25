@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.2] - 2/11/2022
+
+### Added
+
+- Join and leave event functionality
+- Filter event
+
+### Fixes:
+
+- Some small fixes in db service
+
 ## [1.2.2] - 2/11/2022
 
 ### Fixed
