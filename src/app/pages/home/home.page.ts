@@ -92,7 +92,5 @@ export class HomePage implements OnInit {
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
   }
-  debug() {
-    console.log(this.events[0].id);
-  }
+
 }
