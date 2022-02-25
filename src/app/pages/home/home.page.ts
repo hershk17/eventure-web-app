@@ -50,7 +50,6 @@ export class HomePage implements OnInit {
 
   onSelect(event: Event) {
     console.log(event);
-    console.log('nice');
   }
   //handles the click
   async handleClick(field) {
@@ -92,5 +91,8 @@ export class HomePage implements OnInit {
   //checks if user has joined an event
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
+  }
+  debug() {
+    console.log(this.events[0].id);
   }
 }

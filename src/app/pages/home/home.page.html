@@ -9,8 +9,9 @@
       button
       *ngFor="let item of list"
       [routerLink]="['/tabs/home']"
-      [queryParams]="{filterBy: item.urlParam}"
+      (click)="handleClick(item.text)"
     >
+      <!-- [queryParams]="{filterBy: item.urlParam}" -->
       {{item.text}}
     </ion-item>
   </ion-content>
@@ -28,8 +29,15 @@
 </ion-header>
 
 <ion-content>
-  <div class="clear-filter" *ngIf="filteredEvent !=='all'">
+  <!-- <div class="clear-filter" *ngIf="filteredEvent !=='all'">
     <ion-button [routerLink]="['/tabs/home']" [queryParams]="{filterBy: 'all'}"
+      >Clear Filters</ion-button
+    >
+  </div> -->
+  <div class="clear-filter" *ngIf="filteredEvent !=='all'">
+    <ion-button
+      [routerLink]="['/tabs/home']"
+      (click)="handleClick('All Events')"
       >Clear Filters</ion-button
     >
   </div>
@@ -38,6 +46,7 @@
       <ion-card
         *ngFor="let event of this.events"
         button="true"
+        (click)="debug()"
         [routerLink]="['event',event.id]"
         style="margin: 20px; margin-top: 10px; border-radius: 10px"
       >
