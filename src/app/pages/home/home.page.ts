@@ -87,10 +87,8 @@ export class HomePage implements OnInit {
       this.events = result;
     }
   }
-
   //checks if user has joined an event
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
   }
-
 }

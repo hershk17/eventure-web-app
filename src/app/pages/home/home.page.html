@@ -5,13 +5,8 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-item
-      button
-      *ngFor="let item of list"
-      [routerLink]="['/tabs/home']"
-      (click)="handleClick(item.text)"
-    >
-      <!-- [queryParams]="{filterBy: item.urlParam}" -->
+    <ion-item button *ngFor="let item of list" (click)="handleClick(item.text)">
+      <!--[routerLink]="['/tabs/home']" [queryParams]="{filterBy: item.urlParam}" -->
       {{item.text}}
     </ion-item>
   </ion-content>
@@ -35,11 +30,7 @@
     >
   </div> -->
   <div class="clear-filter" *ngIf="filteredEvent !=='all'">
-    <ion-button
-      [routerLink]="['/tabs/home']"
-      (click)="handleClick('All Events')"
-      >Clear Filters</ion-button
-    >
+    <ion-button (click)="handleClick('All Events')">Clear Filters</ion-button>
   </div>
   <div *ngIf="hasEvents, else elseBlock">
     <ion-list style="background-color: transparent">
