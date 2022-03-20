@@ -13,6 +13,11 @@ const routes: Routes = [
           import('../home/home.module').then((m) => m.HomePageModule),
       },
       {
+        path: 'search',
+        loadChildren: () =>
+          import('../search/search.module').then((m) => m.SearchPageModule),
+      },
+      {
         path: 'explore',
         loadChildren: () =>
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
