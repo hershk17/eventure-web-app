@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { DbService } from 'src/app/services/db.service';
 import { environment } from 'src/environments/environment.prod';
 @Component({
@@ -6,17 +6,24 @@ import { environment } from 'src/environments/environment.prod';
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
-export class SearchPage implements OnInit {
-  constructor(private db: DbService) {}
+export class SearchPage implements OnInit{
+
   public userList = [];
-  ngOnInit() {}
+  public userData;
+  constructor(private db: DbService) {
+
+  }
+  ngOnInit() {
+    this.userData = this.db.userData;
+    console.log(this.userData)
+  }
   async search(event: any) {
     const searchWord = event.target.value;
     if(searchWord.length == 0) {
       this.userList = [];
       return;
     }
-    const data = await this.db.getUserBySearchWord(searchWord);
-    this.userList = data.map((elem) => elem._source);
+    this.userList = await this.db.getUserBySearchWord(searchWord);
+    console.log(this.userList);
   }
 }

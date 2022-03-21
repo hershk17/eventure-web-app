@@ -67,7 +67,7 @@ export interface Event {
   providedIn: 'root',
 })
 export class DbService {
-  userData: any;
+  public userData: any = null;
   currentUser: any;
 
   private app = firebase.initializeApp(environment.firebase);
@@ -378,9 +378,14 @@ export class DbService {
 
   //server
   public async getUserBySearchWord(searchWord) {
-    const res = await fetch(`${environment.serverUrl}/api/search/users?byName=${searchWord}`);
+    console.log(this.userData.uid);
+    const res = await fetch(`${environment.serverUrl}/api/search/users?byName=${searchWord}`, {
+      method: 'GET',
+      headers: {
+        "uid": this.userData.uid
+      }
+    });
     const data = await res.json();
-    console.log(data);
     return data;
   }
 }
