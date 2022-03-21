@@ -1,8 +1,9 @@
-
-
+<div *ngIf="userData">
+  {{userData.lastName}}
+</div>
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ firstName }} {{ lastName }}</ion-title>
+    <ion-title>{{ userData.firstName }} {{ userData.lastName }}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -12,10 +13,8 @@
 <ion-content>
   <div class="profile-container">
     <div class="profile-info">
-      <ion-avatar class="avatar">
-        <img
-          src="https://www.savoric.com/wp-content/uploads/2018/03/profil-pic_dummy.png"
-        />
+      <ion-avatar >
+        <img src={{userData.photoURL}}>
       </ion-avatar>
 
       <div class="follow-info">
@@ -36,7 +35,7 @@
     >
     <div>
       <ion-item-divider
-        ><span class="email">Email: </span> {{email}}
+        ><span class="email">Email: </span> {{userData.email}}
       </ion-item-divider>
       <!-- <ion-item-divider>
         <span class="country">Country: </span> {{country}}
