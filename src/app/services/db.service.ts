@@ -374,4 +374,13 @@ export class DbService {
       doc(this.db, 'users', (await this.auth.currentUser).uid)
     );
   }
+
+
+  //server
+  public async getUserBySearchWord(searchWord) {
+    const res = await fetch(`${environment.serverUrl}/api/search/users?byName=${searchWord}`);
+    const data = await res.json();
+    console.log(data);
+    return data;
+  }
 }

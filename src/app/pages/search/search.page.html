@@ -1,3 +1,18 @@
-<p>
-  search works!
-</p>
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Searchbar</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (ionChange)="search($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list *ngFor="let user of userList">
+    <ion-item>
+      <ion-avatar>
+        <img src={{user.photoUrl}}>
+      </ion-avatar>
+      {{user.firstName}} {{user.lastName}}
+    </ion-item>
+  </ion-list>
+</ion-content>
