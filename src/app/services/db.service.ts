@@ -67,8 +67,8 @@ export interface Event {
   providedIn: 'root',
 })
 export class DbService {
-  userData: any;
-  currentUser: any;
+  public userData: any = null;
+  public currentUser: any;
 
   private app = firebase.initializeApp(environment.firebase);
   private db = getFirestore();
@@ -373,5 +373,50 @@ export class DbService {
     return await getDoc(
       doc(this.db, 'users', (await this.auth.currentUser).uid)
     );
+  }
+
+
+  //server
+  public async getUserBySearchWord(searchWord) {
+    console.log(this.userData.uid);
+    const res = await fetch(`${environment.serverUrl}/api/search/users?byName=${searchWord}`, {
+      method: 'GET',
+      headers: {
+        "uid": this.userData.uid
+      }
+    });
+    const data = await res.json();
+    return data;
+  }
+
+  public unfollowUser(uid) {
+    // const currentUserRef: AngularFirestoreDocument<any> = this.afStore.doc(
+    //   `users/${uid}`
+    // );
+    // currentUserRef.update({ followings: arrayRemove(uid) });
+    this.afStore
+      .doc(`users/${uid}`)
+      .update({ followers: arrayRemove(this.currentUser.uid) });
+
+    this.afStore
+      .doc(`users/${this.currentUser.uid}`)
+      .update({ followings: arrayRemove(uid) });
+
+    // userRef is the reference to user with uid passed in
+    // const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
+    //   `users/${uid}`
+    // );
+    // userRef.update({ followers: arrayRemove(this.currentUser.uid) })
+  }
+
+  public followUser(uid) {
+
+    this.afStore
+      .doc(`users/${uid}`)
+      .update({ followers: arrayUnion(this.currentUser.uid) });
+
+    this.afStore
+      .doc(`users/${this.currentUser.uid}`)
+      .update({ followings: arrayUnion(uid) });
   }
 }

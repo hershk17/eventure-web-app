@@ -13,6 +13,11 @@ const routes: Routes = [
           import('../home/home.module').then((m) => m.HomePageModule),
       },
       {
+        path: 'search',
+        loadChildren: () =>
+          import('../search/search.module').then((m) => m.SearchPageModule),
+      },
+      {
         path: 'explore',
         loadChildren: () =>
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
@@ -49,6 +54,11 @@ const routes: Routes = [
           import('../location-details/location-details.module').then(
             (m) => m.LocationDetailsPageModule
           ),
+      },
+      {
+        path: 'search/profile/:uid',
+        loadChildren: () =>
+          import('../search-profile/search-profile.module').then((m) => m.SearchProfilePageModule),
       },
       {
         path: '',
