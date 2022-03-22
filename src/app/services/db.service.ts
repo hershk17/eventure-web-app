@@ -68,7 +68,7 @@ export interface Event {
 })
 export class DbService {
   public userData: any = null;
-  currentUser: any;
+  public currentUser: any;
 
   private app = firebase.initializeApp(environment.firebase);
   private db = getFirestore();
@@ -387,5 +387,36 @@ export class DbService {
     });
     const data = await res.json();
     return data;
+  }
+
+  public unfollowUser(uid) {
+    // const currentUserRef: AngularFirestoreDocument<any> = this.afStore.doc(
+    //   `users/${uid}`
+    // );
+    // currentUserRef.update({ followings: arrayRemove(uid) });
+    this.afStore
+      .doc(`users/${uid}`)
+      .update({ followers: arrayRemove(this.currentUser.uid) });
+
+    this.afStore
+      .doc(`users/${this.currentUser.uid}`)
+      .update({ followings: arrayRemove(uid) });
+
+    // userRef is the reference to user with uid passed in
+    // const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
+    //   `users/${uid}`
+    // );
+    // userRef.update({ followers: arrayRemove(this.currentUser.uid) })
+  }
+
+  public followUser(uid) {
+
+    this.afStore
+      .doc(`users/${uid}`)
+      .update({ followers: arrayUnion(this.currentUser.uid) });
+
+    this.afStore
+      .doc(`users/${this.currentUser.uid}`)
+      .update({ followings: arrayUnion(uid) });
   }
 }

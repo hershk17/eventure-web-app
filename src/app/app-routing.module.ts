@@ -89,6 +89,13 @@ export const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectAuthorizedToTabs },
   },
+  {
+    path: 'search-profile',
+    loadChildren: () => import('./pages/search-profile/search-profile.module').then( m => m.SearchProfilePageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectAuthorizedToTabs },
+  },
+
 ];
 @NgModule({
   imports: [

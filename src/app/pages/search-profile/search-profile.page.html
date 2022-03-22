@@ -1,0 +1,67 @@
+
+<ion-header *ngIf="user">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ user.firstName }} {{ user.lastName }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user">
+  <div class="profile-container">
+    <div class="profile-info">
+      <ion-avatar >
+        <img src={{user.photoUrl}}>
+      </ion-avatar>
+
+      <div class="follow-info">
+        <ion-list lines="full">
+          <ion-item>
+            <ion-router-link href="#">Followers</ion-router-link>
+          </ion-item>
+          <div class="follow-counts">{{user.followers.length}}</div>
+          <ion-item>
+            <ion-router-link href="#">Following</ion-router-link>
+          </ion-item>
+          <div class="follow-counts">{{user.followings.length}}</div>
+        </ion-list>
+      </div>
+    </div>
+
+    <ion-button
+      *ngIf="!doesFollow()"
+      expand="block"
+      (click)="follow()"
+    >
+      Follow
+    </ion-button>
+
+    <ion-button
+      *ngIf="doesFollow()"
+      expand="block"
+      color="medium"
+      (click)="unfollow()"
+    >
+      Following
+    </ion-button>
+
+    <ion-button
+      (click)="onCreatedEvents()"
+      expand="block"
+      [routerLink]="['/tabs/home/']"
+      [queryParams]="{filterBy: 'created'}"
+    >
+      CREATED EVENTS by {{user.firstName}}
+    </ion-button>
+
+
+
+  </div>
+</ion-content>
+
+
+

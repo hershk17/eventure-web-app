@@ -8,10 +8,10 @@
 </ion-header>
 <ion-content fullscreen>
   <ion-list *ngFor="let user of userList">
-    <ion-item>
+    <ion-item [routerLink]="['profile', user.uid]">
       <ion-avatar>
         <img src={{user.photoUrl}}>
-      </ion-avatar>
+      </ion-avatar> &nbsp;
       {{user.firstName}} {{user.lastName}}
     </ion-item>
   </ion-list>

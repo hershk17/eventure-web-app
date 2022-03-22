@@ -56,6 +56,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'search/profile/:uid',
+        loadChildren: () =>
+          import('../search-profile/search-profile.module').then((m) => m.SearchProfilePageModule),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

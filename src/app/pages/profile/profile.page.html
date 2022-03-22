@@ -1,6 +1,3 @@
-<div *ngIf="userData">
-  {{userData.lastName}}
-</div>
 <ion-header>
   <ion-toolbar>
     <ion-title>{{ userData.firstName }} {{ userData.lastName }}</ion-title>
@@ -14,7 +11,7 @@
   <div class="profile-container">
     <div class="profile-info">
       <ion-avatar >
-        <img src={{userData.photoURL}}>
+        <img src={{userData.photoUrl}}>
       </ion-avatar>
 
       <div class="follow-info">
@@ -22,11 +19,11 @@
           <ion-item>
             <ion-router-link href="#">Followers</ion-router-link>
           </ion-item>
-          <div class="follow-counts">14</div>
+          <div class="follow-counts">{{userData.followers.length}}</div>
           <ion-item>
             <ion-router-link href="#">Following</ion-router-link>
           </ion-item>
-          <div class="follow-counts">16</div>
+          <div class="follow-counts">{{userData.followings.length}}</div>
         </ion-list>
       </div>
     </div>
@@ -37,12 +34,6 @@
       <ion-item-divider
         ><span class="email">Email: </span> {{userData.email}}
       </ion-item-divider>
-      <!-- <ion-item-divider>
-        <span class="country">Country: </span> {{country}}
-      </ion-item-divider>
-      <ion-item-divider
-        ><span class="gender">Gender: </span> {{gender}}
-      </ion-item-divider> -->
     </div>
 
     <ion-button
