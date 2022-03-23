@@ -22,7 +22,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
       },
-      // this is the old page (create event directly)
       {
         path: 'create',
         loadChildren: () =>
@@ -30,15 +29,14 @@ const routes: Routes = [
             (m) => m.EventCreatePageModule
           ),
       },
+      {
+        path: 'createTextPost',
+        loadChildren: () =>
+          import('../text-post-create/text-post-create.module').then(
+            (m) => m.NewTextPostPageModule
+          ),
+      },
 
-      // the "new page, but not using anymore"
-      // {
-      //   path: 'create',
-      //   loadChildren: () =>
-      //     import('../plus-action/plus-action.module').then(
-      //       (m) => m.PlusActionPageModule
-      //     ),
-      // },
       {
         path: 'profile',
         loadChildren: () =>

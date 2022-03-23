@@ -8,8 +8,8 @@ import { EventCreatePage } from './event-create.page';
 import { ImgPreviewModule } from '../../components/img-preview/img-preview.module';
 import ExplorePage from '../explore/explore.page';
 import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
-import { NewTextPostPageModule } from '../new-text-post/new-text-post.module';
-import { NewTextPostPage } from '../new-text-post/new-text-post.page';
+import { NewTextPostPageModule } from '../text-post-create/text-post-create.module';
+import { NewTextPostPage } from '../text-post-create/text-post-create.page';
 
 @NgModule({
   imports: [

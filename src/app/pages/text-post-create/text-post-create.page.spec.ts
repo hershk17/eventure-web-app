@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { NewTextPostPage } from './new-text-post.page';
+import { NewTextPostPage } from './text-post-create.page';
 
 describe('PlusActionComponent', () => {
   let component: NewTextPostPage;

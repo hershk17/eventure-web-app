@@ -3,8 +3,8 @@ import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-plus-action',
-  templateUrl: './new-text-post.page.html',
-  styleUrls: ['./new-text-post.page.scss'],
+  templateUrl: './text-post-create.page.html',
+  styleUrls: ['./text-post-create.page.scss'],
 })
 export class NewTextPostPage implements OnInit {
   constructor(public actionSheetController: ActionSheetController) {}

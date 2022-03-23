@@ -28,6 +28,7 @@ export class TabsPage {
           // icon: 'document-text-outline',
           icon: 'text-outline',
           handler: () => {
+            this.router.navigateByUrl('/tabs/createTextPost');
             console.log('Text TODO');
           },
         },

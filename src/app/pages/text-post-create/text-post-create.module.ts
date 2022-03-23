@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { NewTextPostModule } from './new-text-post-routing.module';
+import { NewTextPostModule } from './text-post-create-routing.module';
 
 @NgModule({
   imports: [

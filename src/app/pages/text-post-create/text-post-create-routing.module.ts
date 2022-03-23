@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NewTextPostPage } from './new-text-post.page';
+import { NewTextPostPage } from './text-post-create.page';
 
 const routes: Routes = [
   {
