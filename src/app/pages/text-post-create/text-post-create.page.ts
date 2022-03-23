@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActionSheetController } from '@ionic/angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-plus-action',
@@ -7,27 +7,29 @@ import { ActionSheetController } from '@ionic/angular';
   styleUrls: ['./text-post-create.page.scss'],
 })
 export class NewTextPostPage implements OnInit {
-  constructor(public actionSheetController: ActionSheetController) {}
+  eventForm: FormGroup;
 
-  ngOnInit() {}
+  public errorMessages = {
+    postContent: [{ type: 'required', message: 'A message is required' }],
+  };
 
-  async presentActionSheet(): Promise<void> {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Create New...',
-      buttons: [
-        {
-          text: 'Event',
-        },
-        {
-          text: 'Text Post',
-        },
-        {
-          text: 'Image',
-        },
-      ],
+  get postContent() {
+    return this.eventForm.get('postContent');
+  }
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  async ngOnInit() {
+    this.eventForm = this.formBuilder.group({
+      postContent: ['', [Validators.required]],
     });
+  }
 
-    await actionSheet.present();
-    const { role, data } = await actionSheet.onDidDismiss();
+  public async onCreateEvent(): Promise<void> {
+    console.log('Create Text Post TODO');
+    // this.db.uploadEvent(this.eventForm.value, this.image).then(() => {
+    //   this.presentToast();
+    //   this.location.back();
+    // });
   }
 }

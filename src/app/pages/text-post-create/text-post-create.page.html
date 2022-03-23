@@ -4,7 +4,27 @@
       <ion-title>What's on your mind?</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-content fullscreen class="ion-padding">
-    <ion-button expand="block" (click)="presentActionSheet()">Post</ion-button>
+    <form [formGroup]="eventForm" (ngSubmit)="onCreateEvent()">
+      <ion-item>
+        <ion-textarea
+          autocapitalize
+          type="text"
+          formControlName="postContent"
+          placeholder="Your message..."
+          inputmode="text"
+          required
+        ></ion-textarea>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.postContent">
+        <ng-container
+          *ngIf="postContent?.hasError(error.type) && (postContent?.dirty || postContent?.touched)"
+        >
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <ion-button type="submit" color="primary" expand="block">Post</ion-button>
+    </form>
   </ion-content>
 </ion-app>
