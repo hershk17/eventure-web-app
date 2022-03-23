@@ -15,6 +15,6 @@ import { PlusActionPage } from './plus-action.page';
     IonicModule,
     PlusActionRoutingModule,
   ],
-  declarations: [PlusActionPage],
+  declarations: [],
 })
 export class PlusActionPageModule {}

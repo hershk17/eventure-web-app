@@ -22,6 +22,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
       },
+      // this is the old page (create event directly)
       // {
       //   path: 'create',
       //   loadChildren: () =>

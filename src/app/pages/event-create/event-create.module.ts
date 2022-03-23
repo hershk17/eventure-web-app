@@ -19,9 +19,13 @@ import { PlusActionPage } from '../plus-action/plus-action.page';
     IonicModule,
     EventCreatePageRoutingModule,
     ImgPreviewModule,
-    PlusActionPageModule,
   ],
-  declarations: [EventCreatePage, ExplorePage, LocationPreviewComponent, PlusActionPage],
+  declarations: [
+    EventCreatePage,
+    ExplorePage,
+    LocationPreviewComponent,
+    PlusActionPage,
+  ],
   entryComponents: [ExplorePage],
 })
 export class EventCreatePageModule {}
