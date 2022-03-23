@@ -1,4 +1,3 @@
-
 <ion-header *ngIf="user">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -14,8 +13,8 @@
 <ion-content *ngIf="user">
   <div class="profile-container">
     <div class="profile-info">
-      <ion-avatar >
-        <img src={{user.photoUrl}}>
+      <ion-avatar>
+        <img src="{{user.photoUrl}}" />
       </ion-avatar>
 
       <div class="follow-info">
@@ -32,11 +31,7 @@
       </div>
     </div>
 
-    <ion-button
-      *ngIf="!doesFollow()"
-      expand="block"
-      (click)="follow()"
-    >
+    <ion-button *ngIf="!doesFollow()" expand="block" (click)="follow()">
       Follow
     </ion-button>
 
@@ -46,7 +41,7 @@
       color="medium"
       (click)="unfollow()"
     >
-      Following
+      Unfollow
     </ion-button>
 
     <ion-button
@@ -55,13 +50,7 @@
       [routerLink]="['/tabs/home/']"
       [queryParams]="{filterBy: 'created'}"
     >
-      CREATED EVENTS by {{user.firstName}}
+      View {{user.firstName}}'s Events
     </ion-button>
-
-
-
   </div>
 </ion-content>
-
-
-
