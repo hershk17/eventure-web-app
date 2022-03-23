@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './text-post-create.page.html',
   styleUrls: ['./text-post-create.page.scss'],
 })
-export class NewTextPostPage implements OnInit {
+export class TextPostCreatePage implements OnInit {
   eventForm: FormGroup;
 
   public errorMessages = {

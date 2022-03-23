@@ -33,7 +33,7 @@ const routes: Routes = [
         path: 'createTextPost',
         loadChildren: () =>
           import('../text-post-create/text-post-create.module').then(
-            (m) => m.NewTextPostPageModule
+            (m) => m.TextPostCreatePageModule
           ),
       },
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { NewTextPostModule } from './text-post-create-routing.module';
+import { TextPostCreateModule } from './text-post-create-routing.module';
 
 @NgModule({
   imports: [
@@ -11,8 +11,8 @@ import { NewTextPostModule } from './text-post-create-routing.module';
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
-    NewTextPostModule,
+    TextPostCreateModule,
   ],
   declarations: [],
 })
-export class NewTextPostPageModule {}
+export class TextPostCreatePageModule {}
