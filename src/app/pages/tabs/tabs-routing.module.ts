@@ -23,20 +23,22 @@ const routes: Routes = [
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
       },
       // this is the old page (create event directly)
-      // {
-      //   path: 'create',
-      //   loadChildren: () =>
-      //     import('../event-create/event-create.module').then(
-      //       (m) => m.EventCreatePageModule
-      //     ),
-      // },
       {
         path: 'create',
         loadChildren: () =>
-          import('../plus-action/plus-action.module').then(
-            (m) => m.PlusActionPageModule
+          import('../event-create/event-create.module').then(
+            (m) => m.EventCreatePageModule
           ),
       },
+
+      // the "new page, but not using anymore"
+      // {
+      //   path: 'create',
+      //   loadChildren: () =>
+      //     import('../plus-action/plus-action.module').then(
+      //       (m) => m.PlusActionPageModule
+      //     ),
+      // },
       {
         path: 'profile',
         loadChildren: () =>

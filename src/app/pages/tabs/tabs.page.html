@@ -9,8 +9,9 @@
       <!-- <ion-label>Home</ion-label> -->
     </ion-tab-button>
 
-    <ion-tab-button tab="create">
-      <ion-icon name="add-circle-outline"></ion-icon>
+    <!-- <ion-tab-button tab="create"> -->
+    <ion-tab-button>
+      <ion-icon (click)="presentActionSheet()" name="add-outline"></ion-icon>
     </ion-tab-button>
 
     <ion-tab-button tab="explore">

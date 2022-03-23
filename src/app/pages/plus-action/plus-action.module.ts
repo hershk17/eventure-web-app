@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { PlusActionRoutingModule } from './plus-action-routing.module';
 
-import { PlusActionPage } from './plus-action.page';
 
 @NgModule({
   imports: [
