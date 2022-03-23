@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { ImagePostModule } from './image-post-routing.module';
+import { ImagePostCreateModule } from './image-post-create-routing.module';
+import { ImagePostCreatePage } from './image-post-create.page';
 
 @NgModule({
   imports: [
@@ -11,9 +12,9 @@ import { ImagePostModule } from './image-post-routing.module';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    ImagePostModule,
+    ImagePostCreateModule,
   ],
-  declarations: [],
+  declarations: [ImagePostCreatePage],
   entryComponents: [],
 })
 export class ImagePostPageModule {}

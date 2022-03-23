@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-image-post-create',
@@ -6,7 +7,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./image-post-create.page.scss'],
 })
 export class ImagePostCreatePage implements OnInit {
-  constructor() {}
+  // variable declarations
+  imagePostForm: FormGroup;
+  image: any;
 
-  ngOnInit() {}
+  public errorMessages = {
+    postContent: [{ type: 'required', message: 'A caption is required' }],
+  };
+
+  get postContent() {
+    return this.imagePostForm.get('postContent');
+  }
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  async ngOnInit() {
+    this.imagePostForm = this.formBuilder.group({
+      postContent: ['', [Validators.required]],
+    });
+  }
+
+  public onFileChange($event: any): void {
+    this.image = $event.target.files[0];
+  }
+
+  public async onImagePost(): Promise<void> {
+    console.log('Create Image Post TODO');
+    // this.db.uploadEvent(this.eventForm.value, this.image).then(() => {
+    //   this.presentToast();
+    //   this.location.back();
+    // });
+  }
 }
