@@ -3,10 +3,10 @@ import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-plus-action',
-  templateUrl: './plus-action.page.html',
-  styleUrls: ['./plus-action.page.scss'],
+  templateUrl: './new-text-post.page.html',
+  styleUrls: ['./new-text-post.page.scss'],
 })
-export class PlusActionPage implements OnInit {
+export class NewTextPostPage implements OnInit {
   constructor(public actionSheetController: ActionSheetController) {}
 
   ngOnInit() {}

@@ -8,8 +8,8 @@ import { EventCreatePage } from './event-create.page';
 import { ImgPreviewModule } from '../../components/img-preview/img-preview.module';
 import ExplorePage from '../explore/explore.page';
 import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
-import { PlusActionPageModule } from '../plus-action/plus-action.module';
-import { PlusActionPage } from '../plus-action/plus-action.page';
+import { NewTextPostPageModule } from '../new-text-post/new-text-post.module';
+import { NewTextPostPage } from '../new-text-post/new-text-post.page';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { PlusActionPage } from '../plus-action/plus-action.page';
     EventCreatePage,
     ExplorePage,
     LocationPreviewComponent,
-    PlusActionPage,
+    NewTextPostPage,
   ],
   entryComponents: [ExplorePage],
 })

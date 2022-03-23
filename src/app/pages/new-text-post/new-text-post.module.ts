@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-import { PlusActionRoutingModule } from './plus-action-routing.module';
-
+import { NewTextPostModule } from './new-text-post-routing.module';
 
 @NgModule({
   imports: [
@@ -12,8 +11,8 @@ import { PlusActionRoutingModule } from './plus-action-routing.module';
     ReactiveFormsModule,
     FormsModule,
     IonicModule,
-    PlusActionRoutingModule,
+    NewTextPostModule,
   ],
   declarations: [],
 })
-export class PlusActionPageModule {}
+export class NewTextPostPageModule {}

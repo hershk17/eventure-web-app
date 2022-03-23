@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { PlusActionPage } from './plus-action.page';
+import { NewTextPostPage } from './new-text-post.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PlusActionPage,
+    component: NewTextPostPage,
   },
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PlusActionRoutingModule {}
+export class NewTextPostModule {}

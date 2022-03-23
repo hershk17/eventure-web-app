@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PlusActionPage } from './plus-action.page';
+import { NewTextPostPage } from './new-text-post.page';
 
 describe('PlusActionComponent', () => {
-  let component: PlusActionPage;
-  let fixture: ComponentFixture<PlusActionPage>;
+  let component: NewTextPostPage;
+  let fixture: ComponentFixture<NewTextPostPage>;
 
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [PlusActionPage],
+        declarations: [NewTextPostPage],
         imports: [IonicModule.forRoot()],
       }).compileComponents();
 
-      fixture = TestBed.createComponent(PlusActionPage);
+      fixture = TestBed.createComponent(NewTextPostPage);
       component = fixture.componentInstance;
       fixture.detectChanges();
     })
