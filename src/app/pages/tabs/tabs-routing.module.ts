@@ -36,6 +36,13 @@ const routes: Routes = [
             (m) => m.TextPostCreatePageModule
           ),
       },
+      {
+        path: 'createImagePost',
+        loadChildren: () =>
+          import('../image-post-create/image-post-create.module').then(
+            (m) => m.ImagePostPageModule
+          ),
+      },
 
       {
         path: 'profile',
