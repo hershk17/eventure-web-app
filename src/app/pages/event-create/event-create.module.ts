@@ -9,7 +9,7 @@ import { ImgPreviewModule } from '../../components/img-preview/img-preview.modul
 import ExplorePage from '../explore/explore.page';
 import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
 // import { TextPostCreatePageModule } from '../text-post-create/text-post-create.module';
-import { TextPostCreatePage } from '../text-post-create/text-post-create.page';
+// import { TextPostCreatePage } from '../text-post-create/text-post-create.page';
 
 @NgModule({
   imports: [
@@ -20,12 +20,7 @@ import { TextPostCreatePage } from '../text-post-create/text-post-create.page';
     EventCreatePageRoutingModule,
     ImgPreviewModule,
   ],
-  declarations: [
-    EventCreatePage,
-    ExplorePage,
-    LocationPreviewComponent,
-    TextPostCreatePage,
-  ],
+  declarations: [EventCreatePage, ExplorePage, LocationPreviewComponent],
   entryComponents: [ExplorePage],
 })
 export class EventCreatePageModule {}

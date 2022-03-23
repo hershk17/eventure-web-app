@@ -6,7 +6,7 @@
   </ion-header>
 
   <ion-content fullscreen class="ion-padding">
-    <form [formGroup]="eventForm" (ngSubmit)="onTextPost()">
+    <form [formGroup]="textPostForm" (ngSubmit)="onTextPost()">
       <ion-item>
         <ion-textarea
           autocapitalize
@@ -24,7 +24,13 @@
           <small class="error-message">{{error.message}}</small>
         </ng-container>
       </div>
-      <ion-button type="submit" color="primary" expand="block">Post</ion-button>
+      <ion-button
+        type="submit"
+        color="primary"
+        expand="block"
+        [disabled]="!textPostForm.valid"
+        >Post</ion-button
+      >
     </form>
   </ion-content>
 </ion-app>

@@ -7,27 +7,27 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./text-post-create.page.scss'],
 })
 export class TextPostCreatePage implements OnInit {
-  eventForm: FormGroup;
+  textPostForm: FormGroup;
 
   public errorMessages = {
     postContent: [{ type: 'required', message: 'A message is required' }],
   };
 
   get postContent() {
-    return this.eventForm.get('postContent');
+    return this.textPostForm.get('postContent');
   }
 
   constructor(private formBuilder: FormBuilder) {}
 
   async ngOnInit() {
-    this.eventForm = this.formBuilder.group({
+    this.textPostForm = this.formBuilder.group({
       postContent: ['', [Validators.required]],
     });
   }
 
   public async onTextPost(): Promise<void> {
     console.log('Create Text Post TODO');
-    // this.db.uploadEvent(this.eventForm.value, this.image).then(() => {
+    // this.db.uploadEvent(this.textPostForm.value, this.image).then(() => {
     //   this.presentToast();
     //   this.location.back();
     // });
