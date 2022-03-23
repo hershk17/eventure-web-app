@@ -17,4 +17,4 @@ import { PlusActionPage } from './plus-action.page';
   ],
   declarations: [PlusActionPage],
 })
-export class LoginPageModule {}
+export class PlusActionPageModule {}

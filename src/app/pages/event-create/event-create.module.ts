@@ -8,6 +8,8 @@ import { EventCreatePage } from './event-create.page';
 import { ImgPreviewModule } from '../../components/img-preview/img-preview.module';
 import ExplorePage from '../explore/explore.page';
 import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
+import { PlusActionPageModule } from '../plus-action/plus-action.module';
+import { PlusActionPage } from '../plus-action/plus-action.page';
 
 @NgModule({
   imports: [
@@ -16,9 +18,10 @@ import { LocationPreviewComponent } from 'src/app/components/location-preview/lo
     ReactiveFormsModule,
     IonicModule,
     EventCreatePageRoutingModule,
-    ImgPreviewModule
+    ImgPreviewModule,
+    PlusActionPageModule,
   ],
-  declarations: [EventCreatePage, ExplorePage, LocationPreviewComponent],
-  entryComponents: [ExplorePage]
+  declarations: [EventCreatePage, ExplorePage, LocationPreviewComponent, PlusActionPage],
+  entryComponents: [ExplorePage],
 })
 export class EventCreatePageModule {}

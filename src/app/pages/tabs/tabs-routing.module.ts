@@ -22,11 +22,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
       },
+      // {
+      //   path: 'create',
+      //   loadChildren: () =>
+      //     import('../event-create/event-create.module').then(
+      //       (m) => m.EventCreatePageModule
+      //     ),
+      // },
       {
         path: 'create',
         loadChildren: () =>
-          import('../event-create/event-create.module').then(
-            (m) => m.EventCreatePageModule
+          import('../plus-action/plus-action.module').then(
+            (m) => m.PlusActionPageModule
           ),
       },
       {
@@ -58,7 +65,9 @@ const routes: Routes = [
       {
         path: 'search/profile/:uid',
         loadChildren: () =>
-          import('../search-profile/search-profile.module').then((m) => m.SearchProfilePageModule),
+          import('../search-profile/search-profile.module').then(
+            (m) => m.SearchProfilePageModule
+          ),
       },
       {
         path: '',
