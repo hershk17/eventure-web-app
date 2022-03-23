@@ -25,7 +25,7 @@ export class TextPostCreatePage implements OnInit {
     });
   }
 
-  public async onCreateEvent(): Promise<void> {
+  public async onTextPost(): Promise<void> {
     console.log('Create Text Post TODO');
     // this.db.uploadEvent(this.eventForm.value, this.image).then(() => {
     //   this.presentToast();
