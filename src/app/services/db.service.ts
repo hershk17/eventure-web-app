@@ -46,6 +46,7 @@ export interface Post {
   uid: string;
   imagePost: ImagePost;
   textPost: TextPost;
+  type: string;
 }
 
 export interface TextPost {
@@ -350,12 +351,14 @@ export class DbService {
     // upload the image
     try {
       const url = await this.uploadImg(imgFile);
+      console.log(url);
       if (!url) {
+        console.log('no url');
         return false;
       }
       // create post locally
       const userPost: Post = {
-        postid: uniqid(''),
+        postid: 'p-' + uniqid(''),
         timestamp: aPost.timestamp,
         uid: aPost.uid,
         textPost: null,
@@ -363,19 +366,21 @@ export class DbService {
           image: [],
           caption: aPost.imagePost.caption,
         },
+        type: 'image',
       };
 
       // save the uploaded image to the imagePost
-
       aPost.imagePost.image.push(url);
 
+      console.log(userPost);
+
       //save the post to posts
-      await setDoc(doc(this.db, 'posts', aPost.postid), userPost);
+      await setDoc(doc(this.db, 'posts', userPost.postid), userPost);
 
       //save the postid to the user
       await this.afStore
         .doc(`users/${this.userData.uid}`)
-        .update({ organized: arrayUnion(aPost.postid) });
+        .update({ posted: arrayUnion(userPost.postid) });
     } catch (error) {
       console.error(error);
       return false;
@@ -385,11 +390,12 @@ export class DbService {
   public async setTextPost(aPost: Post): Promise<boolean> {
     // create post locally
     const userPost: Post = {
-      postid: 'p-' + aPost.timestamp + uniqid('') + '-text',
+      postid: 'p-' + uniqid(''),
       timestamp: aPost.timestamp,
       uid: aPost.uid,
       textPost: aPost.textPost,
       imagePost: null,
+      type: 'text',
     };
 
     //save the post to firestore

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DbService } from 'src/app/services/db.service';
 import { ToastController } from '@ionic/angular';
+import { DbService } from 'src/app/services/db.service';
 
 @Component({
   selector: 'app-plus-action',
@@ -33,6 +33,7 @@ export class TextPostCreatePage implements OnInit {
     });
   }
 
+  // this should really be a service
   async presentToast(aMessage: string) {
     const toast = await this.toastController.create({
       message: aMessage,
