@@ -41,6 +41,7 @@ export interface TomtomAddress {
 }
 
 export interface Post {
+  type: string;
   postid: string;
   timestamp: DatePipe;
   uid: string;
@@ -77,7 +78,7 @@ export interface Event {
   participants: string[];
   reviews: string[];
   score: number;
-  time: string[];
+  time: string;
   visibility: string;
 }
 
@@ -93,6 +94,8 @@ export class DbService {
 
   private events: any = [];
   private storage = getStorage();
+  private posts: any = [];
+
   constructor(
     public auth: AngularFireAuth,
     public afStore: AngularFirestore,
@@ -355,7 +358,8 @@ export class DbService {
       }
       // create post locally
       const userPost: Post = {
-        postid: uniqid(''),
+        type: 'image',
+        postid: 'p-' + uniqid(''),
         timestamp: aPost.timestamp,
         uid: aPost.uid,
         textPost: null,
@@ -385,7 +389,8 @@ export class DbService {
   public async setTextPost(aPost: Post): Promise<boolean> {
     // create post locally
     const userPost: Post = {
-      postid: 'p-' + aPost.timestamp + uniqid('') + '-text',
+      type: 'text',
+      postid: 'p-' + uniqid(''),
       timestamp: aPost.timestamp,
       uid: aPost.uid,
       textPost: aPost.textPost,
@@ -493,5 +498,20 @@ export class DbService {
     this.afStore
       .doc(`users/${this.currentUser.uid}`)
       .update({ followings: arrayUnion(uid) });
+  }
+
+  public async getPostsFromFollowingList(): Promise<Post[]> {
+    let following = [];
+    this.getCurrentUser().then(async (userRes) => {
+      following = userRes.data().followings;
+      const querySnapshot = await getDocs(collection(this.db, 'posts'));
+      querySnapshot.forEach((res) => {
+        const post: any = res.data();
+        if (following.includes(post.uid)) {
+          this.posts.push(post);
+        }
+      });
+    });
+    return this.posts;
   }
 }

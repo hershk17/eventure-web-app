@@ -50,14 +50,14 @@ const routes: Routes = [
           import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
       {
-        path: 'home/event/:id',
+        path: 'home/events/event/:id',
         loadChildren: () =>
           import('../event-details/event-details.module').then(
             (m) => m.EventDetailsPageModule
           ),
       },
       {
-        path: 'home/event/:id/edit',
+        path: 'home/events/event/:id/edit',
         loadChildren: () =>
           import('../event-create/event-create.module').then(
             (m) => m.EventCreatePageModule

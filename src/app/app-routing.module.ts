@@ -95,7 +95,18 @@ export const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectAuthorizedToTabs },
   },
-
+  {
+    path: 'home-timeline',
+    loadChildren: () => import('./pages/home-timeline/home-timeline.module').then( m => m.HomeTimelinePageModule)
+  },
+  {
+    path: 'home-timeline',
+    loadChildren: () => import('./pages/home-timeline/home-timeline.module').then( m => m.HomeTimelinePageModule)
+  },
+  {
+    path: 'home-events',
+    loadChildren: () => import('./pages/home-events/home-events.module').then( m => m.HomeEventsPageModule)
+  },
 ];
 @NgModule({
   imports: [

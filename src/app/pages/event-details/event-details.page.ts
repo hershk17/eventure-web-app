@@ -102,7 +102,7 @@ export class EventDetailsPage implements OnInit {
     this.location.back();
   }
   hasJoined() {
-    return this.db.hasUserJoined(this.event.id)
+    return this.db.hasUserJoined(this.event.id);
   }
   async join() {
     const joined = await this.db.joinEvent(this.event.id);
