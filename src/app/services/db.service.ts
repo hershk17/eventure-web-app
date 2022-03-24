@@ -385,7 +385,7 @@ export class DbService {
   public async setTextPost(aPost: Post): Promise<boolean> {
     // create post locally
     const userPost: Post = {
-      postid: aPost.timestamp + uniqid(''),
+      postid: 'p-' + aPost.timestamp + uniqid('') + '-text',
       timestamp: aPost.timestamp,
       uid: aPost.uid,
       textPost: aPost.textPost,
@@ -398,7 +398,7 @@ export class DbService {
     //save the postid to the user
     await this.afStore
       .doc(`users/${this.userData.uid}`)
-      .update({ organized: arrayUnion(userPost.postid) });
+      .update({ posted: arrayUnion(userPost.postid) });
 
     return true;
   }
