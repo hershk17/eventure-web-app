@@ -345,7 +345,7 @@ export class DbService {
       return user.emailVerified !== false ? true : false;
     } catch (error) {
       console.error(error);
-      this.presentAlert('Error', "Can't read user's state");
+      this.presentAlert('Error', 'Can\'t read user\'s state');
     }
   }
 
@@ -427,6 +427,8 @@ export class DbService {
       lastName: user.lastName,
       organized: [],
       joined: [],
+      followings: [],
+      followers: []
     };
     return userRef.set(userData, {
       merge: true,
