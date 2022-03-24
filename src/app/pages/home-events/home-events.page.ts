@@ -48,6 +48,30 @@ export class HomeEventsPage implements OnInit {
     });
   }
 
+  doRefresh(event) {
+    //get parameters from url
+    this.route.queryParams.subscribe((params) => {
+      this.filterBy = params.filterBy;
+
+      // console.log('ngOnInit');
+      if (this.filterBy === undefined || this.filterBy === 'all') {
+        this.handleClick('All Events');
+        // console.log('Handling All in ngOnInit');
+      } else if (this.filterBy === 'created') {
+        // console.log('Handling Joined in ngOnInit');
+        this.handleClick('My Created Events');
+      } else if (this.filterBy === 'joined') {
+        // console.log('Handling Created in ngOnInit');
+        this.handleClick('Joined Events');
+      }
+    });
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   onSelect(event: Event) {
     console.log(event);
   }

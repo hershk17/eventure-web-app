@@ -24,6 +24,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <!-- <div class="clear-filter" *ngIf="filteredEvent !=='all'">
     <ion-button [routerLink]="['/tabs/home']" [queryParams]="{filterBy: 'all'}"
       >Clear Filters</ion-button
