@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { POI } from 'src/app/services/api.service';
+// import { POI } from 'src/app/services/api.service';
 import { DbService } from 'src/app/services/db.service';
 import uniqid from 'uniqid';
 import ExplorePage from '../explore/explore.page';
-import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
+// import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.page.html',

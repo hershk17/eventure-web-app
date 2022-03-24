@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -37,6 +38,23 @@ export interface TomtomAddress {
   countrySubdivisionName: string;
   extendedPostalCode: string;
   municipality: string;
+}
+
+export interface Post {
+  postid: string;
+  timestamp: DatePipe;
+  uid: string;
+  imagePost: ImagePost;
+  textPost: TextPost;
+}
+
+export interface TextPost {
+  text: string;
+}
+
+export interface ImagePost {
+  caption: string;
+  image: any;
 }
 
 export interface TomtomLocation {
@@ -328,6 +346,62 @@ export class DbService {
     }
   }
 
+  public async setImagePost(aPost: Post, imgFile: any): Promise<boolean> {
+    // upload the image
+    try {
+      const url = await this.uploadImg(imgFile);
+      if (!url) {
+        return false;
+      }
+      // create post locally
+      const userPost: Post = {
+        postid: uniqid(''),
+        timestamp: aPost.timestamp,
+        uid: aPost.uid,
+        textPost: null,
+        imagePost: {
+          image: [],
+          caption: aPost.imagePost.caption,
+        },
+      };
+
+      // save the uploaded image to the imagePost
+
+      aPost.imagePost.image.push(url);
+
+      //save the post to posts
+      await setDoc(doc(this.db, 'posts', aPost.postid), userPost);
+
+      //save the postid to the user
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ organized: arrayUnion(aPost.postid) });
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    return true;
+  }
+  public async setTextPost(aPost: Post): Promise<boolean> {
+    // create post locally
+    const userPost: Post = {
+      postid: aPost.timestamp + uniqid(''),
+      timestamp: aPost.timestamp,
+      uid: aPost.uid,
+      textPost: aPost.textPost,
+      imagePost: null,
+    };
+
+    //save the post to firestore
+    await setDoc(doc(this.db, 'posts', userPost.postid), userPost);
+
+    //save the postid to the user
+    await this.afStore
+      .doc(`users/${this.userData.uid}`)
+      .update({ organized: arrayUnion(userPost.postid) });
+
+    return true;
+  }
   public setUserData(user: User) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${user.uid}`
@@ -375,16 +449,18 @@ export class DbService {
     );
   }
 
-
   //server
   public async getUserBySearchWord(searchWord) {
     console.log(this.userData.uid);
-    const res = await fetch(`${environment.serverUrl}/api/search/users?byName=${searchWord}`, {
-      method: 'GET',
-      headers: {
-        "uid": this.userData.uid
+    const res = await fetch(
+      `${environment.serverUrl}/api/search/users?byName=${searchWord}`,
+      {
+        method: 'GET',
+        headers: {
+          uid: this.userData.uid,
+        },
       }
-    });
+    );
     const data = await res.json();
     return data;
   }
@@ -410,7 +486,6 @@ export class DbService {
   }
 
   public followUser(uid) {
-
     this.afStore
       .doc(`users/${uid}`)
       .update({ followers: arrayUnion(this.currentUser.uid) });

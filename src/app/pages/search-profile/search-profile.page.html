@@ -44,8 +44,15 @@
       Unfollow
     </ion-button>
 
+    <!-- <ion-button
+      (click)="onCreatedEvent()"
+      expand="block"
+      [routerLink]="['/tabs/home/']"
+      [queryParams]="{filterBy: 'created'}"
+    >
+      View {{user.firstName}}'s Created Events
+    </ion-button> -->
     <ion-button
-      (click)="onCreatedEvents()"
       expand="block"
       [routerLink]="['/tabs/home/']"
       [queryParams]="{filterBy: 'created'}"
