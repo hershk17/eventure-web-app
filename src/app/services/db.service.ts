@@ -510,6 +510,7 @@ export class DbService {
   }
 
   public async getPostsFromFollowingList(): Promise<Post[]> {
+    this.posts = [];
     let following = [];
     this.getCurrentUser().then(async (userRes) => {
       following = userRes.data().followings;

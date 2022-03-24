@@ -18,4 +18,16 @@ export class HomeTimelinePage implements OnInit {
       console.log(this.posts);
     });
   }
+
+  doRefresh(event) {
+    this.db.getPostsFromFollowingList().then((res) => {
+      this.posts = res;
+      console.log(this.posts);
+    });
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 }
