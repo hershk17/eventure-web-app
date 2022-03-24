@@ -57,18 +57,15 @@ export class TextPostCreatePage implements OnInit {
 
     // type is: this.db.Post
     // initialize
-    const userTextPost: any = {
-      postid: null,
-      timestamp: timeStamp.getTime(),
-      uid: (await this.db.auth.currentUser).uid,
-      textPost: this.textPostForm.value.postContent,
-      imagePost: null,
-    };
 
     // add the post to the firestore db
-    this.db.setTextPost(userTextPost).then(() => {
+    const isSuccess = this.db.setTextPost(this.textPostForm.value.postContent);
+
+    if (isSuccess) {
       this.textPostForm.reset();
       this.presentToast('Successfully Posted!');
-    });
+    } else {
+      this.presentToast('Unknown Error!');
+    }
   }
 }

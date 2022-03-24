@@ -51,20 +51,11 @@ export class ImagePostCreatePage implements OnInit {
   }
 
   public async onImagePost(): Promise<void> {
-    const timeStamp = new Date();
-    const userImagePost: any = {
-      postid: null,
-      timestamp: timeStamp.getTime(),
-      uid: (await this.db.auth.currentUser).uid,
-      textPost: null,
-      imagePost: {
-        image: [],
-        caption: this.imagePostForm.value.postContent,
-      },
-    };
-
     // add the post to the firestore db
-    const isSuccess = await this.db.setImagePost(userImagePost, this.image);
+    const isSuccess = await this.db.setImagePost(
+      this.imagePostForm.value.postContent,
+      this.image
+    );
     if (isSuccess) {
       this.imagePostForm.reset();
       this.presentToast('Successfully Posted!');
