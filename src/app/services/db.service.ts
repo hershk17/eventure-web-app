@@ -41,12 +41,12 @@ export interface TomtomAddress {
 }
 
 export interface Post {
-  type: string;
   postid: string;
-  timestamp: DatePipe;
+  timestamp: number;
   uid: string;
   imagePost: ImagePost;
   textPost: TextPost;
+  type: string;
 }
 
 export interface TextPost {
@@ -349,52 +349,59 @@ export class DbService {
     }
   }
 
-  public async setImagePost(aPost: Post, imgFile: any): Promise<boolean> {
+  public async setImagePost(aCaption: string, imgFile: any): Promise<boolean> {
+    const timeStamp = new Date();
     // upload the image
     try {
       const url = await this.uploadImg(imgFile);
+      console.log(url);
       if (!url) {
+        console.log('no url');
         return false;
       }
       // create post locally
       const userPost: Post = {
-        type: 'image',
         postid: 'p-' + uniqid(''),
-        timestamp: aPost.timestamp,
-        uid: aPost.uid,
+        timestamp: timeStamp.getTime(),
+        uid: (await this.currentUser).uid,
         textPost: null,
         imagePost: {
           image: [],
-          caption: aPost.imagePost.caption,
+          caption: aCaption,
         },
+        type: 'image',
       };
 
       // save the uploaded image to the imagePost
+      userPost.imagePost.image.push(url);
 
-      aPost.imagePost.image.push(url);
+      console.log(userPost);
 
       //save the post to posts
-      await setDoc(doc(this.db, 'posts', aPost.postid), userPost);
+      await setDoc(doc(this.db, 'posts', userPost.postid), userPost);
 
       //save the postid to the user
       await this.afStore
         .doc(`users/${this.userData.uid}`)
-        .update({ organized: arrayUnion(aPost.postid) });
+        .update({ posted: arrayUnion(userPost.postid) });
     } catch (error) {
       console.error(error);
       return false;
     }
     return true;
   }
-  public async setTextPost(aPost: Post): Promise<boolean> {
+  public async setTextPost(aTextPost: string): Promise<boolean> {
+    const timeStamp = new Date();
     // create post locally
     const userPost: Post = {
-      type: 'text',
       postid: 'p-' + uniqid(''),
-      timestamp: aPost.timestamp,
-      uid: aPost.uid,
-      textPost: aPost.textPost,
+      timestamp: timeStamp.getTime(),
+      uid: this.currentUser.uid,
+      textPost: {
+        text: aTextPost,
+      },
       imagePost: null,
+      type: 'text',
     };
 
     //save the post to firestore
