@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import {
   DbService,
   ImagePost,
@@ -13,8 +14,7 @@ import {
 })
 export class HomeTimelinePage implements OnInit {
   posts: Post[] = [];
-
-  constructor(private db: DbService) {}
+  constructor(private db: DbService, private alertController: AlertController) {}
 
   ngOnInit() {
     this.db.getPostsFromFollowingList().then((res) => {
@@ -56,12 +56,24 @@ export class HomeTimelinePage implements OnInit {
   isMyPost(uid){
     return uid == this.db.userData.uid;
   }
-  async deletePost(postId){
-    try {
-      await this.db.removePost(postId);
-      console.log('deleted')
-    } catch(error) {
-      console.error(error);
-    }
+  async deletePost(id){
+    const alert = await this.alertController.create({
+      message: 'Are you sure you want to delete? This cannot be undone.',
+      buttons: [{
+        text: 'No',
+        role: 'cancel'
+      },
+      {
+        text: 'Yes',
+        handler: async () => {
+          try {
+            await this.db.removePost(id);
+          } catch(error) {
+            console.error(error);
+          }
+        }
+      }],
+    });
+    await alert.present();
   }
 }
