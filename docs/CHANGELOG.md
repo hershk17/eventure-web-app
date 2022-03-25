@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.3.2] - 2/11/2022
+## [1.4.0] - 3/25/2022
+
+### Added
+
+- A web server to search `https://eventureserver.herokuapp.com/healthcheck` using Elasticsearch
+- Search user
+- Look at other users' profile through search (bare bone)
+- Users can now follow/unfollow each other
+- Create posts
+- Timeline that displays posts from people a user follows
+
+## [1.3.2] - 2/25/2022
 
 ### Added
 
