@@ -54,11 +54,7 @@ export class EventCreatePage implements OnInit {
     'Theatre',
     'Misc',
   ];
-  public visibilityOptions: string[] = [
-    'Public',
-    'Followers Only',
-    'Invite Only',
-  ];
+  public visibilityOptions: string[] = ['Public', 'Followers Only'];
   image: any;
 
   get eventName() {
