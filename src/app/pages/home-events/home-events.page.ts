@@ -103,7 +103,7 @@ export class HomeEventsPage implements OnInit {
     this.events = result;
     this.hasEvents = true;
   }
-  
+
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
   }

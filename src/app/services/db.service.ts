@@ -343,7 +343,7 @@ export class DbService {
       return user.emailVerified !== false ? true : false;
     } catch (error) {
       console.error(error);
-      this.presentAlert('Error', "Can't read user's state");
+      this.presentAlert('Error', 'Can\'t read user\'s state');
     }
   }
 
@@ -359,7 +359,7 @@ export class DbService {
       }
       // create post locally
       const userPost: Post = {
-        postid: 'p-' + uniqid(''),
+        postid: 'p-' + timeStamp.getTime(),
         timestamp: timeStamp.getTime(),
         uid: (await this.currentUser).uid,
         name: this.currentUser.firstName + ' ' + this.currentUser.lastName,
@@ -393,7 +393,7 @@ export class DbService {
     const timeStamp = new Date();
     // create post locally
     const userPost: Post = {
-      postid: 'p-' + uniqid(''),
+      postid: 'p-' + timeStamp.getTime(),
       timestamp: timeStamp.getTime(),
       uid: this.currentUser.uid,
       name: this.currentUser.firstName + ' ' + this.currentUser.lastName,
