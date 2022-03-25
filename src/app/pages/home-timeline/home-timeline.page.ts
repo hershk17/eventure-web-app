@@ -57,6 +57,7 @@ export class HomeTimelinePage implements OnInit {
     return uid == this.db.userData.uid;
   }
   deletePost(uid){
-    
+    console.log('delete ' + uid);
+    this.db.removePost(uid);
   }
 }
