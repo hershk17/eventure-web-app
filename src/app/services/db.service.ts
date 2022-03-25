@@ -227,11 +227,22 @@ export class DbService {
 
   public async getEvents(): Promise<Event[]> {
     this.events = [];
-    const querySnapshot = await getDocs(collection(this.db, 'Events2'));
-    querySnapshot.forEach((res) => {
-      const data: any = res.data();
-      const event: Event = data;
-      this.events.push(event);
+    let following = [];
+    this.getCurrentUser().then(async (userRes) => {
+      const u = userRes.data();
+      following = u.followings;
+      const querySnapshot = await getDocs(collection(this.db, 'Events2'));
+      querySnapshot.forEach((res) => {
+        const event: any = res.data();
+        if (
+          event.visibility === 'Public' ||
+          event.organizer === u.uid ||
+          u.joined.includes(event.id) ||
+          following.includes(event.organizer)
+        ) {
+          this.events.unshift(event);
+        }
+      });
     });
     return this.events;
   }
@@ -256,19 +267,12 @@ export class DbService {
   }
 
   public async getJoined(): Promise<Event[]> {
-    await this.getEvents();
     const joinedEvents: Event[] = [];
-    const q = query(
-      collection(this.db, 'users'),
-      where('uid', '==', this.userData.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((usr) => {
-      const eventIDs = usr.data().joined;
-      eventIDs.forEach((e: string) => {
-        //check for null/empty
-        if (this.getEventByID(e) != null) {
-          joinedEvents.push(this.getEventByID(e));
+    this.getCurrentUser().then(async (userRes) => {
+      const usr = userRes.data();
+      this.events.forEach((event) => {
+        if (usr.joined.includes(event.id)) {
+          joinedEvents.push(event);
         }
       });
     });
@@ -276,19 +280,12 @@ export class DbService {
   }
 
   public async getCreated(): Promise<Event[]> {
-    await this.getEvents();
     const joinedEvents: Event[] = [];
-    const q = query(
-      collection(this.db, 'users'),
-      where('uid', '==', this.userData.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((usr) => {
-      const eventIDs = usr.data().organized;
-      eventIDs.forEach((e: string) => {
-        //check for null/empty
-        if (this.getEventByID(e) != null) {
-          joinedEvents.push(this.getEventByID(e));
+    this.getCurrentUser().then(async (userRes) => {
+      const usr = userRes.data();
+      this.events.forEach((event) => {
+        if (usr.organized.includes(event.id)) {
+          joinedEvents.push(event);
         }
       });
     });
@@ -345,7 +342,7 @@ export class DbService {
       return user.emailVerified !== false ? true : false;
     } catch (error) {
       console.error(error);
-      this.presentAlert('Error', 'Can\'t read user\'s state');
+      this.presentAlert('Error', "Can't read user's state");
     }
   }
 

@@ -85,33 +85,25 @@ export class HomeEventsPage implements OnInit {
       await this.db.getEvents().then((res) => {
         result = res;
         this.filteredEvent = 'all';
-        // console.log(result);
+        console.log(result);
       });
     } else if (field === 'My Created Events') {
       await this.db.getCreated().then((res) => {
         result = res;
         this.filteredEvent = 'created';
+        console.log(result);
       });
     } else {
       await this.db.getJoined().then((res) => {
         result = res;
         this.filteredEvent = 'joined';
+        console.log(result);
       });
     }
-
-    //check if there are no values to display
-    if (!result || result.length === 0 || result[0] == null) {
-      this.hasEvents = false;
-      // console.log('result: ');
-      // console.log(result);
-      // console.log('result[0]: ' + result[0]);
-    } else {
-      this.hasEvents = true;
-      //there should be something to display
-      this.events = result;
-    }
+    this.events = result;
+    this.hasEvents = true;
   }
-  //checks if user has joined an event
+  
   hasJoined(eventId) {
     return this.db.hasUserJoined(eventId);
   }
