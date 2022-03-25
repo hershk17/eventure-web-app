@@ -47,6 +47,7 @@ export interface Post {
   imagePost: ImagePost;
   textPost: TextPost;
   type: string;
+  name: string;
 }
 
 export interface TextPost {
@@ -361,6 +362,7 @@ export class DbService {
         postid: 'p-' + uniqid(''),
         timestamp: timeStamp.getTime(),
         uid: (await this.currentUser).uid,
+        name: this.currentUser.firstName + ' ' + this.currentUser.lastName,
         textPost: null,
         imagePost: {
           image: [],
@@ -394,6 +396,7 @@ export class DbService {
       postid: 'p-' + uniqid(''),
       timestamp: timeStamp.getTime(),
       uid: this.currentUser.uid,
+      name: this.currentUser.firstName + ' ' + this.currentUser.lastName,
       textPost: {
         text: aTextPost,
       },
