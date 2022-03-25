@@ -1,0 +1,92 @@
+<ion-menu side="end" content-id="home-filter">
+  <ion-header>
+    <ion-toolbar translucent>
+      <ion-title>Filters</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-item button *ngFor="let item of list" (click)="handleClick(item.text)">
+      <!--[routerLink]="['/tabs/home']" [queryParams]="{filterBy: item.urlParam}" -->
+      {{item.text}}
+    </ion-item>
+  </ion-content>
+</ion-menu>
+
+<div class="home-page" id="home-filter"></div>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- <div class="clear-filter" *ngIf="filteredEvent !=='all'">
+    <ion-button [routerLink]="['/tabs/home']" [queryParams]="{filterBy: 'all'}"
+      >Clear Filters</ion-button
+    >
+  </div> -->
+  <div class="clear-filter" *ngIf="filteredEvent !=='all'">
+    <ion-button (click)="handleClick('All Events')">Clear Filters</ion-button>
+  </div>
+  <div *ngIf="hasEvents, else elseBlock">
+    <ion-list style="background-color: transparent">
+      <ion-card
+        *ngFor="let event of this.events"
+        button="true"
+        [routerLink]="['event',event.id]"
+        style="margin: 20px; margin-top: 10px; border-radius: 10px"
+      >
+        <div>
+          <ion-card class="myCard">
+            <img
+              src="{{event.images[0]}}"
+              style="width: 100%; object-fit: cover"
+            />
+            <div class="myOverlay">
+              {{event.score}}★ ({{event.reviews.length}})
+            </div>
+          </ion-card>
+        </div>
+        <ion-card-header style="padding: 10px 0px">
+          <div class="date-container">
+            <ion-card-subtitle style="padding-left: 20px">
+              {{event.date | date}} at {{event.time | date:"shortTime"}}
+            </ion-card-subtitle>
+            <ion-button
+              *ngIf="hasJoined(event.id)"
+              size="small"
+              color="medium"
+              disabled
+              style="margin-left: auto; margin-right: 5px"
+            >
+              Joined
+            </ion-button>
+          </div>
+          <ion-card-title
+            style="padding: 20px; padding-top: 0px; padding-bottom: 0px"
+            >{{ event.eventName }}</ion-card-title
+          >
+        </ion-card-header>
+        <ion-card-content
+          style="padding: 20px; padding-top: 20px; padding-bottom: 25px"
+        >
+          {{event.description}}
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+  <ng-template #elseBlock>
+    <ion-card class="errorMessage">
+      <div>No events found!</div>
+      <ion-card-title></ion-card-title>
+    </ion-card>
+  </ng-template>
+</ion-content>

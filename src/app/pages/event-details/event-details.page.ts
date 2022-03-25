@@ -47,23 +47,18 @@ export class EventDetailsPage implements OnInit {
           side: 'start',
           icon: 'star',
           text: 'Favorite',
-          handler: () => {
-            console.log('Favorite clicked');
-          },
+          handler: () => {},
         },
         {
           text: 'Done',
           role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
+          handler: () => {},
         },
       ],
     });
     await toast.present();
 
     const { role } = await toast.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   ngOnInit() {
@@ -91,18 +86,13 @@ export class EventDetailsPage implements OnInit {
     });
   }
 
-  public edit() {
-    console.log('edit');
-    // this.presentToast('Your settings have been saved!');
-  }
-
   public delete() {
     this.db.removeEvent(this.event.id);
     this.presentToast('Your event has been deleted!');
     this.location.back();
   }
   hasJoined() {
-    return this.db.hasUserJoined(this.event.id)
+    return this.db.hasUserJoined(this.event.id);
   }
   async join() {
     const joined = await this.db.joinEvent(this.event.id);

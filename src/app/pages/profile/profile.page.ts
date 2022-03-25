@@ -23,20 +23,19 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     this.db.getUserByUid(this.db.userData.uid).subscribe((user) => {
       this.userData = user[0];
-      console.log(this.userData)
     });
 
   }
 
   public async onEditProfile() {
-    console.log('Editing Profile TODO!');
+    // console.log('Editing Profile TODO!');
   }
   public async onCreatedEvents() {
-    console.log('onCreatedEvents TODO!');
+    // console.log('onCreatedEvents TODO!');
   }
   public async onJoinedEvents() {
     this.db.getJoined().then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   }
   public async onSignOut() {

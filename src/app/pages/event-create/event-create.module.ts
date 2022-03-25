@@ -16,9 +16,9 @@ import { LocationPreviewComponent } from 'src/app/components/location-preview/lo
     ReactiveFormsModule,
     IonicModule,
     EventCreatePageRoutingModule,
-    ImgPreviewModule
+    ImgPreviewModule,
   ],
-  declarations: [EventCreatePage, ExplorePage, LocationPreviewComponent],
-  entryComponents: [ExplorePage]
+  declarations: [EventCreatePage, LocationPreviewComponent],
+  entryComponents: [ExplorePage],
 })
 export class EventCreatePageModule {}

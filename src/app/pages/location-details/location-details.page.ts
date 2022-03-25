@@ -25,20 +25,14 @@ export class LocationDetailsPage implements OnInit {
           this.locDetail= this.router.getCurrentNavigation().extras.state.loc;
         }
       });
-      console.log("Receiving: " + this.locDetail);
     }
 
   ngOnInit() {
     this.api.getPOIdetails(this.activatedRoute.snapshot.paramMap.get('id'))
     .subscribe((data)=> {
       this.locDetail = data.result;
-      console.log(this.locDetail);
     });
     this.loc = this.navExtras.getExtras();
-    console.log(this.loc);
-    
-      
-    
   }
 }
 

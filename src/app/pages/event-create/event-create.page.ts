@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+// import { ActivatedRoute } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { POI } from 'src/app/services/api.service';
+// import { POI } from 'src/app/services/api.service';
 import { DbService } from 'src/app/services/db.service';
 import uniqid from 'uniqid';
 import ExplorePage from '../explore/explore.page';
-import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
+// import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.page.html',
@@ -54,11 +54,7 @@ export class EventCreatePage implements OnInit {
     'Theatre',
     'Misc',
   ];
-  public visibilityOptions: string[] = [
-    'Public',
-    'Followers Only',
-    'Invite Only',
-  ];
+  public visibilityOptions: string[] = ['Public', 'Followers Only'];
   image: any;
 
   get eventName() {
@@ -96,7 +92,7 @@ export class EventCreatePage implements OnInit {
 
   async ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      id: [uniqid('e-')],
+      id: 'e-' + (new Date()).getTime(),
       location: [null],
       eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -114,7 +110,6 @@ export class EventCreatePage implements OnInit {
   }
   public addLocationId(poi: any) {
     this.eventForm.controls.location.setValue(poi.id);
-    // console.log(this.eventForm.value);
   }
   async presentToast() {
     const toast = await this.toastController.create({
@@ -133,9 +128,6 @@ export class EventCreatePage implements OnInit {
     modal.onDidDismiss().then((data) => {
       this.poiData = data.data;
       this.eventForm.controls.location.setValue(this.poiData);
-      // this.eventForm.controls.location.setValue(this.poiData.poi.id);
-
-      console.log(this.poiData.id);
     });
     await modal.present();
   }

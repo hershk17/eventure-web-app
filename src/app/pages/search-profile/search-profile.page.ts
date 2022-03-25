@@ -22,7 +22,6 @@ export class SearchProfilePage implements OnInit {
     })
   }
   doesFollow() {
-    console.log(this.db.currentUser.followings.includes(this.uid));
     return this.db.currentUser.followings.includes(this.uid);
   }
   follow() {
