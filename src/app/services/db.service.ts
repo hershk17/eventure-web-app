@@ -428,7 +428,7 @@ export class DbService {
       organized: [],
       joined: [],
       followings: [],
-      followers: []
+      followers: [],
     };
     return userRef.set(userData, {
       merge: true,
@@ -513,12 +513,13 @@ export class DbService {
     this.posts = [];
     let following = [];
     this.getCurrentUser().then(async (userRes) => {
-      following = userRes.data().followings;
+      const u = userRes.data();
+      following = u.followings;
       const querySnapshot = await getDocs(collection(this.db, 'posts'));
       querySnapshot.forEach((res) => {
         const post: any = res.data();
-        if (following.includes(post.uid)) {
-          this.posts.push(post);
+        if (u.uid === post.uid || following.includes(post.uid)) {
+          this.posts.unshift(post);
         }
       });
     });
