@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -24,7 +26,8 @@ export class TextPostCreatePage implements OnInit {
     private formBuilder: FormBuilder,
     public toastController: ToastController,
     private db: DbService,
-    private datePipe: DatePipe
+    // private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -37,9 +40,17 @@ export class TextPostCreatePage implements OnInit {
   async presentToast(aMessage: string) {
     const toast = await this.toastController.create({
       message: aMessage,
-      duration: 3000,
+      duration: 2250,
     });
     toast.present();
+  }
+  // method that forces redirection
+  redirectTo(uri) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router
+      .navigateByUrl(uri, { skipLocationChange: true })
+      .then(() => this.router.navigate([uri]));
   }
 
   public async onCreateTextPost(): Promise<void> {
@@ -63,9 +74,7 @@ export class TextPostCreatePage implements OnInit {
 
     if (isSuccess) {
       this.textPostForm.reset();
-      this.presentToast('Successfully Posted!');
-    } else {
-      this.presentToast('Unknown Error!');
+      this.redirectTo('/tabs/home/timeline');
     }
   }
 }
