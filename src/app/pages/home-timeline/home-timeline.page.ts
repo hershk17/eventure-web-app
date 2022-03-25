@@ -14,6 +14,7 @@ import {
 })
 export class HomeTimelinePage implements OnInit {
   posts: Post[] = [];
+  deleted = [];
   constructor(private db: DbService, private alertController: AlertController) {}
 
   ngOnInit() {
@@ -56,7 +57,7 @@ export class HomeTimelinePage implements OnInit {
   isMyPost(uid){
     return uid == this.db.userData.uid;
   }
-  async deletePost(id){
+  async deletePost(id, index){
     const alert = await this.alertController.create({
       message: 'Are you sure you want to delete? This cannot be undone.',
       buttons: [{
@@ -68,6 +69,7 @@ export class HomeTimelinePage implements OnInit {
         handler: async () => {
           try {
             await this.db.removePost(id);
+            this.deleted.push(id);
           } catch(error) {
             console.error(error);
           }
