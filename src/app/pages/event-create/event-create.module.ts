@@ -8,8 +8,6 @@ import { EventCreatePage } from './event-create.page';
 import { ImgPreviewModule } from '../../components/img-preview/img-preview.module';
 import ExplorePage from '../explore/explore.page';
 import { LocationPreviewComponent } from 'src/app/components/location-preview/location-preview.component';
-// import { TextPostCreatePageModule } from '../text-post-create/text-post-create.module';
-// import { TextPostCreatePage } from '../text-post-create/text-post-create.page';
 
 @NgModule({
   imports: [
@@ -20,7 +18,7 @@ import { LocationPreviewComponent } from 'src/app/components/location-preview/lo
     EventCreatePageRoutingModule,
     ImgPreviewModule,
   ],
-  declarations: [EventCreatePage, ExplorePage, LocationPreviewComponent],
+  declarations: [EventCreatePage, LocationPreviewComponent],
   entryComponents: [ExplorePage],
 })
 export class EventCreatePageModule {}

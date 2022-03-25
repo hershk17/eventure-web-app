@@ -47,23 +47,18 @@ export class EventDetailsPage implements OnInit {
           side: 'start',
           icon: 'star',
           text: 'Favorite',
-          handler: () => {
-            console.log('Favorite clicked');
-          },
+          handler: () => {},
         },
         {
           text: 'Done',
           role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
+          handler: () => {},
         },
       ],
     });
     await toast.present();
 
     const { role } = await toast.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 
   ngOnInit() {
@@ -89,11 +84,6 @@ export class EventDetailsPage implements OnInit {
         );
       });
     });
-  }
-
-  public edit() {
-    console.log('edit');
-    // this.presentToast('Your settings have been saved!');
   }
 
   public delete() {

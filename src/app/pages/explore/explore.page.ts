@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ApiService, POI } from 'src/app/services/api.service';
 import { NavExtrasService } from 'src/app/services/navextraservice.service';
@@ -12,7 +11,7 @@ import { NavExtrasService } from 'src/app/services/navextraservice.service';
 export default class ExplorePage implements OnInit, OnChanges  {
   @Output() locationIdEmit = new EventEmitter<any>();
   pois: POI[] = [];
-  modal;
+  modal: any;
 
   processing = false;
 
@@ -22,27 +21,30 @@ export default class ExplorePage implements OnInit, OnChanges  {
     private modalController: ModalController,
     private navExtras: NavExtrasService
   ) {}
-  ngOnChanges(changes: SimpleChanges): void {
-      console.log(this.modal);
-  }
+
+  ngOnChanges(changes: SimpleChanges): void {}
+
   ngOnInit() {}
+
   dismissModal(poi?) {
     if(poi) {
       this.modalController.dismiss(poi);
     } else {
       this.modalController.dismiss();
     }
-
   }
+
   returnLocationId(poi: any) {
     this.locationIdEmit.emit(poi);
   }
+
   pickLocation(poi) {
     if(this.modal) {
       this.dismissModal(poi);
     }
     this.navExtras.setExtras(poi);
   }
+
   async presentAlert(title: string, msg: string) {
     const alert = await this.alertController.create({
       header: title,

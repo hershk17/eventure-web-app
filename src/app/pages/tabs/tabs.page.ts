@@ -36,7 +36,7 @@ export class TabsPage {
           icon: 'image-outline',
           handler: () => {
             this.router.navigateByUrl('/tabs/createImagePost');
-            console.log('Image TODO');
+            // console.log('Image TODO');
           },
         },
         {

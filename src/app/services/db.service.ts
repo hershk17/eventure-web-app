@@ -177,7 +177,6 @@ export class DbService {
       await this.afStore
         .doc(`Events2/${eventID}`)
         .update({ participants: arrayUnion(this.userData.uid) });
-      console.log('Joined event successfully');
     } catch (err) {
       console.error(err);
       return false;
@@ -193,7 +192,6 @@ export class DbService {
       await this.afStore
         .doc(`Events2/${eventID}`)
         .update({ participants: arrayRemove(this.userData.uid) });
-      console.log('Left event successfully');
     } catch (err) {
       console.error(err);
       return false;
@@ -351,9 +349,7 @@ export class DbService {
     // upload the image
     try {
       const url = await this.uploadImg(imgFile);
-      console.log(url);
       if (!url) {
-        console.log('no url');
         return false;
       }
       // create post locally
@@ -371,8 +367,6 @@ export class DbService {
 
       // save the uploaded image to the imagePost
       userPost.imagePost.image.push(url);
-
-      console.log(userPost);
 
       //save the post to posts
       await setDoc(doc(this.db, 'posts', userPost.postid), userPost);
@@ -462,7 +456,6 @@ export class DbService {
 
   //server
   public async getUserBySearchWord(searchWord) {
-    console.log(this.userData.uid);
     const res = await fetch(
       `${environment.serverUrl}/api/search/users?byName=${searchWord}`,
       {

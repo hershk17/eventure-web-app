@@ -15,7 +15,6 @@ export class SearchPage implements OnInit{
   }
   ngOnInit() {
     this.userData = this.db.userData;
-    console.log(this.userData)
   }
   async search(event: any) {
     const searchWord = event.target.value;
@@ -24,6 +23,5 @@ export class SearchPage implements OnInit{
       return;
     }
     this.userList = await this.db.getUserBySearchWord(searchWord);
-    console.log(this.userList);
   }
 }
