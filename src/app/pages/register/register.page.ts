@@ -144,6 +144,8 @@ export class RegisterPage implements OnInit {
             emailVerified: res.user.emailVerified,
             organized: [],
             joined: [],
+            followings: [],
+            followers: []
           };
           // console.log(res.user.uid);
           // add the user information into the firebase db

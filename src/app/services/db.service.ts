@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -39,6 +40,25 @@ export interface TomtomAddress {
   municipality: string;
 }
 
+export interface Post {
+  postid: string;
+  timestamp: number;
+  uid: string;
+  imagePost: ImagePost;
+  textPost: TextPost;
+  type: string;
+  name: string;
+}
+
+export interface TextPost {
+  text: string;
+}
+
+export interface ImagePost {
+  caption: string;
+  image: any;
+}
+
 export interface TomtomLocation {
   address: TomtomAddress;
   category: string;
@@ -59,7 +79,7 @@ export interface Event {
   participants: string[];
   reviews: string[];
   score: number;
-  time: string[];
+  time: string;
   visibility: string;
 }
 
@@ -67,14 +87,16 @@ export interface Event {
   providedIn: 'root',
 })
 export class DbService {
-  userData: any;
-  currentUser: any;
+  public userData: any = null;
+  public currentUser: any;
 
   private app = firebase.initializeApp(environment.firebase);
   private db = getFirestore();
 
   private events: any = [];
   private storage = getStorage();
+  private posts: any = [];
+
   constructor(
     public auth: AngularFireAuth,
     public afStore: AngularFirestore,
@@ -156,7 +178,6 @@ export class DbService {
       await this.afStore
         .doc(`Events2/${eventID}`)
         .update({ participants: arrayUnion(this.userData.uid) });
-      console.log('Joined event successfully');
     } catch (err) {
       console.error(err);
       return false;
@@ -172,7 +193,6 @@ export class DbService {
       await this.afStore
         .doc(`Events2/${eventID}`)
         .update({ participants: arrayRemove(this.userData.uid) });
-      console.log('Left event successfully');
     } catch (err) {
       console.error(err);
       return false;
@@ -206,11 +226,22 @@ export class DbService {
 
   public async getEvents(): Promise<Event[]> {
     this.events = [];
-    const querySnapshot = await getDocs(collection(this.db, 'Events2'));
-    querySnapshot.forEach((res) => {
-      const data: any = res.data();
-      const event: Event = data;
-      this.events.push(event);
+    let following = [];
+    this.getCurrentUser().then(async (userRes) => {
+      const u = userRes.data();
+      following = u.followings;
+      const querySnapshot = await getDocs(collection(this.db, 'Events2'));
+      querySnapshot.forEach((res) => {
+        const event: any = res.data();
+        if (
+          event.visibility === 'Public' ||
+          event.organizer === u.uid ||
+          u.joined.includes(event.id) ||
+          following.includes(event.organizer)
+        ) {
+          this.events.unshift(event);
+        }
+      });
     });
     return this.events;
   }
@@ -235,19 +266,12 @@ export class DbService {
   }
 
   public async getJoined(): Promise<Event[]> {
-    await this.getEvents();
     const joinedEvents: Event[] = [];
-    const q = query(
-      collection(this.db, 'users'),
-      where('uid', '==', this.userData.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((usr) => {
-      const eventIDs = usr.data().joined;
-      eventIDs.forEach((e: string) => {
-        //check for null/empty
-        if (this.getEventByID(e) != null) {
-          joinedEvents.push(this.getEventByID(e));
+    this.getCurrentUser().then(async (userRes) => {
+      const usr = userRes.data();
+      this.events.forEach((event) => {
+        if (usr.joined.includes(event.id)) {
+          joinedEvents.push(event);
         }
       });
     });
@@ -255,19 +279,12 @@ export class DbService {
   }
 
   public async getCreated(): Promise<Event[]> {
-    await this.getEvents();
     const joinedEvents: Event[] = [];
-    const q = query(
-      collection(this.db, 'users'),
-      where('uid', '==', this.userData.uid)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((usr) => {
-      const eventIDs = usr.data().organized;
-      eventIDs.forEach((e: string) => {
-        //check for null/empty
-        if (this.getEventByID(e) != null) {
-          joinedEvents.push(this.getEventByID(e));
+    this.getCurrentUser().then(async (userRes) => {
+      const usr = userRes.data();
+      this.events.forEach((event) => {
+        if (usr.organized.includes(event.id)) {
+          joinedEvents.push(event);
         }
       });
     });
@@ -328,6 +345,91 @@ export class DbService {
     }
   }
 
+  public async setImagePost(aCaption: string, imgFile: any): Promise<boolean> {
+    const timeStamp = new Date();
+    // upload the image
+    try {
+      const url = await this.uploadImg(imgFile);
+      if (!url) {
+        return false;
+      }
+      // create post locally
+      const userPost: Post = {
+        postid: 'p-' + timeStamp.getTime(),
+        timestamp: timeStamp.getTime(),
+        uid: (await this.currentUser).uid,
+        name: this.currentUser.firstName + ' ' + this.currentUser.lastName,
+        textPost: null,
+        imagePost: {
+          image: [],
+          caption: aCaption,
+        },
+        type: 'image',
+      };
+
+      // save the uploaded image to the imagePost
+      userPost.imagePost.image.push(url);
+
+      //save the post to posts
+      await setDoc(doc(this.db, 'posts', userPost.postid), userPost);
+
+      //save the postid to the user
+      await this.afStore
+        .doc(`users/${this.userData.uid}`)
+        .update({ posted: arrayUnion(userPost.postid) });
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    return true;
+  }
+  public async setTextPost(aTextPost: string): Promise<boolean> {
+    const timeStamp = new Date();
+    // create post locally
+    const userPost: Post = {
+      postid: 'p-' + timeStamp.getTime(),
+      timestamp: timeStamp.getTime(),
+      uid: this.currentUser.uid,
+      name: this.currentUser.firstName + ' ' + this.currentUser.lastName,
+      textPost: {
+        text: aTextPost,
+      },
+      imagePost: null,
+      type: 'text',
+    };
+
+    //save the post to firestore
+    await setDoc(doc(this.db, 'posts', userPost.postid), userPost);
+
+    //save the postid to the user
+    await this.afStore
+      .doc(`users/${this.userData.uid}`)
+      .update({ posted: arrayUnion(userPost.postid) });
+
+    return true;
+  }
+
+  public removePost(id: string): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // delete the post from the user collection
+        await this.afStore
+          .doc(`users/${this.userData.uid}`)
+          .update({ posted: arrayRemove(id) });
+
+        // delete the post from the posts collection
+        await this.afStore.doc(`posts/${id}`).delete();
+        resolve();
+        // not sure what the line below was does...commented out for now
+        // await this.getEvents();
+      } catch (err) {
+        console.error(err);
+        reject();
+      }
+    })
+
+  }
+
   public setUserData(user: User) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
       `users/${user.uid}`
@@ -341,6 +443,8 @@ export class DbService {
       lastName: user.lastName,
       organized: [],
       joined: [],
+      followings: [],
+      followers: [],
     };
     return userRef.set(userData, {
       merge: true,
@@ -373,5 +477,67 @@ export class DbService {
     return await getDoc(
       doc(this.db, 'users', (await this.auth.currentUser).uid)
     );
+  }
+
+  //server
+  public async getUserBySearchWord(searchWord) {
+    const res = await fetch(
+      `${environment.serverUrl}/api/search/users?byName=${searchWord}`,
+      {
+        method: 'GET',
+        headers: {
+          uid: this.userData.uid,
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  }
+
+  public unfollowUser(uid) {
+    // const currentUserRef: AngularFirestoreDocument<any> = this.afStore.doc(
+    //   `users/${uid}`
+    // );
+    // currentUserRef.update({ followings: arrayRemove(uid) });
+    this.afStore
+      .doc(`users/${uid}`)
+      .update({ followers: arrayRemove(this.currentUser.uid) });
+
+    this.afStore
+      .doc(`users/${this.currentUser.uid}`)
+      .update({ followings: arrayRemove(uid) });
+
+    // userRef is the reference to user with uid passed in
+    // const userRef: AngularFirestoreDocument<any> = this.afStore.doc(
+    //   `users/${uid}`
+    // );
+    // userRef.update({ followers: arrayRemove(this.currentUser.uid) })
+  }
+
+  public followUser(uid) {
+    this.afStore
+      .doc(`users/${uid}`)
+      .update({ followers: arrayUnion(this.currentUser.uid) });
+
+    this.afStore
+      .doc(`users/${this.currentUser.uid}`)
+      .update({ followings: arrayUnion(uid) });
+  }
+
+  public async getPostsFromFollowingList(): Promise<Post[]> {
+    this.posts = [];
+    let following = [];
+    this.getCurrentUser().then(async (userRes) => {
+      const u = userRes.data();
+      following = u.followings;
+      const querySnapshot = await getDocs(collection(this.db, 'posts'));
+      querySnapshot.forEach((res) => {
+        const post: any = res.data();
+        if (u.uid === post.uid || following.includes(post.uid)) {
+          this.posts.unshift(post);
+        }
+      });
+    });
+    return this.posts;
   }
 }

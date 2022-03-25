@@ -11,14 +11,7 @@ import { User } from 'src/app/shared/auth';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  public photoURL: string;
-  public email: string;
-  public firstName: string;
-  public lastName: string;
-  public uid: string;
-  public country: string;
-  public gender: string;
-  public aUser: User;
+  public userData = null;
 
   constructor(
     private db: DbService,
@@ -27,28 +20,22 @@ export class ProfilePage implements OnInit {
     public afStore: AngularFirestore
   ) {}
 
-  async ngOnInit() {
-    await (await this.auth.currentUser).reload();
-    const aUID = (await this.auth.currentUser).uid;
-    this.db.getUserByUid(aUID).subscribe((data) => {
-      this.aUser = data[0];
-      this.photoURL = this.aUser.photoURL;
-      this.email = this.aUser.email;
-      this.firstName = this.aUser.firstName;
-      this.lastName = this.aUser.lastName;
-      this.uid = this.aUser.uid;
+  ngOnInit() {
+    this.db.getUserByUid(this.db.userData.uid).subscribe((user) => {
+      this.userData = user[0];
     });
+
   }
 
   public async onEditProfile() {
-    console.log('Editing Profile TODO!');
+    // console.log('Editing Profile TODO!');
   }
   public async onCreatedEvents() {
-    console.log('onCreatedEvents TODO!');
+    // console.log('onCreatedEvents TODO!');
   }
   public async onJoinedEvents() {
     this.db.getJoined().then((res) => {
-      console.log(res);
+      // console.log(res);
     });
   }
   public async onSignOut() {

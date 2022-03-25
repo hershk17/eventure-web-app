@@ -13,6 +13,11 @@ const routes: Routes = [
           import('../home/home.module').then((m) => m.HomePageModule),
       },
       {
+        path: 'search',
+        loadChildren: () =>
+          import('../search/search.module').then((m) => m.SearchPageModule),
+      },
+      {
         path: 'explore',
         loadChildren: () =>
           import('../explore/explore.module').then((m) => m.ExplorePageModule),
@@ -25,19 +30,34 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'createTextPost',
+        loadChildren: () =>
+          import('../text-post-create/text-post-create.module').then(
+            (m) => m.TextPostCreatePageModule
+          ),
+      },
+      {
+        path: 'createImagePost',
+        loadChildren: () =>
+          import('../image-post-create/image-post-create.module').then(
+            (m) => m.ImagePostPageModule
+          ),
+      },
+
+      {
         path: 'profile',
         loadChildren: () =>
           import('../profile/profile.module').then((m) => m.ProfilePageModule),
       },
       {
-        path: 'home/event/:id',
+        path: 'home/events/event/:id',
         loadChildren: () =>
           import('../event-details/event-details.module').then(
             (m) => m.EventDetailsPageModule
           ),
       },
       {
-        path: 'home/event/:id/edit',
+        path: 'home/events/event/:id/edit',
         loadChildren: () =>
           import('../event-create/event-create.module').then(
             (m) => m.EventCreatePageModule
@@ -48,6 +68,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('../location-details/location-details.module').then(
             (m) => m.LocationDetailsPageModule
+          ),
+      },
+      {
+        path: 'search/profile/:uid',
+        loadChildren: () =>
+          import('../search-profile/search-profile.module').then(
+            (m) => m.SearchProfilePageModule
           ),
       },
       {

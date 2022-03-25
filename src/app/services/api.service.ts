@@ -64,27 +64,26 @@ export class ApiService {
   public getPOIdetails(id: string): any {
     try{
       //https://{baseURL}/search/{versionNumber}/poiDetails.{ext}?key={Your_API_Key}&id={id}&sourceName={sourceName}
-      let url = this.baseURL + 
+      const url = this.baseURL +
       this.searchParam +
       this.versionNumber +
-      "/poiDetails" + 
+      '/poiDetails' +
       this.responseFormat +
-      "?key=" +
+      '?key=' +
       this.apiKey +
-      "&id=" + id;
-      console.log(url);
-      let res = this.httpClient.get(
-        this.baseURL + 
+      '&id=' + id;
+      const res = this.httpClient.get(
+        this.baseURL +
         this.searchParam +
         this.versionNumber +
-        "/poiDetails" + 
+        '/poiDetails' +
         this.responseFormat +
-        "?key=" +
+        '?key=' +
         this.apiKey +
-        "&id=" + id
+        '&id=' + id
        );
-      return res;     
-      
+      return res;
+
     }catch (err) {
       console.log('ERROR: ' + err);
     }

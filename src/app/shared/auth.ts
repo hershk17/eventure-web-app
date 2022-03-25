@@ -7,4 +7,6 @@ export interface User {
   emailVerified: boolean;
   organized: string[];
   joined: string[];
+  followers: string[];
+  followings: string[];
 }

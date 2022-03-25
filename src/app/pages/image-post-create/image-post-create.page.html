@@ -1,0 +1,44 @@
+<ion-app>
+  <ion-header translucent>
+    <ion-toolbar>
+      <ion-title>Share a picture</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen class="ion-padding">
+    <form [formGroup]="imagePostForm" (ngSubmit)="onImagePost()">
+      <ion-item lines="none">
+        <ion-label position="stacked">Cover Image</ion-label>
+        <ion-input
+          type="file"
+          accept="image/*"
+          (change)="onFileChange($event)"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          autocapitalize
+          type="text"
+          formControlName="postContent"
+          placeholder="Your image caption..."
+          inputmode="text"
+          required
+        ></ion-input>
+      </ion-item>
+      <div *ngFor="let error of errorMessages.postContent">
+        <ng-container
+          *ngIf="postContent?.hasError(error.type) && (postContent?.dirty || postContent?.touched)"
+        >
+          <small class="error-message">{{error.message}}</small>
+        </ng-container>
+      </div>
+      <ion-button
+        type="submit"
+        color="primary"
+        expand="block"
+        [disabled]="!imagePostForm.valid"
+        >Post Image</ion-button
+      >
+    </form>
+  </ion-content>
+</ion-app>

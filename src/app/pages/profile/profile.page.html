@@ -1,21 +1,17 @@
-
-
-<ion-header>
+<ion-header *ngIf="userData">
   <ion-toolbar>
-    <ion-title>{{ firstName }} {{ lastName }}</ion-title>
+    <ion-title>{{ userData.firstName }} {{ userData.lastName }}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="userData">
   <div class="profile-container">
     <div class="profile-info">
-      <ion-avatar class="avatar">
-        <img
-          src="https://www.savoric.com/wp-content/uploads/2018/03/profil-pic_dummy.png"
-        />
+      <ion-avatar >
+        <img src={{userData.photoUrl}}>
       </ion-avatar>
 
       <div class="follow-info">
@@ -23,11 +19,11 @@
           <ion-item>
             <ion-router-link href="#">Followers</ion-router-link>
           </ion-item>
-          <div class="follow-counts">14</div>
+          <div class="follow-counts">{{userData.followers.length}}</div>
           <ion-item>
             <ion-router-link href="#">Following</ion-router-link>
           </ion-item>
-          <div class="follow-counts">16</div>
+          <div class="follow-counts">{{userData.followings.length}}</div>
         </ion-list>
       </div>
     </div>
@@ -36,14 +32,8 @@
     >
     <div>
       <ion-item-divider
-        ><span class="email">Email: </span> {{email}}
+        ><span class="email">Email: </span> {{userData.email}}
       </ion-item-divider>
-      <!-- <ion-item-divider>
-        <span class="country">Country: </span> {{country}}
-      </ion-item-divider>
-      <ion-item-divider
-        ><span class="gender">Gender: </span> {{gender}}
-      </ion-item-divider> -->
     </div>
 
     <ion-button

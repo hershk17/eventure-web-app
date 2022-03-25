@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Timeline</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngFor="let post of posts; let i = index">
+    <ion-list class="ion-list">
+      <ion-card *ngIf="!deleted.includes(post.postid)" class="post">
+        <ion-card-header class="card-header">
+          <div class="date-container">
+            <ion-card-subtitle class="card-subtitle">
+              {{toDate(post.timestamp)}}
+            </ion-card-subtitle>
+
+            <ion-button
+              class="card-button"
+              *ngIf="isMyPost(post.uid)"
+              size="small"
+              color="danger"
+              (click)="deletePost(post.postid, i)"
+            >
+              Delete
+            </ion-button>
+          </div>
+          <ion-card-title class="card-title"> {{post.name}} </ion-card-title>
+        </ion-card-header>
+
+        <div *ngIf="post.type ==='text'">
+          <ion-card-content class="card-content">
+            {{post.textPost.text}}
+          </ion-card-content>
+        </div>
+
+        <div *ngIf="post.type ==='image'">
+          <ion-card-content class="card-content">
+            <img class="card-img" src="{{post.imagePost.image[0]}}" />
+            {{post.imagePost.caption}}
+          </ion-card-content>
+        </div>
+      </ion-card>
+    </ion-list>
+  </div>
+</ion-content>

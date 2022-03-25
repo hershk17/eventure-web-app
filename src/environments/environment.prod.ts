@@ -1,4 +1,5 @@
 export const environment = {
+  serverUrl: 'https://eventureserver.herokuapp.com',
   production: true,
   firebase: {
     apiKey: 'AIzaSyBoF4LVp-KDss5LUVLFCXVARsiCZFRx-8Q',

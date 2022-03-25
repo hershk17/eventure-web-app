@@ -1,7 +1,8 @@
-import { Review } from "./review.module";
+import { Review } from './review.module';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class poiDetail {
-    constructor (
+    constructor(
         public description: string = null,
         public rating: any = null,
         public priceRange: any = null,
