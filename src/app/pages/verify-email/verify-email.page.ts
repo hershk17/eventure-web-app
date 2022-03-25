@@ -11,9 +11,8 @@ export class VerifyEmailPage implements OnInit {
   public msg = '';
   constructor(public db: DbService, private route: ActivatedRoute, private location: Location, private router: Router) {
     this.route.queryParams.subscribe(params => {
-      console.log(params['msg']);
-      if(params['msg']) {
-        this.msg = params['msg'];
+      if(params.msg) {
+        this.msg = params.msg;
       }
       else {
         this.msg = 'Please check your email and click on the link to verify your email address!';

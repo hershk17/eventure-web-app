@@ -46,8 +46,6 @@ export class ImagePostCreatePage implements OnInit {
 
   public onFileChange($event: any): void {
     this.image = $event.target.files[0];
-
-    // console.log(this.image);
   }
 
   public async onImagePost(): Promise<void> {

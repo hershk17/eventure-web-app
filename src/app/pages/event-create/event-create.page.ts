@@ -110,7 +110,6 @@ export class EventCreatePage implements OnInit {
   }
   public addLocationId(poi: any) {
     this.eventForm.controls.location.setValue(poi.id);
-    // console.log(this.eventForm.value);
   }
   async presentToast() {
     const toast = await this.toastController.create({
@@ -129,9 +128,6 @@ export class EventCreatePage implements OnInit {
     modal.onDidDismiss().then((data) => {
       this.poiData = data.data;
       this.eventForm.controls.location.setValue(this.poiData);
-      // this.eventForm.controls.location.setValue(this.poiData.poi.id);
-
-      console.log(this.poiData.id);
     });
     await modal.present();
   }

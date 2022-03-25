@@ -33,16 +33,11 @@ export class HomeEventsPage implements OnInit {
     //get parameters from url
     this.route.queryParams.subscribe((params) => {
       this.filterBy = params.filterBy;
-
-      // console.log('ngOnInit');
       if (this.filterBy === undefined || this.filterBy === 'all') {
         this.handleClick('All Events');
-        // console.log('Handling All in ngOnInit');
       } else if (this.filterBy === 'created') {
-        // console.log('Handling Joined in ngOnInit');
         this.handleClick('My Created Events');
       } else if (this.filterBy === 'joined') {
-        // console.log('Handling Created in ngOnInit');
         this.handleClick('Joined Events');
       }
     });
@@ -52,29 +47,22 @@ export class HomeEventsPage implements OnInit {
     //get parameters from url
     this.route.queryParams.subscribe((params) => {
       this.filterBy = params.filterBy;
-
-      // console.log('ngOnInit');
       if (this.filterBy === undefined || this.filterBy === 'all') {
         this.handleClick('All Events');
-        // console.log('Handling All in ngOnInit');
       } else if (this.filterBy === 'created') {
-        // console.log('Handling Joined in ngOnInit');
         this.handleClick('My Created Events');
       } else if (this.filterBy === 'joined') {
-        // console.log('Handling Created in ngOnInit');
         this.handleClick('Joined Events');
       }
     });
 
     setTimeout(() => {
-      console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
   }
 
-  onSelect(event: Event) {
-    console.log(event);
-  }
+  onSelect(event: Event) {}
+  
   //handles the click
   async handleClick(field) {
     //close the menu
@@ -85,19 +73,16 @@ export class HomeEventsPage implements OnInit {
       await this.db.getEvents().then((res) => {
         result = res;
         this.filteredEvent = 'all';
-        console.log(result);
       });
     } else if (field === 'My Created Events') {
       await this.db.getCreated().then((res) => {
         result = res;
         this.filteredEvent = 'created';
-        console.log(result);
       });
     } else {
       await this.db.getJoined().then((res) => {
         result = res;
         this.filteredEvent = 'joined';
-        console.log(result);
       });
     }
     this.events = result;

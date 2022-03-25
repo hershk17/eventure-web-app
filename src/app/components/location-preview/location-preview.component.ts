@@ -9,7 +9,6 @@ export class LocationPreviewComponent implements OnInit, OnChanges {
   @Input() poi: any;
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-      console.log(this.poi);
   }
   ngOnInit() {}
 
