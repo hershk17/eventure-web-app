@@ -8,4 +8,13 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <div *ngFor="let post of posts">
+    <ion-card class="post">
+      <div *ngIf="">
+
+      </div>
+      {{post.timestamp}}
+    </ion-card>
+  </div>
 </ion-content>
