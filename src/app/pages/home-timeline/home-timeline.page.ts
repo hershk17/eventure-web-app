@@ -56,8 +56,12 @@ export class HomeTimelinePage implements OnInit {
   isMyPost(uid){
     return uid == this.db.userData.uid;
   }
-  deletePost(uid){
-    console.log('delete ' + uid);
-    this.db.removePost(uid);
+  async deletePost(postId){
+    try {
+      await this.db.removePost(postId);
+      console.log('deleted')
+    } catch(error) {
+      console.error(error);
+    }
   }
 }

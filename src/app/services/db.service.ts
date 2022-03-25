@@ -409,23 +409,25 @@ export class DbService {
     return true;
   }
 
-  public async removePost(id: string): Promise<boolean> {
-    try {
-      // delete the post from the user collection
-      await this.afStore
-        .doc(`users/${this.userData.uid}`)
-        .update({ posted: arrayRemove(id) });
+  public removePost(id: string): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // delete the post from the user collection
+        await this.afStore
+          .doc(`users/${this.userData.uid}`)
+          .update({ posted: arrayRemove(id) });
 
-      // delete the post from the posts collection
-      await this.afStore.doc(`posts/${id}`).delete();
+        // delete the post from the posts collection
+        await this.afStore.doc(`posts/${id}`).delete();
+        resolve();
+        // not sure what the line below was does...commented out for now
+        // await this.getEvents();
+      } catch (err) {
+        console.error(err);
+        reject();
+      }
+    })
 
-      // not sure what the line below was does...commented out for now
-      // await this.getEvents();
-    } catch (err) {
-      console.error(err);
-      return false;
-    }
-    return true;
   }
 
   public setUserData(user: User) {
