@@ -92,7 +92,7 @@ export class EventCreatePage implements OnInit {
 
   async ngOnInit() {
     this.eventForm = this.formBuilder.group({
-      id: [uniqid('e-')],
+      id: 'e-' + (new Date()).getTime(),
       location: [null],
       eventName: ['', [Validators.required]],
       description: ['', [Validators.required]],
