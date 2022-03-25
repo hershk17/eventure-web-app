@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+// import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
 
 @Component({
@@ -25,8 +26,9 @@ export class ImagePostCreatePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public toastController: ToastController,
+    // private datePipe: DatePipe,
     private db: DbService,
-    private datePipe: DatePipe
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -35,11 +37,20 @@ export class ImagePostCreatePage implements OnInit {
     });
   }
 
+  // method that forces redirection
+  redirectTo(uri) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router
+      .navigateByUrl(uri, { skipLocationChange: true })
+      .then(() => this.router.navigate([uri]));
+  }
+
   // this should really be a service
   async presentToast(aMessage: string) {
     const toast = await this.toastController.create({
       message: aMessage,
-      duration: 3000,
+      duration: 2250,
     });
     toast.present();
   }
@@ -56,6 +67,7 @@ export class ImagePostCreatePage implements OnInit {
     );
     if (isSuccess) {
       this.imagePostForm.reset();
+      this.redirectTo('/tabs/home/timeline');
       this.presentToast('Successfully Posted!');
     } else {
       this.presentToast('Unknown Error!');

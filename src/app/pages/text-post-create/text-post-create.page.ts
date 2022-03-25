@@ -75,6 +75,8 @@ export class TextPostCreatePage implements OnInit {
     if (isSuccess) {
       this.textPostForm.reset();
       this.redirectTo('/tabs/home/timeline');
+    } else {
+      this.presentToast('Unknown Error!');
     }
   }
 }
