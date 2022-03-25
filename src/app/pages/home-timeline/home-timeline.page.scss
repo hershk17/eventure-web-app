@@ -1,0 +1,37 @@
+.card-title {
+    padding: 20px; 
+    padding-top: 5px; 
+    padding-bottom: 0px;
+    font-size: 25px;
+}
+.card-content {
+    padding: 20px; 
+    padding-top: 5px; 
+    padding-bottom: 25px;
+    font-size: 20px;
+}
+.card-img {
+    width: 100%; 
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.card-subtitle {
+    padding-left: 20px;
+    font-size: 13px;
+}
+.ion-list {
+    background-color: transparent;
+}
+.card-header {
+    padding: 10px 0px;
+}
+.date-container {
+    display: flex;
+    align-items: center;
+    padding-top: "10px";
+  }
+.card-button{
+    margin-left: auto; 
+    margin-right: 10px;
+}
