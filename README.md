@@ -10,7 +10,7 @@
 # Project Description
 
 In this project, a safe social media platform to find companions for activities, events, and other points of interests, based on the users’ locations and interests is developed. A point of interest is a location that can hold events. An example of an attraction is a theatre or a restaurant.  
-An event is a social gathering that occurs at a location and at a specific time. Events can be available to friends, the public, or by invite only. The language we use is React Native, which allows the mobile application to run natively on Android and iOS devices. Target users include travellers, people interested in group activities, and those that wish to meet new people.
+An event is a social gathering that occurs at a location and at a specific time. Events can be available to friends, the public, or by invite only. The language we use is Ionic Angular, which allows the mobile application to run natively on Android and iOS devices. Target users include travellers, people interested in group activities, and those that wish to meet new people.
 
 Some of the most important features are described as follows:
 
